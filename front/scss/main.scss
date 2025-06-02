@@ -1,20 +1,5 @@
-// Import de Bootstrap
-@import "../node_modules/bootstrap/scss/bootstrap";
-
-// Couleurs
-$primary: #4caf50;
-$secondary: #64b5f6;
-$accent: #fbc02d;
-$background-1: #fcfbda;
-$background-2: #d9d9d9;
-$text-color: #212121;
-$border-color: #bdbdbd;
-$danger: #e53935;
-
-// Polices
-$font-family-base: "Lato", sans-serif;
-$font-family-heading: "Montserrat", sans-serif;
-
+@import url(/node_modules/bootstrap-icons/font/bootstrap-icons.css);
+@import "custom";
 // Appliquer la police
 body {
   font-family: $font-family-base;
@@ -76,7 +61,26 @@ a {
     background-color: darken($primary, 10%);
   }
 }
-// Texte clair sur fond vert
-.text-on-primary {
-  color: $background-1;
+.navbar {
+  height: 120px;
+
+  @media (max-width: 992px) {
+    height: auto;
+  }
+
+  ::placeholder {
+    color: $secondary;
+  }
+}
+.logo-no-margin {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.search-input {
+  border: 1px solid $secondary;
+
+  &:focus {
+    border-color: $secondary;
+    box-shadow: none;
+  }
 }

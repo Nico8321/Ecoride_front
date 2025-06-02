@@ -1,0 +1,15 @@
+// Couleurs
+$primary: #4caf50;
+$secondary: #fcfbda;
+$accent: #fbc02d;
+$background-1: #fcfbda;
+$background-2: #d9d9d9;
+$text-color: #212121;
+$border-color: #bdbdbd;
+$danger: #e53935;
+
+// Polices
+$font-family-base: "Lato", sans-serif;
+$font-family-heading: "Montserrat", sans-serif;
+
+@import "../node_modules/bootstrap/scss/bootstrap";

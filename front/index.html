@@ -3,14 +3,66 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./scss/custom.css" />
+    <link rel="stylesheet" href="./scss/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <!-- Montserrat + Lato depuis Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet" />
     <title>EcoRide</title>
   </head>
   <body>
-    <div class="container mt-5">
-      <h1 class="text-primary">Bienvenue sur EcoRide</h1>
-      <p class="small-text">Ceci est un test de style SCSS + Bootstrap.</p>
-      <button class="btn btn-primary">Bouton Bootstrap</button>
-    </div>
+    <header>
+      <nav class="navbar navbar-expand-lg bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"><img class="logo-no-margin" src="./images/logo2.png" alt="logo" height="90px" /></a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Basculer la navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link text-secondary" aria-current="page" href="#">Accueil</a>
+              </li>
+            </ul>
+            <form class="d-none d-lg-flex mx-auto" style="max-width: 500px; justify-content: center" role="search">
+              <input
+                class="form-control bg-primary search-input"
+                style="width: 480px; text-align: end"
+                type="search"
+                placeholder="Rechercher un trajet"
+                aria-label="RECHERCHE"
+              />
+              <button class="btn btn-outline-secondary ms-1" type="submit"><i class="bi bi-search text-secondary"></i></button>
+            </form>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link text-secondary me-4" href="#">Publier un trajet</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-secondary me-4" href="#">Connexion</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-page">
+      <!-- le contenu de la page sera injectée ici -->
+    </main>
+
+    <footer>...</footer>
+    <script src="./js/script.js"></script>
+    <script type="module" src="./router/router.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
