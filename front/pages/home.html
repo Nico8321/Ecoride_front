@@ -5,26 +5,78 @@
 
   <!-- CONTENEUR FORMULAIRE -->
   <div class="d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 190px); padding-top: 120px; padding-bottom: 190px">
+    <!--  FORMULAIRE -->
     <form class="bg-secondary p-4 rounded no-border" style="width: 100%; max-width: 700px">
+      <!-- CONTENEUR input -->
       <div class="d-flex flex-wrap">
         <div class="mb-3 p-2 d-flex align-items-center flex-fill">
-          <label for="depart" class="form-label me-2">Départ:</label>
+          <label for="depart" class="form-label me-2">Départ :</label>
           <input type="text" class="form-control border-0" id="depart" />
         </div>
         <div class="mb-3 p-2 d-flex align-items-center flex-fill">
-          <label for="destination" class="form-label me-2">Destination:</label>
+          <label for="destination" class="form-label me-2">Destination :</label>
           <input type="text" class="form-control border-0" id="destination" />
         </div>
       </div>
-
+      <!-- CONTENEUR input -->
       <div class="d-flex flex-wrap">
         <div class="mb-3 p-2 d-flex align-items-center flex-fill">
-          <label for="date" class="form-label me-2">Date:</label>
+          <label for="date" class="form-label me-2">Date :</label>
           <input type="date" class="form-control border-0" id="date" />
         </div>
         <div class="mb-3 p-2 d-flex align-items-center flex-fill">
-          <label for="heure" class="form-label me-2">Heure:</label>
+          <label for="heure" class="form-label me-2">Heure :</label>
           <input type="time" class="form-control border-0" id="heure" />
+        </div>
+      </div>
+
+      <!-- MENU accordeon -->
+
+      <div class="accordion accordion-flush" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed bg-secondary"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#panelsStayOpen-collapseOne"
+              aria-expanded="false"
+              aria-controls="panelsStayOpen-collapseOne"
+            >
+              plus de filtres
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse bg-secondary">
+            <div class="accordion-body p-0">
+              <div class="d-flex flex-wrap">
+                <div class="mb-3 p-2 d-flex align-items-center flex-fill">
+                  <label for="cout" class="form-label me-2">Cout max :</label>
+                  <input type="text" class="form-control border-0" id="cout" />
+                </div>
+                <div class="mb-3 p-2 d-flex align-items-center flex-fill">
+                  <label for="energie">Énergie</label>
+                  <div id="energie" class="d-block">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault1" />
+                      <label class="form-check-label" for="radioDefault1"> Essence </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault2" checked />
+                      <label class="form-check-label" for="radioDefault2"> Diesel </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault1" />
+                      <label class="form-check-label" for="radioDefault1"> Électrique </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault2" checked />
+                      <label class="form-check-label" for="radioDefault2"> Hybride </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
