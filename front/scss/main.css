@@ -12057,6 +12057,7 @@ a:hover {
 
 .search-input {
   border: 1px solid #fcfbda;
+  border-radius: 10px;
 }
 .search-input:focus {
   border-color: #fcfbda;
@@ -12073,8 +12074,10 @@ label.form-label {
 input.form-control {
   border-radius: 10px;
   background-color: #d9d9d9;
+  max-width: 175px;
 }
 
 .btn {
   border-radius: 10px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
 }/*# sourceMappingURL=main.css.map */

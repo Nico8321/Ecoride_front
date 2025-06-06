@@ -82,14 +82,14 @@ a {
 }
 .search-input {
   border: 1px solid $secondary;
-
+  border-radius: 10px;
   &:focus {
     border-color: $secondary;
     box-shadow: none;
   }
 }
 label.form-label {
-  min-width: 100px; // ou 120px si tes mots sont longs
+  min-width: 100px;
   width: 100px;
   display: inline-block;
   text-align: left;
@@ -98,7 +98,9 @@ label.form-label {
 input.form-control {
   border-radius: 10px;
   background-color: $background-2;
+  max-width: 175px;
 }
 .btn {
   border-radius: 10px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
 }
