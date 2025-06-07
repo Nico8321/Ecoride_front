@@ -1,0 +1,124 @@
+<!-- CONTENEUR FORMULAIRE -->
+<div class="w-100 pt-3">
+  <!--  FORMULAIRE -->
+  <form class="bg-background-2 p-4 rounded no-border shadow flex-fill background-2">
+    <!-- CONTENEUR input -->
+    <div class="d-flex flex-wrap">
+      <div class="mb-3 p-2 d-flex align-items-center flex-fill">
+        <label for="depart" class="form-label"></label>
+        <input type="text" class="form-control border-0 mon-input" id="depart" placeholder="Départ :" />
+      </div>
+      <div class="mb-3 p-2 d-flex align-items-center flex-fill">
+        <label for="destination" class="form-label"></label>
+        <input type="text" class="form-control border-0 mon-input" id="destination" placeholder="Destination :" />
+      </div>
+
+      <div class="mb-3 p-2 d-flex align-items-center flex-fill">
+        <label for="date" class="form-label"></label>
+        <input type="date" class="form-control border-0 mon-input" id="date" />
+      </div>
+      <div class="mb-3 p-2 d-flex align-items-center flex-fill">
+        <label for="heure" class="form-label"></label>
+        <input type="time" class="form-control border-0 me-5 mon-input" id="heure" />
+      </div>
+
+      <div class="mb-3 p-2 d-flex align-items-center flex-fill">
+        <button type="submit" class="btn btn-primary align-items-center">Rechercher</button>
+      </div>
+    </div>
+
+    <!-- MENU accordeon -->
+
+    <div class="accordion accordion-flush" id="accordionPanelsStayOpenExample">
+      <div class="accordion-item flex-fill">
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button collapsed background-2"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#panelsStayOpen-collapseOne"
+            aria-expanded="false"
+            aria-controls="panelsStayOpen-collapseOne"
+            id="accordionButton"
+            onclick="changeText()"
+          >
+            Plus de filtres <i class="bi bi-caret-down"></i>
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse background-2 flex-fill">
+          <div class="accordion-body p-0">
+            <div class="d-flex flex-wrap pt-2">
+              <div class="mb-3 p-2 d-flex align-items-start flex-fill">
+                <label for="cout" class="form-label">Cout max :</label>
+                <input type="text" class="form-control border-0 mon-input" id="cout" />
+              </div>
+              <div class="mb-3 p-2 d-flex align-items-start flex-fill">
+                <p class="form-label me-2">Énergie :</p>
+                <div id="energie">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="radioEnergie" id="essence" />
+                    <label class="form-check-label" for="essence"> Essence </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="radioEnergie" id="diesel" />
+                    <label class="form-check-label" for="diesel"> Diesel </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="radioEnergie" id="electrique" checked />
+                    <label class="form-check-label" for="electrique"> Électrique </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="radioEnergie" id="hybride" />
+                    <label class="form-check-label" for="hybride"> Hybride </label>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3 p-2 d-flex align-items-start flex-fill">
+                <label for="note" class="form-label">Note conducteur :</label>
+                <select id="note" name="note" class="form-select w-auto border-0 pt-0 text-primary background-2">
+                  <option value="1">★☆☆☆☆</option>
+                  <option value="2">★★☆☆☆</option>
+                  <option value="3">★★★☆☆</option>
+                  <option value="4">★★★★☆</option>
+                  <option value="5">★★★★★</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div id="resultats-container" class="d-flex flex-column flex-md-row gap-3" style="min-height: 175px">
+  <div class="card shadow-sm w-100 mb-3">
+    <div class="card-body row">
+      <!-- Colonne : Profil + Nom + Note -->
+      <div class="col d-flex align-items-center">
+        <!-- Image de profil -->
+        <div class="me-3">
+          <img src="/images/profil.JPG" alt="photo de profil" style="height: 75px; width: 75px; object-fit: cover" class="rounded-circle" />
+        </div>
+
+        <!-- Nom et note -->
+        <div>
+          <p class="card-text h3 mb-1">Nicolas</p>
+          <p class="card-text h3 mb-1">4,8 <i class="bi bi-star-fill text-warning"></i></p>
+        </div>
+      </div>
+
+      <!-- Colonne : Infos trajet -->
+      <div class="col d-flex align-items-center justify-content-start">
+        <h3 class="card-title">Toulon <span class="small-text p-3">6h00</span> → Nice <span class="small-text p-3">10h00</span></h3>
+      </div>
+
+      <!-- Colonne : Bouton + crédits -->
+      <div class="col-auto ms-auto d-flex align-items-center gap-4">
+        <div class="row align-items-center g-5">
+          <button class="btn btn-primary col">Réserver</button>
+          <p class="card-text h3 col text-nowrap p">58 crédits</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

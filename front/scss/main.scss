@@ -59,6 +59,7 @@ a {
   font-family: $font-family-heading;
   font-size: 1rem;
   font-weight: 600;
+  color: $secondary;
   border: none;
 
   &:hover {
@@ -103,4 +104,20 @@ input.form-control {
 .btn {
   border-radius: 10px;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+.mon-input {
+  background-color: $background-3 !important;
+  &::placeholder {
+    color: $text-color;
+  }
+}
+.background-2 {
+  background-color: $background-2;
+}
+.accordion-button:not(.collapsed) {
+  background-color: $background-2;
+}
+.accordion-button {
+  display: inline;
+  text-align: end !important;
 }

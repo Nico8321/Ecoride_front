@@ -36,14 +36,16 @@
         <div class="accordion-item">
           <h2 class="accordion-header">
             <button
-              class="accordion-button collapsed bg-secondary"
+              class="accordion-button collapsed bg-secondary text-decoration-underline"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#panelsStayOpen-collapseOne"
               aria-expanded="false"
               aria-controls="panelsStayOpen-collapseOne"
+              id="accordionButton"
+              onclick="changeText()"
             >
-              plus de filtres
+              Plus de filtres <i class="bi bi-caret-down"></i>
             </button>
           </h2>
           <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse bg-secondary">

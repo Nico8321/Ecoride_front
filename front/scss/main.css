@@ -12029,6 +12029,7 @@ a:hover {
   font-family: "Montserrat", sans-serif;
   font-size: 1rem;
   font-weight: 600;
+  color: #fcfbda;
   border: none;
 }
 .btn-primary:hover {
@@ -12080,4 +12081,27 @@ input.form-control {
 .btn {
   border-radius: 10px;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.mon-input {
+  background-color: #f5f5f5 !important;
+}
+.mon-input::-moz-placeholder {
+  color: #212121;
+}
+.mon-input::placeholder {
+  color: #212121;
+}
+
+.background-2 {
+  background-color: #d9d9d9;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #d9d9d9;
+}
+
+.accordion-button {
+  display: inline;
+  text-align: end !important;
 }/*# sourceMappingURL=main.css.map */

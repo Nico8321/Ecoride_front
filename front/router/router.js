@@ -64,7 +64,7 @@ const LoadContentPage = async () => {
 
   //afficher ou masquer les élements en fonction du rôle
 
-  showAndHideElementsForRoles();
+  // showAndHideElementsForRoles();
 };
 
 // Fonction pour gérer les événements de routage (clic sur les liens)
