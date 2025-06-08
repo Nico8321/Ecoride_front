@@ -10,7 +10,7 @@ function changeText() {
 // Affichage des resultats de la recherche
 const container = document.getElementById("resultats-container");
 
-trajets.forEach((trajet) => {
+/*trajets.forEach((trajet) => {
   const card = document.createElement("div");
   card.className = "col-md-6 mb-3";
 
@@ -28,3 +28,4 @@ trajets.forEach((trajet) => {
 
   container.appendChild(card);
 });
+*/

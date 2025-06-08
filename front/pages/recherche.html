@@ -4,13 +4,29 @@
   <form class="bg-background-2 p-4 rounded no-border shadow flex-fill background-2">
     <!-- CONTENEUR input -->
     <div class="d-flex flex-wrap">
-      <div class="mb-3 p-2 d-flex align-items-center flex-fill">
+      <div class="mb-3 p-2 d-flex align-items-center flex-fill position-relative">
         <label for="depart" class="form-label"></label>
-        <input type="text" class="form-control border-0 mon-input" id="depart" placeholder="Départ :" />
+        <input
+          type="text"
+          class="form-control border-0 mon-input"
+          id="depart"
+          placeholder="Départ :"
+          aria-label="Adresse de depart"
+          autocomplete="off"
+        />
+        <ul id="suggestions-depart" class="list-group position-absolute"></ul>
       </div>
-      <div class="mb-3 p-2 d-flex align-items-center flex-fill">
+      <div class="mb-3 p-2 d-flex align-items-center flex-fill position-relative">
         <label for="destination" class="form-label"></label>
-        <input type="text" class="form-control border-0 mon-input" id="destination" placeholder="Destination :" />
+        <input
+          type="text"
+          class="form-control border-0 mon-input"
+          id="destination"
+          placeholder="Destination :"
+          aria-label="Adresse de destination"
+          autocomplete="off"
+        />
+        <ul id="suggestions-destination" class="list-group position-absolute"></ul>
       </div>
 
       <div class="mb-3 p-2 d-flex align-items-center flex-fill">

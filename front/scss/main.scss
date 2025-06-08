@@ -121,3 +121,14 @@ input.form-control {
   display: inline;
   text-align: end !important;
 }
+#suggestions-depart,
+#suggestions-destination {
+  z-index: 10;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border-radius: 0 0 5px 5px;
+}
