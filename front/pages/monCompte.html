@@ -1,44 +1,186 @@
+<!-- Sidebar fixe à gauche (desktop uniquement) -->
+
 <div class="row">
-  <div class="background-2 d-flex flex-column pt-4 p-3 col-3" style="height: 100vh; position: fixed">
-    <div class="card w-100 mb-3 background-2 border-0">
-      <div class="card-body row">
-        <div class="col-1 d-flex align-items-center">
-          <div class="me-3">
-            <img src="/images/profil.JPG" alt="photo de profil" style="height: 75px; width: 75px; object-fit: cover" class="rounded-circle" />
-          </div>
-          <div>
-            <p class="card-text h3 mb-1 ms-2">Nicolas</p>
-            <p class="card-text h3 mb-1 ms-2">4,8 <i class="bi bi-star-fill text-warning"></i></p>
+  <div class="sidebar d-none d-md-flex flex-column col-3" style="position: fixed; height: 100vh">
+    <div class="background-2 d-flex flex-column pt-4 p-3 col-3" style="height: 100vh; position: fixed">
+      <div class="card w-100 mb-3 background-2 border-0">
+        <div class="card-body row">
+          <div class="col-1 d-flex align-items-center">
+            <div class="me-3">
+              <img src="/images/profil.JPG" alt="photo de profil" style="height: 75px; width: 75px; object-fit: cover" class="rounded-circle" />
+            </div>
+            <div>
+              <p class="card-text h3 mb-1 ms-2">Nicolas</p>
+              <p class="card-text h3 mb-1 ms-2">4,8 <i class="bi bi-star-fill text-warning"></i></p>
+            </div>
           </div>
         </div>
+        <p class="card-text h3 mb-1 text-center">$ crédits restants</p>
       </div>
-      <p class="card-text h3 mb-1 text-center">$ crédits restants</p>
+      <a href="#reservations" class="m-3">Mes trajets reservés</a>
+      <a href="#propose" class="m-3">Mes trajets proposés</a>
+      <a href="#passe" class="m-3">Mes trajets passés</a>
+      <a href="#vehicule" class="m-3">Mes Véhicules</a>
+      <a href="#mesInfo" class="m-3">Modifier mes informations personnelles</a>
+      <a href="#desinscrire" class="m-3">Me désinscrire</a>
     </div>
-    <a href="#reservations" class="m-3">Mes trajets reservés</a>
-    <a href="#propose" class="m-3">Mes trajets proposés</a>
-    <a href="#passe" class="m-3">Mes trajets passés</a>
-    <a href="#mesInfo" class="m-3">Modifier mes informations personnelles</a>
-    <a href="#desinscrire" class="m-3">Me désinscrire</a>
   </div>
-  <div class="d-flex flex-column pt-4 p-3 col-9" style="height: 100vh; margin-left: 25%">
-    <section id="reservations" class="p-3">
+
+  <!-- Version mobile de la sidebar -->
+
+  <div class="sidebar-mobile d-flex d-md-none sticky-top background-2 pt-3 overflow-auto">
+    <a href="#reservations" class="me-3 p-2">Mes trajets reservés</a>
+    <a href="#propose" class="me-3 p-2">Mes trajets proposés</a>
+    <a href="#passe" class="me-3 p-2">Mes trajets passés</a>
+    <a href="#vehicule" class="me-3 p-2">Mes Véhicules</a>
+    <a href="#mesInfo" class="me-3 p-2">Modifier mes informations personnelles</a>
+    <a href="#desinscrire" class="me-3 p-2">Me désinscrire</a>
+  </div>
+
+  <!-- Décalage équivalent à la sidebar (visible que sur desktop) pour éviter que le contenu passe dessous -->
+
+  <div class="d-none d-md-flex flex-column col-3" style="width: 25%"></div>
+  <div class="d-flex flex-column pt-4 p-3 col-9" style="height: 100vh; margin-top: 60px">
+    <!-- Section Mes trajets réservés, + scroll-margin sur chaque section pour bien tomber après le header -->
+
+    <section id="reservations" class="p-3" style="scroll-margin-top: 125px">
       <h2>Mes trajets reservés</h2>
       <div></div>
     </section>
-    <section id="propose" class="p-3">
+
+    <!-- Section Mes trajets proposés -->
+
+    <section id="propose" class="p-3" style="scroll-margin-top: 140px">
       <h2>Mes trajets proposés</h2>
       <div></div>
     </section>
-    <section id="passe" R class="p-3">
+    <!-- Section Mes trajets passés -->
+
+    <section id="passe" class="p-3" style="scroll-margin-top: 125px">
       <h2>Mes trajets passés</h2>
       <div></div>
     </section>
-    <section id="mesInfo" class="p-3">
-      <h2>Mes informations personnelles</h2>
-      <div></div>
+    <!-- Section Mes Véhicules -->
+
+    <section id="vehicule" class="p-3" style="scroll-margin-top: 125px">
+      <h2>Mes Véhicules</h2>
+      <div class="d-flex">
+        <div class="p-3" id="v1">
+          <h3>vehicule 1</h3>
+          <p>$Marque</p>
+          <p>$Modele</p>
+          <p>$energie</p>
+          <a href="">Supprimer</a>
+        </div>
+        <div class="p-3" id="v2">
+          <h3>vehicule 2</h3>
+          <p>$Marque</p>
+          <p>$Modele</p>
+          <p>$energie</p>
+          <a href="">Supprimer</a>
+        </div>
+        <div class="p-3" id="v3">
+          <h3>vehicule 3</h3>
+          <p>$Marque</p>
+          <p>$Modele</p>
+          <p>$energie</p>
+          <a href="">Supprimer</a>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalVehicule">Ajouter un vehicule</button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="modalVehicule" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title h5">Ajouter un véhicule</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="Marque" class="form-label">Marque :</label>
+                  <input type="text" class="form-control" id="marque" />
+                </div>
+                <div class="mb-3">
+                  <label for="prenom" class="form-label">Modele :</label>
+                  <input type="text" class="form-control" id="modele" />
+                </div>
+                <div class="mb-3">
+                  <label for="energie" class="form-label">Energie :</label>
+
+                  <select name="energie" class="form-select" id="energie">
+                    <option value="electrique">Electrique</option>
+                    <option value="hybride">Hybride</option>
+                    <option value="diesel">Diesel</option>
+                    <option value="essence">Essence</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Enregistrer le véhicule</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="desinscrire" class="p-3">
+    <!-- Section Mes informations personnelles -->
+
+    <section id="mesInfo" class="p-3" style="scroll-margin-top: 125px">
+      <h2>Mes informations personnelles</h2>
+      <div>
+        <form>
+          <div class="mb-3">
+            <label for="nom" class="form-label">Nom :</label>
+            <input type="text" class="form-control" id="nom" value="$nom" />
+          </div>
+          <div class="mb-3">
+            <label for="prenom" class="form-label">Prenom :</label>
+            <input type="text" class="form-control" id="prenom" value="$prenom" />
+          </div>
+          <div class="mb-3">
+            <label for="pseudo" class="form-label">Pseudo :</label>
+            <input type="text" class="form-control" id="pseudo" value="$pseudo" />
+          </div>
+          <div class="mb-3">
+            <label for="adresse" class="form-label">Adresse :</label>
+            <input type="text" class="form-control" id="adresse" value="$adresse" />
+          </div>
+          <div class="mb-3">
+            <label for="telephone" class="form-label">Telephone :</label>
+            <input type="text" class="form-control" id="telephone" value="$telephone" />
+          </div>
+
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalValidation">Sauvergarder</button>
+
+          <!-- Modal pour enregistrer les modifs -->
+          <div class="modal fade" id="modalValidation" tabindex="-1" aria-labelledby="Validation" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="modalLabel">Valider les modifications</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Souhaitez-vous valider vos changements ?</div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                  <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div class="pt-3">
+          <a href="/modifierMotDePasse"> Modifier mon mot de passe </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Me désinscrire -->
+
+    <section id="desinscrire" class="p-3" style="scroll-margin-top: 125px">
       <h2>Me désinscrire</h2>
       <div></div>
     </section>
