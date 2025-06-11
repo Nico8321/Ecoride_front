@@ -12084,7 +12084,7 @@ input.form-control {
 }
 
 .mon-input {
-  background-color: #f5f5f5 !important;
+  background-color: #bdbdbd !important;
 }
 .mon-input::-moz-placeholder {
   color: #212121;
@@ -12116,4 +12116,8 @@ input.form-control {
   top: 100%;
   left: 0;
   border-radius: 0 0 5px 5px;
+}
+
+.background-3 {
+  background-color: #bdbdbd;
 }/*# sourceMappingURL=main.css.map */
