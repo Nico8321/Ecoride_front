@@ -12120,4 +12120,8 @@ input.form-control {
 
 .background-3 {
   background-color: #bdbdbd;
+}
+
+.invalid {
+  background-color: #e53935 !important;
 }/*# sourceMappingURL=main.css.map */

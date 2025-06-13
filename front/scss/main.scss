@@ -135,3 +135,6 @@ input.form-control {
 .background-3 {
   background-color: $background-3;
 }
+.invalid {
+  background-color: $danger !important;
+}
