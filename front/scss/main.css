@@ -12124,4 +12124,16 @@ input.form-control {
 
 .invalid {
   background-color: #e53935 !important;
+}
+
+::-moz-placeholder {
+  color: #6f7073 !important;
+  font-style: italic;
+  opacity: 0.3;
+}
+
+::placeholder {
+  color: #6f7073 !important;
+  font-style: italic;
+  opacity: 0.3;
 }/*# sourceMappingURL=main.css.map */

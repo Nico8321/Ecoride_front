@@ -1,5 +1,5 @@
 //imort de la fonction pour validfation du password
-import { inputValidator } from "../utils/inputValidator.js";
+import { inputValidator } from "./utils/inputValidator.js";
 
 const passwordInput = document.getElementById("password");
 passwordInput.addEventListener("change", () => {

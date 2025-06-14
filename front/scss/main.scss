@@ -138,3 +138,8 @@ input.form-control {
 .invalid {
   background-color: $danger !important;
 }
+::placeholder {
+  color: #6f7073 !important;
+  font-style: italic;
+  opacity: 0.3;
+}
