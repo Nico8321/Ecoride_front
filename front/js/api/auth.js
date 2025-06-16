@@ -11,6 +11,8 @@ export async function loginUser(email, password) {
       throw new Error(`Erreur HTTP: ${response.status}`);
     }
     const data = await response.json();
+    storeSession(data);
+    window.location.href = "monCompte.html";
   } catch (error) {
     console.error(`Erreur : ${error.message}`);
   }
@@ -33,4 +35,9 @@ export async function newUser(user) {
   } catch (error) {
     console.error(`Erreur : ${error.message}`);
   }
+}
+
+function storeSession(data) {
+  sessionStorage.setItem("token", data.token);
+  sessionStorage.setItem("user", JSON.stringify(data.user));
 }

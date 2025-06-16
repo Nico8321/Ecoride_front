@@ -1,9 +1,11 @@
 //import des fonctions pour validation du password et connexion
 
 //import { loginUser } from "./api/auth";
+import { loginUser } from "./api/auth.js";
 import { inputValidator } from "./utils/inputValidator.js";
 import { isEmpty, nettoyage, ajoutMessage, validator } from "./utils/inputValidator.js";
 
+const signin = document.getElementById("signin");
 const password = document.getElementById("password");
 const email = document.getElementById("email");
 const button = document.getElementById("connexion");
@@ -24,7 +26,7 @@ function formulaireValide() {
       ajoutMessage(input, "Le champ ne doit pas être vide");
       isValid = false;
     } else {
-      validator(input); // Vérifie regex si besoin
+      validator(email); // Vérifie regex si besoin
       if (input.classList.contains("invalid")) {
         isValid = false;
       }
@@ -35,7 +37,6 @@ function formulaireValide() {
 }
 button.addEventListener("click", () => {
   if (formulaireValide()) {
-    //loginUser(email.value, password.value);
-    console.log("ok");
+    loginUser(email.value, password.value);
   }
 });
