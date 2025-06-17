@@ -7,10 +7,3 @@ export default class Route {
     this.authorize = authorize;
   }
 }
-/*
-[]-> Tout le monde peut y acceder
-["disconnected"] -> Reservé aux utilisateurs déconnecté
-["client"] -> reservé aux utilisateurs avec le role client
-["admin"] -> réservé aux utilisateurs avec le role admin
-["client","admin"] -> Réservé aux utilisateurs avec le role client OU admin 
-*/

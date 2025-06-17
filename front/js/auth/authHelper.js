@@ -1,6 +1,6 @@
-export async function verifyToken(route, token) {
+export async function verifyToken(token) {
   try {
-    const response = await fetch(`${apiUrl}/${route.url}`, {
+    const response = await fetch(`${apiUrl}/auth/verify`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -12,12 +12,5 @@ export async function verifyToken(route, token) {
   } catch (error) {
     console.error(`Erreur HTTP: ${error.message}`);
     return false;
-  }
-}
-function isConnected() {
-  if (verifyToken) {
-    return false;
-  } else {
-    return true;
   }
 }

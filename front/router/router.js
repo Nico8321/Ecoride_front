@@ -1,9 +1,10 @@
 import Route from "./route.js";
 import { allRoutes, websiteName } from "./allRoutes.js";
+import { verifyToken } from "../js/auth/authHelper.js";
 
 // Création d'une route pour la page 404 (page introuvable)
 const route404 = new Route("404", "Page introuvable", "/pages/404.html", []);
-
+const token = sessionStorage.getItem("token");
 // Fonction pour récupérer la route correspondant à une URL donnée
 const getRouteByUrl = (url) => {
   let currentRoute = null;
@@ -28,18 +29,12 @@ const LoadContentPage = async () => {
   const actualRoute = getRouteByUrl(path);
   //verifier droit d'acces a la page
 
-  const allRolesArray = actualRoute.authorize;
+  const authorize = actualRoute.authorize;
 
-  if (allRolesArray.length > 0) {
-    if (allRolesArray.includes("disconnected")) {
-      if (isConnected()) {
-        window.location.replace("/");
-      }
-    } else {
-      const roleUser = getRole();
-      if (!allRolesArray.includes(roleUser)) {
-        window.location.replace("/");
-      }
+  if (!authorize) {
+    const result = await verifyToken(token);
+    if (!result) {
+      window.location.replace("/");
     }
   }
 
