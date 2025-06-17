@@ -10,37 +10,37 @@
               <img src="/images/profil.JPG" alt="photo de profil" style="height: 75px; width: 75px; object-fit: cover" class="rounded-circle" />
             </div>
             <div>
-              <p class="card-text h3 mb-1 ms-2">Nicolas</p>
-              <p class="card-text h3 mb-1 ms-2">4,8 <i class="bi bi-star-fill"></i></p>
+              <p class="card-text h3 mb-1 ms-2" id="sidebarPseudo"></p>
+              <p class="card-text h3 mb-1 ms-2"><span id="sidebarNote"></span><i class="bi bi-star-fill ps-1"></i></p>
             </div>
           </div>
         </div>
-        <p class="card-text h3 mb-1 text-center">$ crédits restants</p>
+        <p class="card-text h3 mb-1 text-center" id="sidebarCredit"></p>
       </div>
       <a href="#reservations" class="m-3">Mes trajets reservés</a>
       <a href="#propose" class="m-3">Mes trajets proposés</a>
       <a href="#passe" class="m-3">Mes trajets passés</a>
-      <a href="#vehicule" class="m-3">Mes Véhicules</a>
+      <a href="#mesVehicules" class="m-3">Mes Véhicules</a>
       <a href="#mesInfo" class="m-3">Modifier mes informations personnelles</a>
       <a href="#desinscrire" class="m-3">Me désinscrire</a>
     </div>
   </div>
 
   <!-- Version mobile de la sidebar -->
-  <div class="sidebar-mobile d-flex d-md-none sticky-top pt-3 mt-1 ms-2 align-items-center justify-content-between background-3">
+  <div class="sidebar-mobile d-flex d-md-none sticky-top pt-3 mt-1 align-items-center justify-content-between background-3 w-100 px-3">
     <div class="d-flex align-items-center">
       <img src="/images/profil.JPG" alt="photo de profil" style="height: 40px; width: 40px; object-fit: cover" class="rounded-circle" />
-      <p class="pt-3 ps-2">Nicolas</p>
-      <p class="pt-3 ps-2">4,8 <i class="bi bi-star-fill"></i></p>
+      <p class="pt-3 ps-2" id="sidebarPseudoM"></p>
+      <p class="pt-3 ps-2"><span id="sidebarNoteM"></span><i class="bi bi-star-fill ps-2"></i></p>
     </div>
-    <p class="pt-3">$ crédits restants</p>
+    <p class="pt-3" id="sidebarCreditM"></p>
   </div>
 
   <div class="sidebar-mobile d-flex d-md-none sticky-top background-2 pt-3 overflow-auto">
     <a href="#reservations" class="me-3 p-2">Mes trajets reservés</a>
     <a href="#propose" class="me-3 p-2">Mes trajets proposés</a>
     <a href="#passe" class="me-3 p-2">Mes trajets passés</a>
-    <a href="#vehicule" class="me-3 p-2">Mes Véhicules</a>
+    <a href="#mesVehicules" class="me-3 p-2">Mes Véhicules</a>
     <a href="#mesInfo" class="me-3 p-2">Modifier mes informations personnelles</a>
     <a href="#desinscrire" class="me-3 p-2">Me désinscrire</a>
   </div>
@@ -70,11 +70,11 @@
     </section>
     <!-- Section Mes Véhicules -->
 
-    <section id="vehicule" class="p-3" style="scroll-margin-top: 125px">
+    <section id="mesVehicules" class="p-3" style="scroll-margin-top: 125px">
       <h2>Mes Véhicules</h2>
-      <div class="d-flex">
-        <div class="p-3" id="v1">
-          <h3>vehicule 1</h3>
+      <div id="vehicule" class="d-flex">
+        <!--<div class="p-3" id="v1">
+         <h3>vehicule 1</h3>
           <p>$Marque</p>
           <p>$Modele</p>
           <p>$energie</p>
@@ -93,7 +93,7 @@
           <p>$Modele</p>
           <p>$energie</p>
           <a href="">Supprimer</a>
-        </div>
+        </div>-->
       </div>
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalVehicule">Ajouter un vehicule</button>
 
