@@ -5,7 +5,15 @@
 
     <div class="mb-3">
       <label for="depart" class="form-label">Adresse de départ</label>
-      <input type="text" id="depart" class="form-control" placeholder="Adresse de départ..." aria-label="Adresse de départ" autocomplete="off" />
+      <input
+        type="text"
+        id="depart"
+        class="form-control"
+        placeholder="Adresse de départ..."
+        aria-label="Adresse de départ"
+        autocomplete="off"
+        required
+      />
       <ul id="suggestions-depart" class="list-group position-absolute"></ul>
     </div>
 
@@ -18,23 +26,24 @@
         placeholder="Adresse de destination..."
         aria-label="Adresse de destination"
         autocomplete="off"
+        required
       />
       <ul id="suggestions-destination" class="list-group position-absolute"></ul>
     </div>
 
     <div class="mb-3">
       <label for="d_date" class="form-label">Date de départ</label>
-      <input type="date" id="d_date" class="form-control" aria-label="Date de départ" />
+      <input type="date" id="d_date" class="form-control" aria-label="Date de départ" required />
     </div>
 
     <div class="mb-3">
       <label for="d_time" class="form-label">Heure de départ</label>
-      <input type="time" id="d_time" class="form-control" aria-label="Heure de départ" />
+      <input type="time" id="d_time" class="form-control" aria-label="Heure de départ" required />
     </div>
 
     <div class="mb-3">
       <label for="nb_places" class="form-label">Nombre de places proposées</label>
-      <select name="nb_places" id="nb_places" class="form-select w-auto border-0 pt-0 background-2" aria-label="Nombre de places proposées">
+      <select name="nb_places" id="nb_places" class="form-select w-auto border-0 pt-0 background-2" aria-label="Nombre de places proposées" required>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -45,20 +54,16 @@
 
     <div class="mb-3">
       <label for="prix" class="form-label">Prix par place</label>
-      <input type="number" id="prix" class="form-control" placeholder="Prix par place" aria-label="Prix par place" />
+      <input type="number" id="prix" class="form-control" placeholder="Prix par place" aria-label="Prix par place" required />
     </div>
     <div class="mb-3">
       <label for="vehicule" class="form-label">Véhicule</label>
-      <select name="vehicule" id="vehicule" class="form-select w-auto border-0 pt-0 background-2" aria-label="Véhicule sélectionné">
-        <option value="vehicule_id">voiture.marque, voiture.modele</option>
+      <select name="vehicule" id="vehicule" class="form-select w-auto border-0 pt-0 background-2" aria-label="Véhicule sélectionné" required>
+        <option disabled selected>-- Sélectionner un véhicule --</option>
       </select>
-      <a href="/monCompte" class="text-primary">Pas encore de véhicule? ajouter le ici</a>
+      <a href="/monCompte" class="text-primary pt-1">Pas encore de véhicule? ajouter le ici</a>
     </div>
-    <ul>
-      <li id="marque">marque</li>
-      <li id="modele">modele</li>
-      <li id="energie">energie</li>
-    </ul>
+
     <h2>Préférences</h2>
 
     <div class="form-check mb-3">

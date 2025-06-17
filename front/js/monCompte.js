@@ -1,6 +1,7 @@
 import { inputValidator } from "./utils/inputValidator.js";
 
 // A SUPPRIMER  Injection temporaire de données dans le sessionStorage
+
 if (!sessionStorage.getItem("user")) {
   sessionStorage.setItem(
     "user",
@@ -13,13 +14,14 @@ if (!sessionStorage.getItem("user")) {
       note: "4.2",
       credit: "25",
       vehicule: [
-        { marque: "Bmw", modele: "serie 3", energie: "essence" },
-        { marque: "Mercedes", modele: "classe a", energie: "hybride" },
-        { marque: "Mercedes", modele: "classe c", energie: "electrique" },
+        { id: "1", marque: "Bmw", modele: "serie 3", energie: "essence" },
+        { id: "2", marque: "Mercedes", modele: "classe a", energie: "hybride" },
+        { id: "3", marque: "Mercedes", modele: "classe c", energie: "electrique" },
       ],
     })
   );
 }
+
 // Ajout d'un écouteur sur l'input telephone pour le controle de la saisie
 
 const telInput = document.getElementById("telephone");
