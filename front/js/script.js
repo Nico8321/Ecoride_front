@@ -12,8 +12,8 @@ function changeText() {
 
 const connexion = document.getElementById("connexion");
 document.addEventListener("DOMContentLoaded", async () => {
-  await isLoggedIn();
-  if (isLoggedIn) {
+  const loggedIn = await isLoggedIn();
+  if (loggedIn) {
     connexion.innerText = "Déconnexion";
     connexion.href = "/deconnexion";
   }
