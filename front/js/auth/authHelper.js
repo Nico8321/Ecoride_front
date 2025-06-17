@@ -1,5 +1,7 @@
-export async function verifyToken(token) {
-  /*try {
+export async function verifyToken() {
+  /*
+  const token = sessionStorage.getItem("token");
+  try {
     const response = await fetch(`${apiUrl}/auth/verify`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -15,4 +17,8 @@ export async function verifyToken(token) {
   }*/
   // TEMP : simule une vérification réussie tant que le backend n’est pas prêt
   return true;
+}
+
+export async function isLoggedIn() {
+  return await verifyToken();
 }

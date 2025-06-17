@@ -1,6 +1,6 @@
 import Route from "./route.js";
 import { allRoutes, websiteName } from "./allRoutes.js";
-import { verifyToken } from "../js/auth/authHelper.js";
+import { isLoggedIn } from "../js/auth/authHelper.js";
 
 // Création d'une route pour la page 404 (page introuvable)
 const route404 = new Route("404", "Page introuvable", "/pages/404.html", []);
@@ -32,7 +32,7 @@ const LoadContentPage = async () => {
   const authorize = actualRoute.authorize;
 
   if (!authorize) {
-    const result = await verifyToken(token);
+    const result = await isLoggedIn();
     if (!result) {
       window.location.replace("/");
     }

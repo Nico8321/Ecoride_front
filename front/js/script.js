@@ -1,3 +1,5 @@
+import { isLoggedIn } from "./auth/authHelper";
+
 function changeText() {
   const accordionButton = document.getElementById("accordionButton");
   setTimeout(() => {
@@ -7,6 +9,16 @@ function changeText() {
       : 'Plus de filtres <i class="bi bi-caret-down"></i>';
   }, 50);
 }
+
+const connexion = document.getElementById("connexion");
+document.addEventListener("DOMContentLoaded", async () => {
+  await isLoggedIn();
+  if (isLoggedIn) {
+    connexion.innerText = "Déconnexion";
+    connexion.href = "/deconnexion";
+  }
+});
+
 // Affichage des resultats de la recherche
 const container = document.getElementById("resultats-container");
 
