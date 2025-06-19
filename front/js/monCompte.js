@@ -1,3 +1,6 @@
+import { getReservationByUser } from "./api/reservation.js";
+import { getTrajetsByUser, postTrajet } from "./api/trajet.js";
+import { createTrajetCard } from "./components/trajetCard.js";
 import { inputValidator } from "./utils/inputValidator.js";
 
 // A SUPPRIMER  Injection temporaire de données dans le sessionStorage
@@ -39,6 +42,45 @@ données.forEach((key) => {
   if (input) input.value = user[key];
 });
 
+//Recuperation et affichage des trajets proposés
+
+const propose = document.getElementById("propose");
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const trajets = await getTrajetsByUser(user.id);
+    if (trajets.length > 0) {
+      propose.innerHTML = "";
+      trajets.forEach((trajet) => {
+        if (trajet.conducteur_id === user.id) {
+          createTrajetCard(trajet, propose);
+        }
+      });
+    }
+  } catch (error) {
+    console.error("Erreur:", error.message);
+  }
+});
+
+//Recuperation et affichage des trajets reservés
+
+const reserve = document.getElementById("reserve");
+const passe = document.getElementById("passe");
+document.addEventListener("DOMContentLoaded", async () => {
+  const today = new Date().toISOString().split("T")[0];
+  try {
+    const trajets = await getReservationByUser(user.id);
+    if (trajets.length > 0) {
+      propose.innerHTML = "";
+      trajets.forEach((trajet) => {
+        if (trajet.date >= today) {
+          createTrajetCard(trajet, reserve);
+        } else {
+          createTrajetCard(trajet, passe);
+        }
+      });
+    }
+  } catch (error) {}
+});
 // Affichage des vehicules de l'user (récuperation dans session storage)
 
 const vehiculeDiv = document.getElementById("vehicule");
