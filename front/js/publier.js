@@ -82,7 +82,13 @@ publierBtn.addEventListener("click", async () => {
         conducteur_id: user.id,
       };
       // Envoi des infos du trajet si tout est bon
-      postTrajet(trajet);
+      try {
+        const res = await postTrajet(trajet);
+        alert("Trajet créé avec succès");
+        window.location.href = "monCompte.html";
+      } catch (error) {
+        console.error("Erreur:", error.message);
+      }
     }
   }
 });

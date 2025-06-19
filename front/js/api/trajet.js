@@ -1,6 +1,6 @@
 export async function postTrajet(trajet) {
   try {
-    const response = await fetch(`${apiUrl}/postTrajet`, {
+    const response = await fetch(`${apiUrl}/trajets`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -10,9 +10,22 @@ export async function postTrajet(trajet) {
     if (!response.ok) {
       throw new Error(`Erreur HTTP: ${response.status}`);
     }
-    alert("Trajet créé avec succés");
-    window.location.href = "monCompte.html";
+    return await response.json();
   } catch (error) {
     console.error(`Erreur : ${error.message}`);
+    throw error;
+  }
+}
+export async function getTrajetsByUser(id) {
+  try {
+    const response = await fetch(`${api}/user/${id}/trajet`);
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Erreur : ${error.message}`);
+    throw error;
   }
 }
