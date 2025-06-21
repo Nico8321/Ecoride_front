@@ -1,6 +1,6 @@
 import { getReservationByUser } from "./api/reservation.js";
 import { getTrajetsByUser, postTrajet } from "./api/trajet.js";
-import { deleteVehicule } from "./api/user.js";
+import { addVehicule, deleteVehicule } from "./api/user.js";
 import { createTrajetCard } from "./components/trajetCard.js";
 import { inputValidator } from "./utils/inputValidator.js";
 
@@ -68,8 +68,7 @@ const vehiculeDiv = document.getElementById("vehicule");
 const vehicules = user.vehicule;
 
 // Incrementation des véhicules dans le DOM
-
-vehicules.forEach((vehicule) => {
+function ajoutDivVehicule(vehicule) {
   const div = document.createElement("div");
   div.className = "p-3";
   div.id = vehicule.id;
@@ -80,6 +79,10 @@ vehicules.forEach((vehicule) => {
           <p>${vehicule.energie}</p>
           <button  id="${vehicule.id}" class="btn btn-link shadow-none p-0 m-0">Supprimer</button>`;
   vehiculeDiv.appendChild(div);
+}
+
+vehicules.forEach((vehicule) => {
+  ajoutDivVehicule(vehicule);
 });
 
 //Suppression d'un vehicule
@@ -104,6 +107,36 @@ boutonsSuppr.forEach((button) => {
     supprimerVehicule(user.id, button.id);
   });
 });
+
+//Ajout d'un vehicule
+//fonction pour ajout
+
+const marque = document.getElementById("marque");
+const modele = document.getElementById("modele");
+const energie = document.getElementById("energie");
+
+async function ajoutVehicule(userId) {
+  const vehicule = {
+    marque: marque.value,
+    modele: modele.value,
+    energie: energie.value,
+  };
+  try {
+    const newVehicule = await addVehicule(user.id, vehicule);
+    if (newVehicule) {
+      ajoutDivVehicule(newVehicule);
+      user.vehicule.push(newVehicule);
+      sessionStorage.setItem("user", JSON.stringify(user));
+      const modal = bootstrap.Modal.getInstance(document.getElementById("modalVehicule"));
+      modal.hide();
+    }
+  } catch (error) {
+    console.error("Erreur:", error.message);
+  }
+}
+const btnAddVehicule = document.getElementById("addVehicule");
+btnAddVehicule.addEventListener("click", ajoutVehicule(user.id));
+
 // SECTION TRAJETS PROPOSES
 // Recuperation et affichage des trajets proposés
 
@@ -143,5 +176,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       });
     }
-  } catch (error) {}
+  } catch (error) {
+    console.error("Erreur:", error.message);
+  }
 });
