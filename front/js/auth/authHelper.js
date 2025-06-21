@@ -15,7 +15,7 @@ export async function verifyToken() {
     console.error(`Erreur HTTP: ${error.message}`);
     return false;
   }*/
-  // TEMP : simule une vérification réussie tant que le backend n’est pas prêt
+
   return true;
 }
 

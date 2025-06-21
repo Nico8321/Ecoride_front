@@ -1,6 +1,6 @@
 export async function postTrajet(trajet) {
   try {
-    const response = await fetch(`${apiUrl}/trajets`, {
+    const response = await fetch(`${api}/trajets`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
