@@ -12036,6 +12036,18 @@ a:hover {
   background-color: #3d8b40;
 }
 
+.btn-danger {
+  background-color: #e53935;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #212529;
+  border: none;
+}
+.btn-danger:hover {
+  background-color: #3d8b40;
+}
+
 .navbar {
   height: 120px;
 }

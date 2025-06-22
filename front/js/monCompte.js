@@ -3,7 +3,7 @@ import { getTrajetsByUser, postTrajet } from "./api/trajet.js";
 import { addVehicule, deleteVehicule } from "./api/user.js";
 import { createTrajetCard } from "./components/trajetCard.js";
 import { inputValidator } from "./utils/inputValidator.js";
-
+import { patchUser } from "./api/user.js";
 // TEMPORAIRE : Ajout manuel de données user dans sessionStorage pour test (à retirer après lien avec le back)
 
 if (!sessionStorage.getItem("user")) {
@@ -55,9 +55,11 @@ async function updateUser() {
   }
 }
 const updateUserBtn = document.getElementById("updateUserBtn");
-updateUserBtn.addEventListener("click", () => {
-  updateUser();
-});
+if (updateUserBtn) {
+  updateUserBtn.addEventListener("click", () => {
+    updateUser();
+  });
+}
 
 // Affichage des infos user dans la sidebar (desktop + mobile)
 
