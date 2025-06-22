@@ -109,19 +109,20 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form>
+              <form id="form-ajout-vehicule">
                 <div class="mb-3">
                   <label for="marque" class="form-label">Marque :</label>
-                  <input type="text" class="form-control" id="marque" />
+                  <input type="text" class="form-control" id="marque" required />
                 </div>
                 <div class="mb-3">
                   <label for="modele" class="form-label">Modele :</label>
-                  <input type="text" class="form-control" id="modele" />
+                  <input type="text" class="form-control" id="modele" required />
                 </div>
                 <div class="mb-3">
                   <label for="energie" class="form-label">Energie :</label>
 
-                  <select name="energie" class="form-select" id="energie">
+                  <select name="energie" class="form-select" id="energie" required>
+                    <option disabled selected>-- Sélectionner un carburant --</option>
                     <option value="electrique">Electrique</option>
                     <option value="hybride">Hybride</option>
                     <option value="diesel">Diesel</option>
@@ -141,7 +142,7 @@
     <section id="mesInfo" class="p-3" style="scroll-margin-top: 125px">
       <h2>Mes informations personnelles</h2>
       <div>
-        <form>
+        <form id="formUserData">
           <div class="mb-3">
             <label for="nom" class="form-label">Nom :</label>
             <input type="text" class="form-control" id="nom" value="$nom" />
@@ -176,7 +177,7 @@
                 <div class="modal-body">Souhaitez-vous valider vos changements ?</div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                  <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                  <button type="updateUserBtn" class="btn btn-primary">Enregistrer les modifications</button>
                 </div>
               </div>
             </div>

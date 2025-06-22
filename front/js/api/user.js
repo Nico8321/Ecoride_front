@@ -29,3 +29,21 @@ export async function addVehicule(userId, newVehicule) {
     throw error;
   }
 }
+export async function patchUser(userId, userData) {
+  try {
+    const response = await fetch(`${apiUrl}/user/${userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}

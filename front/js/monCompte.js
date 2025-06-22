@@ -4,7 +4,7 @@ import { addVehicule, deleteVehicule } from "./api/user.js";
 import { createTrajetCard } from "./components/trajetCard.js";
 import { inputValidator } from "./utils/inputValidator.js";
 
-// A SUPPRIMER  Injection temporaire de données dans le sessionStorage
+// TEMPORAIRE : Ajout manuel de données user dans sessionStorage pour test (à retirer après lien avec le back)
 
 if (!sessionStorage.getItem("user")) {
   sessionStorage.setItem(
@@ -26,19 +26,40 @@ if (!sessionStorage.getItem("user")) {
   );
 }
 
-// SECTION INFO PERSO
-// Remplissage auto des champs avec les données de sessionStorage
-
-const user = JSON.parse(sessionStorage.getItem("user"));
+// Récupération de l'user depuis le sessionStorage
 const données = ["pseudo", "nom", "prenom", "adresse", "telephone"];
+const user = JSON.parse(sessionStorage.getItem("user"));
 
-données.forEach((key) => {
-  const input = document.getElementById(key);
-  if (input) input.value = user[key];
+function inputIncrement() {
+  données.forEach((key) => {
+    const input = document.getElementById(key);
+    if (input) input.value = user[key];
+  });
+}
+inputIncrement();
+async function updateUser() {
+  const form = document.getElementById("formUserData");
+  if (form.reportValidity()) {
+    const userUpdated = {};
+    données.forEach((key) => {
+      const input = document.getElementById(key);
+      if (input) userUpdated[key] = input.value;
+    });
+    try {
+      const data = await patchUser(user.id, userUpdated);
+      sessionStorage.setItem("user", JSON.stringify(data));
+      inputIncrement();
+    } catch (error) {
+      console.error("Erreur:", error.message);
+    }
+  }
+}
+const updateUserBtn = document.getElementById("updateUserBtn");
+updateUserBtn.addEventListener("click", () => {
+  updateUser();
 });
 
-// SIDEBAR
-// Remplissage de la sidebar desktop
+// Affichage des infos user dans la sidebar (desktop + mobile)
 
 const sidebarPseudo = document.getElementById("sidebarPseudo");
 const sidebarNote = document.getElementById("sidebarNote");
@@ -54,20 +75,19 @@ sidebarPseudoM.innerHTML = `${user.pseudo}`;
 sidebarCreditM.innerHTML = `${user.credit} crédits restants `;
 sidebarNoteM.innerText = user.note;
 
-// Controle de  saisie champ telephone : Ajout d'un écouteur sur l'input telephone
+// Contrôle champ téléphone (validation à la saisie)
 
 const telInput = document.getElementById("telephone");
 telInput.addEventListener("change", () => {
   inputValidator("telephone");
 });
 
-// SECTION MES VEHICULES
-// Affichage des vehicules de l'user (récuperation dans session storage)
+// Affichage des véhicules de l'user depuis sessionStorage
 
 const vehiculeDiv = document.getElementById("vehicule");
 const vehicules = user.vehicule;
 
-// Incrementation des véhicules dans le DOM
+// Génère le bloc HTML d’un véhicule (utilisé pour chaque véhicule ou pour l'ajout)
 function ajoutDivVehicule(vehicule) {
   const div = document.createElement("div");
   div.className = "p-3";
@@ -85,7 +105,7 @@ vehicules.forEach((vehicule) => {
   ajoutDivVehicule(vehicule);
 });
 
-//Suppression d'un vehicule
+// Suppression d’un véhicule
 //fonction pour suppression
 
 async function supprimerVehicule(userId, vehiculeId) {
@@ -101,6 +121,7 @@ async function supprimerVehicule(userId, vehiculeId) {
     console.error("Erreur:", error.message);
   }
 }
+// Écouteur sur les boutons "Supprimer" pour chaque véhicule
 const boutonsSuppr = vehiculeDiv.querySelectorAll("button");
 boutonsSuppr.forEach((button) => {
   button.addEventListener("click", () => {
@@ -108,37 +129,42 @@ boutonsSuppr.forEach((button) => {
   });
 });
 
-//Ajout d'un vehicule
-//fonction pour ajout
+// Ajout d’un véhicule
+
+// Récupération des inputs du formulaire d’ajout véhicule
 
 const marque = document.getElementById("marque");
 const modele = document.getElementById("modele");
 const energie = document.getElementById("energie");
 
 async function ajoutVehicule(userId) {
-  const vehicule = {
-    marque: marque.value,
-    modele: modele.value,
-    energie: energie.value,
-  };
-  try {
-    const newVehicule = await addVehicule(user.id, vehicule);
-    if (newVehicule) {
-      ajoutDivVehicule(newVehicule);
-      user.vehicule.push(newVehicule);
-      sessionStorage.setItem("user", JSON.stringify(user));
-      const modal = bootstrap.Modal.getInstance(document.getElementById("modalVehicule"));
-      modal.hide();
+  const form = document.getElementById("form-ajout-vehicule");
+  if (form.reportValidity()) {
+    const vehicule = {
+      marque: marque.value,
+      modele: modele.value,
+      energie: energie.value,
+    };
+    try {
+      const newVehicule = await addVehicule(user.id, vehicule);
+      if (newVehicule) {
+        ajoutDivVehicule(newVehicule);
+        user.vehicule.push(newVehicule);
+        sessionStorage.setItem("user", JSON.stringify(user));
+        const modal = bootstrap.Modal.getInstance(document.getElementById("modalVehicule"));
+        modal.hide();
+      }
+    } catch (error) {
+      console.error("Erreur:", error.message);
     }
-  } catch (error) {
-    console.error("Erreur:", error.message);
   }
 }
 const btnAddVehicule = document.getElementById("addVehicule");
-btnAddVehicule.addEventListener("click", ajoutVehicule(user.id));
+btnAddVehicule.addEventListener("click", () => {
+  ajoutVehicule(user.id);
+});
 
-// SECTION TRAJETS PROPOSES
-// Recuperation et affichage des trajets proposés
+// Récupère et affiche les trajets proposés par l’utilisateur (où il est conducteur)
 
 const propose = document.getElementById("propose");
 document.addEventListener("DOMContentLoaded", async () => {
@@ -157,12 +183,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// SECTION TRAJETS RESERVES ET PASSES
-//Recuperation et affichage des trajets reservés
+// Récupère les trajets réservés : à venir → zone "Réservés", passés → zone "Passés"
 
 const reserve = document.getElementById("reserve");
 const passe = document.getElementById("passe");
 document.addEventListener("DOMContentLoaded", async () => {
+  // Date du jour pour différencier les trajets passés / à venir
+
   const today = new Date().toISOString().split("T")[0];
   try {
     const trajets = await getReservationByUser(user.id);
