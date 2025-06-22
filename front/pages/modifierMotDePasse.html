@@ -1,16 +1,16 @@
-<form class="form-control p-5">
+<form class="form-control p-5" id="formUpdatePassword">
   <div class="mb-3">
-    <label for="ancien">Ancien mot de passe</label>
-    <input type="password" class="form-control" id="ancien" />
+    <label for="password">Ancien mot de passe</label>
+    <input type="password" class="form-control" id="password" required />
   </div>
   <div class="mb-3">
     <label for="newPassword">Nouveau mot de passe</label>
-    <input type="password" class="form-control" id="newPassword" />
+    <input type="password" class="form-control" id="newPassword" required />
   </div>
   <div class="mb-3">
-    <label for="PasswordConfirme" class="">Confirmer le nouveau mot de passe</label>
-    <input type="password" class="form-control" id="PasswordConfirme" />
+    <label for="confirmePassword" class="">Confirmer le nouveau mot de passe</label>
+    <input type="password" class="form-control" id="confirmePassword" required />
   </div>
 
-  <button type="" class="btn btn-primary">Modifier</button>
+  <button type="button" id="btnUpdatePassword" class="btn btn-primary">Modifier</button>
 </form>

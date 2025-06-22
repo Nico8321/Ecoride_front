@@ -1,6 +1,5 @@
 //import des fonctions pour validation du password et connexion
 
-//import { loginUser } from "./api/auth";
 import { loginUser } from "./api/auth.js";
 import { inputValidator } from "./utils/inputValidator.js";
 import { isEmpty, nettoyage, ajoutMessage, validator } from "./utils/inputValidator.js";

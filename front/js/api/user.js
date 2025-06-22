@@ -47,3 +47,19 @@ export async function patchUser(userId, userData) {
     throw error;
   }
 }
+export async function patchUserPassword(userId, password, newPassword) {
+  try {
+    const response = await fetch(`${apiUrl}/user/${userId}/password`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ password, newPassword }),
+    });
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+  } catch (error) {
+    throw error;
+  }
+}

@@ -8,7 +8,7 @@ export const allRoutes = [
   new Route("/signin", "Connexion", "/pages/signin.html", true, "/js/signin.js"),
   new Route("/publier", "Connexion", "/pages/publier.html", true, "/js/publier.js"),
   new Route("/monCompte", "Mon Compte", "/pages/monCompte.html", false, "/js/monCompte.js"),
-  new Route("/modifierMotDePasse", "Modification du mot de passe", "/pages/modifierMotDePasse.html", false, "/js/contact.js"),
+  new Route("/modifierMotDePasse", "Modification du mot de passe", "/pages/modifierMotDePasse.html", false, "/js/modifierMotDePasse.js"),
   new Route("/contact", "Contact", "/pages/contact.html", true, ""),
   new Route("/mentionsLegales", "Mentions Légales", "/pages/mentions.html", true, ""),
 ];
