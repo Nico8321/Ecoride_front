@@ -1,9 +1,10 @@
 import { getReservationByUser } from "./api/reservation.js";
 import { getTrajetsByUser, postTrajet } from "./api/trajet.js";
-import { addVehicule, deleteVehicule } from "./api/user.js";
+import { addVehicule, deleteUser, deleteVehicule } from "./api/user.js";
 import { createTrajetCard } from "./components/trajetCard.js";
 import { inputValidator } from "./utils/inputValidator.js";
 import { patchUser } from "./api/user.js";
+import { showToast } from "./components/toast.js";
 // TEMPORAIRE : Ajout manuel de données user dans sessionStorage pour test (à retirer après lien avec le back)
 
 if (!sessionStorage.getItem("user")) {
@@ -208,4 +209,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (error) {
     console.error("Erreur:", error.message);
   }
+});
+
+async function desinscription(userId) {
+  try {
+    const response = await deleteUser(userId);
+    if (response) {
+      showToast(response.message);
+    }
+  } catch (error) {
+    showToast(error.message, "error");
+  }
+}
+
+const deleteUserBtn = document.getElementById("deleteUserBtn");
+deleteUserBtn.addEventListener("click", () => {
+  desinscription(user.id);
 });

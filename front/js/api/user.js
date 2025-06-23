@@ -59,6 +59,23 @@ export async function patchUserPassword(userId, password, newPassword) {
     if (!response.ok) {
       throw new Error(`Erreur HTTP: ${response.status}`);
     }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deleteUser(userId) {
+  try {
+    const response = await fetch(`${apiUrl}/user/${userId}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
   } catch (error) {
     throw error;
   }
