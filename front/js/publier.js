@@ -84,8 +84,10 @@ publierBtn.addEventListener("click", async () => {
       // Envoi des infos du trajet si tout est bon
       try {
         const res = await postTrajet(trajet);
-        alert("Trajet créé avec succès");
-        window.location.href = "monCompte.html";
+        if (res) {
+          alert("Trajet créé avec succès");
+          window.location.href = "monCompte.html";
+        }
       } catch (error) {
         console.error("Erreur:", error.message);
       }

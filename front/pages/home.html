@@ -9,13 +9,15 @@
     <form class="bg-secondary p-4 rounded no-border rounded-4 shadow" style="width: 100%; max-width: 700px; border-radius: 20px">
       <!-- CONTENEUR input -->
       <div class="d-flex flex-wrap">
-        <div class="mb-3 p-2 d-flex align-items-center flex-fill">
+        <div class="mb-3 p-2 d-flex align-items-center flex-fill position-relative">
           <label for="depart" class="form-label">Départ :</label>
-          <input type="text" class="form-control border-0" id="depart" />
+          <input type="text" class="form-control border-0" id="depart" aria-label="Adresse de depart" autocomplete="off" />
+          <ul id="suggestions-depart" class="list-group position-absolute"></ul>
         </div>
-        <div class="mb-3 p-2 d-flex align-items-center flex-fill">
-          <label for="destination" class="form-label">Destination :</label>
-          <input type="text" class="form-control border-0" id="destination" />
+        <div class="mb-3 p-2 d-flex align-items-center flex-fill position-relative">
+          <label for="destination" class="form-label">Destination:</label>
+          <input type="text" class="form-control border-0" id="destination" aria-label="Adresse de destination" autocomplete="off" />
+          <ul id="suggestions-destination" class="list-group position-absolute"></ul>
         </div>
       </div>
       <!-- CONTENEUR input -->

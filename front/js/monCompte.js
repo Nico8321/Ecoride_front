@@ -26,10 +26,16 @@ if (!sessionStorage.getItem("user")) {
     })
   );
 }
+// ==========================
+// GESTION DES INFOS DE L'USER
+// ==========================
 
 // Récupération de l'user depuis le sessionStorage
+
 const données = ["pseudo", "nom", "prenom", "adresse", "telephone"];
 const user = JSON.parse(sessionStorage.getItem("user"));
+
+//remplissage des champs
 
 function inputIncrement() {
   données.forEach((key) => {
@@ -55,6 +61,8 @@ async function updateUser() {
     }
   }
 }
+// Ajout de l'ecouter sur le bouton pour modifier les infos
+
 const updateUserBtn = document.getElementById("updateUserBtn");
 if (updateUserBtn) {
   updateUserBtn.addEventListener("click", () => {
@@ -85,12 +93,17 @@ telInput.addEventListener("change", () => {
   inputValidator("telephone");
 });
 
+// ==========================
+// GESTION VEHICULES
+// ==========================
+
 // Affichage des véhicules de l'user depuis sessionStorage
 
 const vehiculeDiv = document.getElementById("vehicule");
 const vehicules = user.vehicule;
 
 // Génère le bloc HTML d’un véhicule (utilisé pour chaque véhicule ou pour l'ajout)
+
 function ajoutDivVehicule(vehicule) {
   const div = document.createElement("div");
   div.className = "p-3";
@@ -162,12 +175,17 @@ async function ajoutVehicule(userId) {
     }
   }
 }
+// Ajout de l'ecouteur sur le bouton pour ajouter le véhicule
+
 const btnAddVehicule = document.getElementById("addVehicule");
 btnAddVehicule.addEventListener("click", () => {
   ajoutVehicule(user.id);
 });
 
-// Récupère et affiche les trajets proposés par l’utilisateur (où il est conducteur)
+// ==========================
+// GESTION DES TRAJETS
+// ==========================
+// Récupère et affiche les trajets proposés par l’utilisateur
 
 const propose = document.getElementById("propose");
 document.addEventListener("DOMContentLoaded", async () => {
@@ -210,18 +228,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Erreur:", error.message);
   }
 });
+// ==========================
+// GESTION DE LA DESINSCRIPTION
+// ==========================
+
+//Fonction pour la desinscriprion
 
 async function desinscription(userId) {
   try {
     const response = await deleteUser(userId);
     if (response) {
-      showToast(response.message);
+      showToast(response.message); //toast de confirmation
+      sessionStorage.clear(); //suppression de l'user dans sessionStorage
+      window.location.href = "home.html"; //redirection a l'accueil
     }
   } catch (error) {
-    showToast(error.message, "error");
+    showToast(error.message, "error"); //toast d'erreur
   }
 }
-
+// Ajout de l'ecouteur sur le bouton pour confirmer la desinscription
 const deleteUserBtn = document.getElementById("deleteUserBtn");
 deleteUserBtn.addEventListener("click", () => {
   desinscription(user.id);
