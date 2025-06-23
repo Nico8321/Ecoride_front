@@ -39,7 +39,7 @@
       </div>
 
       <div class="mb-3 p-2 d-flex align-items-center flex-fill">
-        <button type="submit" class="btn btn-primary align-items-center">Rechercher</button>
+        <button type="button" class="btn btn-primary align-items-center" id="btnRechercher">Rechercher</button>
       </div>
     </div>
 
@@ -79,12 +79,16 @@
                     <label class="form-check-label" for="diesel"> Diesel </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="radioEnergie" id="electrique" checked />
+                    <input class="form-check-input" type="radio" name="radioEnergie" id="electrique" />
                     <label class="form-check-label" for="electrique"> Électrique </label>
                   </div>
                   <div class="form-check">
                     <input class="form-check-input" type="radio" name="radioEnergie" id="hybride" />
                     <label class="form-check-label" for="hybride"> Hybride </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="radioEnergie" id="tout" checked />
+                    <label class="form-check-label" for="tout"> Tout </label>
                   </div>
                 </div>
               </div>
@@ -105,7 +109,7 @@
     </div>
   </form>
 </div>
-<div id="resultats-container" class="d-flex flex-column flex-md-row gap-3" style="min-height: 175px">
+<div id="resultatsContainer" class="d-flex flex-column flex-md-row gap-3" style="min-height: 175px">
   <div class="card shadow-sm w-100 mb-3">
     <div class="card-body row">
       <!-- Colonne : Profil + Nom + Note -->
@@ -124,7 +128,7 @@
 
       <!-- Colonne : Infos trajet -->
       <div class="col d-flex align-items-center justify-content-start">
-        <h3 class="card-title">Toulon <span class="small-text p-3">6h00</span> → Nice <span class="small-text p-3">10h00</span></h3>
+        <h3 class="card-title"><span class="small-text p-3"> 25 juin 2025 à 6h00</span> Toulon → Nice</h3>
       </div>
 
       <!-- Colonne : Bouton + crédits -->
