@@ -10,23 +10,23 @@ export function createTrajetCard(trajet, destination) {
           <img src="/images/profil.JPG" alt="photo de profil" style="height: 75px; width: 75px; object-fit: cover" class="rounded-circle" />
         </div>
         <div>
-          <p class="card-text fw-bold mb-1">Nicolas</p>
-          <p class="card-text text-warning mb-0">4,8 <i class="bi bi-star-fill"></i></p>
+          <p class="card-text fw-bold mb-1">${trajet.conducteur}</p>
+          <p class="card-text text-warning mb-0">Note : ${trajet.note} <i class="bi bi-star-fill"></i></p>
         </div>
       </div>
 
       <!-- Colonne : Infos trajet -->
       <div class="d-flex align-items-center justify-content-center text-center flex-fill">
         <h3 class="card-title mb-0">
-          <span class="small-text p-3 d-block">25 juin 2025 à 6h00</span>
-          Toulon → Nice
+          <span class="small-text p-3 d-block">${trajet.date} à ${trajet.heure}</span>
+           ${trajet.depart} → ${trajet.destination}
         </h3>
       </div>
 
       <!-- Colonne : Bouton + crédits -->
       <div class="d-flex align-items-center justify-content-end ms-md-auto gap-3">
-        <button class="btn btn-primary">Réserver</button>
-        <p class="card-text fw-bold mb-0 text-nowrap">58 crédits</p>
+        <button class="btn btn-primary" data-id="${trajet.id}" data-bs-toggle="modal" data-bs-target="#reservationModal">Réserver</button>
+        <p class="card-text fw-bold mb-0 text-nowrap">${trajet.prix}  crédits</p>
       </div>
     </div>
 

@@ -133,7 +133,7 @@
 
       <!-- Colonne : Bouton + crédits -->
       <div class="d-flex align-items-center justify-content-end ms-md-auto gap-3">
-        <button class="btn btn-primary">Réserver</button>
+        <button class="btn btn-primary" data-id="${trajet.id}" data-bs-toggle="modal" data-bs-target="#reservationModal">Réserver</button>
         <p class="card-text fw-bold mb-0 text-nowrap">58 crédits</p>
       </div>
     </div>
@@ -170,6 +170,36 @@
             <p><strong>Places disponibles :</strong> ${trajet.places}</p>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modale confirmation reservation-->
+<div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmer la reservation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="nbPlaces" class="">Choisir le nombres de place souhaitées:</label>
+            <select class="form-select w-auto border-0 pt-0 text-primary background-2" id="nbPlaces" required>
+              <option disabled selected>-- Choisir --</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" id="btnConfirmation">Reserver</button>
       </div>
     </div>
   </div>

@@ -52,3 +52,36 @@ const btnRechercher = document.getElementById("btnRechercher");
 btnRechercher.addEventListener("click", () => {
   rechercherTrajets();
 });
+
+const reservationModal = document.getElementById("reservationModal");
+
+reservationModal.addEventListener("show.bs.modal", (event) => {
+  const button = event.relatedTarget;
+  const trajetId = button.getAttribute("data-id");
+  const btnConfirm = document.getElementById("btnConfirmation");
+  btnConfirm.dataset.id = trajetId;
+});
+
+const user = JSON.parse(sessionStorage.getItem("user"));
+const nbPlaces = document.getElementById("nbPlaces");
+
+async function confirmerReservation(trajetId) {
+  const reservationInfo = {
+    userId: user.id,
+    trajetId: trajetId,
+    nbPlaces: nbPlaces.value,
+  };
+  try {
+    const response = await reserver(reservationInfo, trajetId);
+    if (response) {
+      showToast("Reservation envoyée", response);
+    }
+  } catch (error) {
+    showToast(error.message, "error");
+  }
+}
+const btnConfirm = document.getElementById("btnConfirmation");
+btnConfirm.addEventListener("click", () => {
+  const trajetId = btnConfirm.dataset.id;
+  confirmerReservation(trajetId);
+});
