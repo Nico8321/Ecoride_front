@@ -3,6 +3,7 @@ import { changeText } from "./utils/changeText.js";
 import { verificationAdresse } from "./utils/verifAdresse.js";
 import { showToast } from "./components/toast.js";
 import { findTrajet } from "./api/trajet.js";
+import { isLoggedIn } from "./auth/authHelper.js";
 
 verificationAdresse("depart", "suggestions-depart");
 verificationAdresse("destination", "suggestions-destination");
@@ -81,7 +82,13 @@ async function confirmerReservation(trajetId) {
   }
 }
 const btnConfirm = document.getElementById("btnConfirmation");
-btnConfirm.addEventListener("click", () => {
+btnConfirm.addEventListener("click", async () => {
   const trajetId = btnConfirm.dataset.id;
+  const result = await isLoggedIn();
+  if (!result) {
+    showToast("Vous devais etre connecté pour reserver", "info");
+    window.location.replace("/signin");
+    return;
+  }
   confirmerReservation(trajetId);
 });
