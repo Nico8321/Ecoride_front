@@ -12139,13 +12139,24 @@ input.form-control {
 }
 
 ::-moz-placeholder {
-  color: #6f7073 !important;
   font-style: italic;
-  opacity: 0.3;
+  opacity: 0.7;
 }
 
 ::placeholder {
-  color: #6f7073 !important;
   font-style: italic;
-  opacity: 0.3;
+  opacity: 0.7;
+}
+
+.bg-fixed {
+  background-image: url("/images/home.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
 }/*# sourceMappingURL=main.css.map */

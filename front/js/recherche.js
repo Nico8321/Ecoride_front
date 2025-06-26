@@ -92,3 +92,18 @@ btnConfirm.addEventListener("click", async () => {
   }
   confirmerReservation(trajetId);
 });
+
+//Recherche automatique apres redirection depuis le Header
+
+const filtreUrl = new URLSearchParams(window.location.search);
+if (filtreUrl) {
+  const depart = filtreUrl.get("depart");
+  const destination = filtreUrl.get("destination");
+  const departInput = document.getElementById("depart");
+  const destinationInput = document.getElementById("destination");
+  departInput.value = depart;
+  destinationInput.value = destination;
+  if (destinationInput?.value || departInput?.value) {
+    rechercherTrajets();
+  }
+}
