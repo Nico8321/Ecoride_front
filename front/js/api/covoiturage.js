@@ -1,11 +1,11 @@
-export async function postTrajet(trajet) {
+export async function postCovoiturage(covoiturage) {
   try {
-    const response = await fetch(`${api}/trajets`, {
+    const response = await fetch(`${api}/covoiturages`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(trajet),
+      body: JSON.stringify(covoiturage),
     });
     if (!response.ok) {
       throw new Error(`Erreur HTTP: ${response.status}`);
@@ -16,9 +16,9 @@ export async function postTrajet(trajet) {
     throw error;
   }
 }
-export async function getTrajetsByUser(id) {
+export async function getCovoituragesByUser(id) {
   try {
-    const response = await fetch(`${api}/user/${id}/trajet`);
+    const response = await fetch(`${api}/user/${id}/covoiturage`);
     if (!response.ok) {
       throw new Error(`Erreur HTTP: ${response.status}`);
     }
@@ -29,10 +29,10 @@ export async function getTrajetsByUser(id) {
     throw error;
   }
 }
-export async function findTrajet(filtres) {
+export async function findCovoiturage(filtres) {
   try {
     const query = new URLSearchParams(filtres).toString();
-    const response = await fetch(`${api}/trajets?${query}`);
+    const response = await fetch(`${api}/covoiturages?${query}`);
     if (!response.ok) {
       throw new Error(`Erreur HTTP: ${response.status}`);
     }

@@ -1,6 +1,6 @@
 import { verificationAdresse } from "./utils/verifAdresse.js";
 import { isLoggedIn } from "./auth/authHelper.js";
-import { postTrajet } from "./api/trajet.js";
+import { postCovoiturage } from "./api/covoiturage.js";
 
 // Lancement de l'autocomplétion sur les champs départ et destination
 verificationAdresse("depart", "suggestions-depart");
@@ -48,19 +48,6 @@ const vehicule = document.getElementById("vehicule");
 const fumeur = document.getElementById("fumeur");
 const animaux = document.getElementById("animaux");
 
-const trajet = {
-  depart: depart.value,
-  destination: destination.value,
-  d_date: d_date.value,
-  d_time: d_time.value,
-  nbPlace: nbPlace.value,
-  prix: prix.value,
-  vehicule: vehicule.value,
-  fumeur: fumeur.value,
-  animaux: animaux.value,
-  conducteur_id: user.id,
-};
-
 // Gestion du clic sur publier : vérification du formulaire et de la connexion
 publierBtn.addEventListener("click", async () => {
   const loggedIn = await isLoggedIn();
@@ -69,7 +56,7 @@ publierBtn.addEventListener("click", async () => {
       // Redirection vers la connexion si l'utilisateur est pas connecté
       window.location.href = "signin.html";
     } else {
-      const trajet = {
+      const covoiturage = {
         depart: depart.value,
         destination: destination.value,
         d_date: d_date.value,
@@ -81,11 +68,11 @@ publierBtn.addEventListener("click", async () => {
         animaux: animaux.value,
         conducteur_id: user.id,
       };
-      // Envoi des infos du trajet si tout est bon
+      // Envoi des infos du covoiturage si tout est bon
       try {
-        const res = await postTrajet(trajet);
+        const res = await postCovoiturage(covoiturage);
         if (res) {
-          alert("Trajet créé avec succès");
+          alert("Covoiturage créé avec succès");
           window.location.href = "monCompte.html";
         }
       } catch (error) {

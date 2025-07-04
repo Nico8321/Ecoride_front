@@ -12,9 +12,9 @@ export async function getReservationByUser(id) {
   }
 }
 
-export async function reserver(info, trajetId) {
+export async function reserver(info, covoiturageId) {
   try {
-    const response = await fetch(`${api}/reservation/trajet/${trajetId}`, {
+    const response = await fetch(`${api}/reservation/covoiturage/${covoiturageId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

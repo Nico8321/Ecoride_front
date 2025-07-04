@@ -1,8 +1,8 @@
-import { createTrajetCard } from "./components/trajetCard.js";
+import { createCovoiturageCard } from "./components/covoiturageCard.js";
 import { changeText } from "./utils/changeText.js";
 import { verificationAdresse } from "./utils/verifAdresse.js";
 import { showToast } from "./components/toast.js";
-import { findTrajet } from "./api/trajet.js";
+import { findCovoiturage } from "./api/covoiturage.js";
 import { isLoggedIn } from "./auth/authHelper.js";
 
 verificationAdresse("depart", "suggestions-depart");
@@ -13,7 +13,7 @@ accordionButton.addEventListener("click", changeText);
 
 // recuperation des valeurs des inputs pour la recherche
 function getFiltres() {
-  const donnees = ["depart", "destination", "date", "heure", "cout", "note"];
+  const donnees = ["depart", "destination", "date", "heure", "prix", "note"];
   const filtres = {};
 
   donnees.forEach((key) => {
@@ -32,18 +32,18 @@ function getFiltres() {
 }
 
 // Appelle de la requete de recherche
-async function rechercherTrajets() {
+async function rechercherCovoiturages() {
   const filtres = getFiltres();
   const resultatsContainer = document.getElementById("resultatsContainer");
   resultatsContainer.innerHTML = "";
   try {
-    const trajets = await findTrajet(filtres);
-    if (trajets.length > 0) {
-      trajets.forEach((trajet) => {
-        createTrajetCard(trajet, "resultatsContainer");
+    const covoiturages = await findCovoiturage(filtres);
+    if (covoiturages.length > 0) {
+      covoiturages.forEach((covoiturage) => {
+        createCovoiturageCard(covoiturage, "resultatsContainer");
       });
     } else {
-      showToast("Aucun trajet trouvé", "info");
+      showToast("Aucun covoiturage trouvé", "info");
     }
   } catch (error) {
     showToast(error.message, "error");
@@ -51,29 +51,29 @@ async function rechercherTrajets() {
 }
 const btnRechercher = document.getElementById("btnRechercher");
 btnRechercher.addEventListener("click", () => {
-  rechercherTrajets();
+  rechercherCovoiturages();
 });
 
 const reservationModal = document.getElementById("reservationModal");
 
 reservationModal.addEventListener("show.bs.modal", (event) => {
   const button = event.relatedTarget;
-  const trajetId = button.getAttribute("data-id");
+  const covoiturageId = button.getAttribute("data-id");
   const btnConfirm = document.getElementById("btnConfirmation");
-  btnConfirm.dataset.id = trajetId;
+  btnConfirm.dataset.id = covoiturageId;
 });
 
 const user = JSON.parse(sessionStorage.getItem("user"));
 const nbPlaces = document.getElementById("nbPlaces");
 
-async function confirmerReservation(trajetId) {
+async function confirmerReservation(covoiturageId) {
   const reservationInfo = {
     userId: user.id,
-    trajetId: trajetId,
+    covoiturageId: covoiturageId,
     nbPlaces: nbPlaces.value,
   };
   try {
-    const response = await reserver(reservationInfo, trajetId);
+    const response = await reserver(reservationInfo, covoiturageId);
     if (response) {
       showToast("Reservation envoyée", response);
     }
@@ -83,14 +83,14 @@ async function confirmerReservation(trajetId) {
 }
 const btnConfirm = document.getElementById("btnConfirmation");
 btnConfirm.addEventListener("click", async () => {
-  const trajetId = btnConfirm.dataset.id;
+  const covoiturageId = btnConfirm.dataset.id;
   const result = await isLoggedIn();
   if (!result) {
     showToast("Vous devais etre connecté pour reserver", "info");
     window.location.replace("/signin");
     return;
   }
-  confirmerReservation(trajetId);
+  confirmerReservation(covoiturageId);
 });
 
 //Recherche automatique apres redirection depuis le Header
@@ -104,6 +104,6 @@ if (filtreUrl) {
   departInput.value = depart;
   destinationInput.value = destination;
   if (destinationInput?.value || departInput?.value) {
-    rechercherTrajets();
+    rechercherCovoiturages();
   }
 }

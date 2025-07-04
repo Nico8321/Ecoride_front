@@ -1,7 +1,7 @@
 import { getReservationByUser } from "./api/reservation.js";
-import { getTrajetsByUser, postTrajet } from "./api/trajet.js";
+import { getCovoituragesByUser, postCovoiturage } from "./api/covoiturage.js";
 import { addVehicule, deleteUser, deleteVehicule } from "./api/user.js";
-import { createTrajetCard } from "./components/trajetCard.js";
+import { createCovoiturageCard } from "./components/covoiturageCard.js";
 import { inputValidator } from "./utils/inputValidator.js";
 import { patchUser } from "./api/user.js";
 import { showToast } from "./components/toast.js";
@@ -183,19 +183,19 @@ btnAddVehicule.addEventListener("click", () => {
 });
 
 // ==========================
-// GESTION DES TRAJETS
+// GESTION DES COVOITURAGES
 // ==========================
-// Récupère et affiche les trajets proposés par l’utilisateur
+// Récupère et affiche les covoiturages proposés par l’utilisateur
 
 const propose = document.getElementById("propose");
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const trajets = await getTrajetsByUser(user.id);
-    if (trajets.length > 0) {
+    const covoiturages = await getCovoituragesByUser(user.id);
+    if (covoiturages.length > 0) {
       propose.innerHTML = "";
-      trajets.forEach((trajet) => {
-        if (trajet.conducteur_id === user.id) {
-          createTrajetCard(trajet, propose);
+      covoiturages.forEach((covoiturage) => {
+        if (covoiturage.conducteur_id === user.id) {
+          createCovoiturageCard(covoiturage, propose);
         }
       });
     }
@@ -204,23 +204,23 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// Récupère les trajets réservés : à venir → zone "Réservés", passés → zone "Passés"
+// Récupère les covoiturages réservés : à venir → zone "Réservés", passés → zone "Passés"
 
 const reserve = document.getElementById("reserve");
 const passe = document.getElementById("passe");
 document.addEventListener("DOMContentLoaded", async () => {
-  // Date du jour pour différencier les trajets passés / à venir
+  // Date du jour pour différencier les covoiturages passés / à venir
 
   const today = new Date().toISOString().split("T")[0];
   try {
-    const trajets = await getReservationByUser(user.id);
-    if (trajets.length > 0) {
+    const covoiturages = await getReservationByUser(user.id);
+    if (covoiturages.length > 0) {
       propose.innerHTML = "";
-      trajets.forEach((trajet) => {
-        if (trajet.date >= today) {
-          createTrajetCard(trajet, reserve);
+      covoiturages.forEach((covoiturage) => {
+        if (covoiturage.date >= today) {
+          createCovoituragetCard(covoiturage, reserve);
         } else {
-          createTrajetCard(trajet, passe);
+          createCovoiturageCard(covoiturage, passe);
         }
       });
     }
