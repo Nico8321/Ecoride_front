@@ -1,6 +1,6 @@
 export async function deleteVehicule(userId, vehiculeId) {
   try {
-    const response = await fetch(`${apiUrl}/user/${userId}/vehicule/${vehiculeId}`, {
+    const response = await fetch(`${apiUrl}/vehicule/${vehiculeId}/user/${userId}`, {
       method: "DELETE",
     });
     if (!response.ok) {
@@ -13,7 +13,7 @@ export async function deleteVehicule(userId, vehiculeId) {
 }
 export async function addVehicule(userId, newVehicule) {
   try {
-    const response = await fetch(`${apiUrl}/user/${userId}/vehicule`, {
+    const response = await fetch(`${apiUrl}/vehicule/user/${userId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

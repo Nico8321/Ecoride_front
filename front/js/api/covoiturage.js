@@ -18,7 +18,7 @@ export async function postCovoiturage(covoiturage) {
 }
 export async function getCovoituragesByUser(id) {
   try {
-    const response = await fetch(`${api}/user/${id}/covoiturage`);
+    const response = await fetch(`${api}/covoiturage/user/${id}`);
     if (!response.ok) {
       throw new Error(`Erreur HTTP: ${response.status}`);
     }

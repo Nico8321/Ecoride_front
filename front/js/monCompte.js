@@ -7,7 +7,7 @@ import { patchUser } from "./api/user.js";
 import { showToast } from "./components/toast.js";
 // TEMPORAIRE : Ajout manuel de données user dans sessionStorage pour test (à retirer après lien avec le back)
 
-if (!sessionStorage.getItem("user")) {
+/*if (!sessionStorage.getItem("user")) {
   sessionStorage.setItem(
     "user",
     JSON.stringify({
@@ -25,7 +25,8 @@ if (!sessionStorage.getItem("user")) {
       ],
     })
   );
-}
+}*/
+
 // ==========================
 // GESTION DES INFOS DE L'USER
 // ==========================
