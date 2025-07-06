@@ -23,7 +23,9 @@ function getFiltres() {
     }
   });
 
-  const energieChecked = document.querySelector('input[name="radioEnergie"]:checked');
+  const energieChecked = document.querySelector(
+    'input[name="radioEnergie"]:checked'
+  );
   if (energieChecked) {
     filtres["energie"] = energieChecked.id;
   }
@@ -40,7 +42,9 @@ async function rechercherCovoiturages() {
     const covoiturages = await findCovoiturage(filtres);
     if (covoiturages.length > 0) {
       covoiturages.forEach((covoiturage) => {
-        createCovoiturageCard(covoiturage, "resultatsContainer");
+        if (covoiturage.nbPlaces > 0) {
+          createCovoiturageCard(covoiturage, "resultatsContainer");
+        }
       });
     } else {
       showToast("Aucun covoiturage trouvé", "info");
