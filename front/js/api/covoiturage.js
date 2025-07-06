@@ -1,6 +1,7 @@
+import { apiUrl } from "../config.js";
 export async function postCovoiturage(covoiturage) {
   try {
-    const response = await fetch(`${api}/covoiturages`, {
+    const response = await fetch(`${apiUrl}/covoiturages`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -18,7 +19,7 @@ export async function postCovoiturage(covoiturage) {
 }
 export async function getCovoituragesByUser(id) {
   try {
-    const response = await fetch(`${api}/covoiturage/user/${id}`);
+    const response = await fetch(`${apiUrl}/covoiturage/user/${id}`);
     if (!response.ok) {
       throw new Error(`Erreur HTTP: ${response.status}`);
     }
@@ -32,7 +33,7 @@ export async function getCovoituragesByUser(id) {
 export async function findCovoiturage(filtres) {
   try {
     const query = new URLSearchParams(filtres).toString();
-    const response = await fetch(`${api}/covoiturages?${query}`);
+    const response = await fetch(`${apiUrl}/covoiturages?${query}`);
     if (!response.ok) {
       throw new Error(`Erreur HTTP: ${response.status}`);
     }

@@ -1,6 +1,8 @@
+import { apiUrl } from "../config.js";
+
 export async function loginUser(email, password) {
   try {
-    const response = await fetch(`${apiUrl}/signin`, {
+    const response = await fetch(`${apiUrl}/user/signin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -20,7 +22,7 @@ export async function loginUser(email, password) {
 
 export async function newUser(user) {
   try {
-    const response = await fetch(`${apiUrl}/signup`, {
+    const response = await fetch(`${apiUrl}/user/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

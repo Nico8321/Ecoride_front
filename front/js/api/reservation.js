@@ -1,6 +1,7 @@
+import { apiUrl } from "../config.js";
 export async function getReservationByUser(id) {
   try {
-    const response = await fetch(`${api}/reservation/utilisateur/${id}`);
+    const response = await fetch(`${apiUrl}/reservation/utilisateur/${id}`);
     if (!response.ok) {
       throw new Error(`Erreur HTTP: ${response.status}`);
     }
@@ -14,7 +15,7 @@ export async function getReservationByUser(id) {
 
 export async function reserver(info, covoiturageId) {
   try {
-    const response = await fetch(`${api}/reservation/covoiturage/${covoiturageId}`, {
+    const response = await fetch(`${apiUrl}/reservation/covoiturage/${covoiturageId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -22,7 +23,7 @@ export async function reserver(info, covoiturageId) {
       body: JSON.stringify(info),
     });
     if (!response.ok) {
-      throw new Error("Erreur HTTTP:", response.status);
+      throw new Error("Erreur HTTP:", response.status);
     }
     return await response.json();
   } catch (error) {

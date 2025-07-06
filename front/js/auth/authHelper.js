@@ -1,3 +1,4 @@
+import { apiUrl } from "../config.js";
 export async function verifyToken() {
   const token = sessionStorage.getItem("token");
   if (!token) return false;

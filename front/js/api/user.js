@@ -1,3 +1,4 @@
+import { apiUrl } from "../config.js";
 export async function deleteVehicule(userId, vehiculeId) {
   try {
     const response = await fetch(`${apiUrl}/vehicule/${vehiculeId}/user/${userId}`, {
