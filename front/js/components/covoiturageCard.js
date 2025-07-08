@@ -4,10 +4,18 @@ export function createCovoiturageCard(covoiturage, destination) {
   card.className = "card shadow-sm w-100 mb-3";
   card.innerHTML = `
 <div class="card-body d-flex flex-column flex-md-row gap-3">
+ ${
+   covoiturage.energie === "electrique"
+     ? `<div class="position-absolute top-0 start-0 bg-success text-white px-2 py-1 rounded-start">
+         ECO
+       </div>`
+     : ""
+ }
+
       <!-- Colonne : Profil + Nom + Note -->
       <div class="d-flex align-items-center">
         <div class="me-3">
-          <img src="/images/profil.JPG" alt="photo de profil" style="height: 75px; width: 75px; object-fit: cover" class="rounded-circle" />
+          <img src="${conducteur.photo}" alt="photo de profil" style="height: 75px; width: 75px; object-fit: cover" class="rounded-circle" />
         </div>
         <div>
           <p class="card-text fw-bold mb-1">${covoiturage.conducteur}</p>
@@ -20,6 +28,8 @@ export function createCovoiturageCard(covoiturage, destination) {
         <h3 class="card-title mb-0">
           <span class="small-text p-3 d-block">${covoiturage.date} à ${covoiturage.heure}</span>
            ${covoiturage.depart} → ${covoiturage.destination}
+           <br />
+          <span class="small-text p-3 d-block">places disponibles : ${covoiturage.nbPlaces}</span>
         </h3>
       </div>
 
@@ -31,7 +41,7 @@ export function createCovoiturageCard(covoiturage, destination) {
     </div>
 
     <!-- Accordéon détails -->
-    <div class="accordion mt-3" id="accordionDetails-${covoiturageid}">
+    <div class="accordion mt-3" id="accordionDetails-${covoiturage.id}">
       <div class="accordion-item border-0">
         <h2 class="accordion-header" id="heading-${covoiturage.id}">
           <button
@@ -59,7 +69,7 @@ export function createCovoiturageCard(covoiturage, destination) {
             <p><strong>Énergie :</strong> ${covoiturage.energie}</p>
             <p><strong>Fumeur accepté :</strong> ${covoiturage.fumeur ? "Oui" : "Non"}</p>
             <p><strong>Animaux acceptés :</strong> ${covoiturage.animaux ? "Oui" : "Non"}</p>
-            <p><strong>Places disponibles :</strong> ${covoiturage.places}</p>
+            <p><strong>Places disponibles :</strong> ${covoiturage.nbPlaces}</p>
           </div>
         </div>
       </div>
