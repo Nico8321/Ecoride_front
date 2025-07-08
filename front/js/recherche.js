@@ -4,36 +4,20 @@ import { verificationAdresse } from "./utils/verifAdresse.js";
 import { showToast } from "./components/toast.js";
 import { findCovoiturage } from "./api/covoiturage.js";
 import { isLoggedIn } from "./auth/authHelper.js";
+import { getFiltres } from "./utils/getFiltres.js";
+
+// Active la suggestion automatique pour les champs adresse
 
 verificationAdresse("depart", "suggestions-depart");
 verificationAdresse("destination", "suggestions-destination");
 
+// Change le texte du bouton accordéon au clic
+
 const accordionButton = document.getElementById("accordionButton");
 accordionButton.addEventListener("click", changeText);
 
-// recuperation des valeurs des inputs pour la recherche
-function getFiltres() {
-  const donnees = ["depart", "destination", "date", "heure", "prix", "note"];
-  const filtres = {};
+// Fonction principale pour lancer la recherche récupère les covoiturages filtrés et les affiche
 
-  donnees.forEach((key) => {
-    const input = document.getElementById(key);
-    if (input?.value) {
-      filtres[key] = input.value;
-    }
-  });
-
-  const energieChecked = document.querySelector(
-    'input[name="radioEnergie"]:checked'
-  );
-  if (energieChecked) {
-    filtres["energie"] = energieChecked.id;
-  }
-
-  return filtres;
-}
-
-// Appelle de la requete de recherche
 async function rechercherCovoiturages() {
   const filtres = getFiltres();
   const resultatsContainer = document.getElementById("resultatsContainer");
@@ -42,6 +26,7 @@ async function rechercherCovoiturages() {
     const covoiturages = await findCovoiturage(filtres);
     if (covoiturages.length > 0) {
       covoiturages.forEach((covoiturage) => {
+        // N'affiche que les covoiturages avec des places disponibles
         if (covoiturage.nbPlaces > 0) {
           createCovoiturageCard(covoiturage, "resultatsContainer");
         }
@@ -53,10 +38,14 @@ async function rechercherCovoiturages() {
     showToast(error.message, "error");
   }
 }
+// Lancement de la recherche au clic sur le bouton
+
 const btnRechercher = document.getElementById("btnRechercher");
 btnRechercher.addEventListener("click", () => {
   rechercherCovoiturages();
 });
+
+// Gère l'ouverture du modal de réservation
 
 const reservationModal = document.getElementById("reservationModal");
 
@@ -69,6 +58,8 @@ reservationModal.addEventListener("show.bs.modal", (event) => {
 
 const user = JSON.parse(sessionStorage.getItem("user"));
 const nbPlaces = document.getElementById("nbPlaces");
+
+// Envoie les infos de réservation au serveur
 
 async function confirmerReservation(covoiturageId) {
   const reservationInfo = {
@@ -85,6 +76,8 @@ async function confirmerReservation(covoiturageId) {
     showToast(error.message, "error");
   }
 }
+// Vérifie si l'utilisateur est connecté avant de réserver
+
 const btnConfirm = document.getElementById("btnConfirmation");
 btnConfirm.addEventListener("click", async () => {
   const covoiturageId = btnConfirm.dataset.id;
@@ -97,17 +90,31 @@ btnConfirm.addEventListener("click", async () => {
   confirmerReservation(covoiturageId);
 });
 
-//Recherche automatique apres redirection depuis le Header
+// recherche automatique apres redirection depuis le Header ou page Home
 
 const filtreUrl = new URLSearchParams(window.location.search);
 if (filtreUrl) {
-  const depart = filtreUrl.get("depart");
-  const destination = filtreUrl.get("destination");
-  const departInput = document.getElementById("depart");
-  const destinationInput = document.getElementById("destination");
-  departInput.value = depart;
-  destinationInput.value = destination;
-  if (destinationInput?.value || departInput?.value) {
+  const keys = ["depart", "destination", "date", "heure", "prix", "note", "duree", "energie"];
+  let hasValue = false;
+
+  keys.forEach((key) => {
+    const value = filtreUrl.get(key);
+    if (value !== null) {
+      const input = document.getElementById(key);
+      if (input) {
+        input.value = value;
+        hasValue = true;
+      } else if (key === "energie") {
+        const radio = document.getElementById(value);
+        if (radio) {
+          radio.checked = true;
+          hasValue = true;
+        }
+      }
+    }
+  });
+
+  if (hasValue) {
     rechercherCovoiturages();
   }
 }

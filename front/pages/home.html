@@ -86,9 +86,11 @@
           <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse bg-secondary">
             <div class="accordion-body p-0">
               <div class="d-flex flex-wrap pt-2">
-                <div class="mb-3 p-2 d-flex align-items-start flex-fill">
-                  <label for="cout" class="form-label">Cout max :</label>
+                <div class="mb-3 p-2 d-block align-items-start flex-fill">
+                  <label for="prix" class="form-label">Cout max :</label>
                   <input type="text" class="form-control border-0" id="cout" />
+                  <label for="duree" class="form-label">Temps de trajet max:</label>
+                  <input type="text" class="form-control border-0" id="duree" placeholder="en minutes" />
                 </div>
                 <div class="mb-3 p-2 d-flex align-items-start flex-fill">
                   <p class="form-label me-2">Énergie :</p>
@@ -114,6 +116,7 @@
                 <div class="mb-3 p-2 d-flex align-items-start flex-fill">
                   <label for="note" class="form-label">Note conducteur :</label>
                   <select id="note" name="note" class="form-select w-auto border-0 bg-secondary pt-0 text-primary">
+                    <option disabled selected value="">Sélectionner une note</option>
                     <option value="1">★☆☆☆☆</option>
                     <option value="2">★★☆☆☆</option>
                     <option value="3">★★★☆☆</option>
@@ -128,7 +131,7 @@
       </div>
 
       <div class="text-center mt-1">
-        <button type="button" class="btn btn-primary text-secondary">Rechercher</button>
+        <button type="button" class="btn btn-primary text-secondary" id="btnFormRechercher">Rechercher</button>
       </div>
     </form>
   </div>
