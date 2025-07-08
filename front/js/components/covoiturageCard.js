@@ -29,7 +29,8 @@ export function createCovoiturageCard(covoiturage, destination) {
           <span class="small-text p-3 d-block">${covoiturage.date} à ${covoiturage.heure}</span>
            ${covoiturage.depart} → ${covoiturage.destination}
            <br />
-          <span class="small-text p-3 d-block">places disponibles : ${covoiturage.nbPlaces}</span>
+           <span class="small-text pt-3 d-block ">Durée: ${covoiturage.duree} minutes</span>
+          <span class="small-text d-block p-1 ">places disponibles : ${covoiturage.nbPlaces}</span>
         </h3>
       </div>
 
