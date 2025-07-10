@@ -19,7 +19,7 @@ if (!sessionStorage.getItem("user")) {
       note: "4.2",
       credit: "25",
       vehicule: [
-        { id: "154", marque: "Bmw", modele: "serie 3", energie: "essence" },
+        { id: "154", immatriculation: "AB-454-CD", marque: "Bmw", modele: "serie 3", energie: "essence", couleur: "noir", dateImmat: "25.01.2023" },
         {
           id: "258",
           marque: "Mercedes",
@@ -43,7 +43,7 @@ if (!sessionStorage.getItem("user")) {
 
 // Récupération de l'user depuis le sessionStorage
 
-const données = ["pseudo", "nom", "prenom", "adresse", "telephone", "photo"];
+const données = ["pseudo", "nom", "prenom", "adresse", "telephone"];
 const user = JSON.parse(sessionStorage.getItem("user"));
 
 //remplissage des champs
@@ -121,8 +121,11 @@ function ajoutDivVehicule(vehicule) {
   div.id = vehicule.id;
   div.innerHTML = `
   <h3>Véhicule ${vehicule.id} </h3>
+          <p>${vehicule.immatriculation}</p>
           <p>${vehicule.marque}</p>
           <p>${vehicule.modele}</p>
+          <p>${vehicule.couleur}</p>
+          <p>${vehicule.dateImmat}</p>
           <p>${vehicule.energie}</p>
           <button  id="${vehicule.id}" class="btn btn-link shadow-none p-0 m-0">Supprimer</button>`;
   vehiculeDiv.appendChild(div);
@@ -140,9 +143,7 @@ async function supprimerVehicule(userId, vehiculeId) {
     const idVehiculeSupprime = await deleteVehicule(userId, vehiculeId);
     if (idVehiculeSupprime) {
       document.getElementById(idVehiculeSupprime).remove();
-      const updatedVehicules = user.vehicule.filter(
-        (v) => v.id !== idVehiculeSupprime
-      );
+      const updatedVehicules = user.vehicule.filter((v) => v.id !== idVehiculeSupprime);
       user.vehicule = updatedVehicules;
       sessionStorage.setItem("user", JSON.stringify(user));
     }
@@ -165,6 +166,9 @@ boutonsSuppr.forEach((button) => {
 const marque = document.getElementById("marque");
 const modele = document.getElementById("modele");
 const energie = document.getElementById("energie");
+const couleur = document.getElementById("couleur");
+const immatriculation = document.getElementById("immatriculation");
+const dateImmat = document.getElementById("dateImmat");
 
 async function ajoutVehicule(userId) {
   const form = document.getElementById("form-ajout-vehicule");
@@ -173,6 +177,9 @@ async function ajoutVehicule(userId) {
       marque: marque.value,
       modele: modele.value,
       energie: energie.value,
+      dateImmat: dateImmat.value,
+      immatriculation: immatriculation.value,
+      couleur: couleur.value,
     };
     try {
       const newVehicule = await addVehicule(user.id, vehicule);
@@ -180,9 +187,7 @@ async function ajoutVehicule(userId) {
         ajoutDivVehicule(newVehicule);
         user.vehicule.push(newVehicule);
         sessionStorage.setItem("user", JSON.stringify(user));
-        const modal = bootstrap.Modal.getInstance(
-          document.getElementById("modalVehicule")
-        );
+        const modal = bootstrap.Modal.getInstance(document.getElementById("modalVehicule"));
         modal.hide();
       }
     } catch (error) {
