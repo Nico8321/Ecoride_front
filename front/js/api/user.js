@@ -81,3 +81,28 @@ export async function deleteUser(userId) {
     throw error;
   }
 }
+// Envoie du fichier au backend via fetch (multipart/form-data)
+export async function postPhoto(fichier) {
+  // création d'un formData pour l'envoi du fichier
+  const formData = new FormData();
+  // ajout du fichier à envoyer dans le formData
+  formData.append("photo", fichier);
+  const user = JSON.parse(sessionStorage.getItem("user"));
+
+  try {
+    // appel POST vers l'API pour l'envoi de la photo
+    const response = await fetch(`${apiUrl}/user/photo/${user.id}`, {
+      method: "POST",
+      body: formData,
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+      showToast("Photo enregistrée !");
+    } else {
+      showToast(result.message || "Erreur lors de l'envoi", "error");
+    }
+  } catch (err) {
+    showToast("Erreur de réseau", "error");
+  }
+}
