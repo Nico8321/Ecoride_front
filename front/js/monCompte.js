@@ -7,7 +7,7 @@ import { patchUser } from "./api/user.js";
 import { showToast } from "./components/toast.js";
 // TEMPORAIRE : Ajout manuel de données user dans sessionStorage pour test (à retirer après lien avec le back)
 
-/*if (!sessionStorage.getItem("user")) {
+if (!sessionStorage.getItem("user")) {
   sessionStorage.setItem(
     "user",
     JSON.stringify({
@@ -20,12 +20,22 @@ import { showToast } from "./components/toast.js";
       credit: "25",
       vehicule: [
         { id: "154", marque: "Bmw", modele: "serie 3", energie: "essence" },
-        { id: "258", marque: "Mercedes", modele: "classe a", energie: "hybride" },
-        { id: "345", marque: "Mercedes", modele: "classe c", energie: "electrique" },
+        {
+          id: "258",
+          marque: "Mercedes",
+          modele: "classe a",
+          energie: "hybride",
+        },
+        {
+          id: "345",
+          marque: "Mercedes",
+          modele: "classe c",
+          energie: "electrique",
+        },
       ],
     })
   );
-}*/
+}
 
 // ==========================
 // GESTION DES INFOS DE L'USER
@@ -33,7 +43,7 @@ import { showToast } from "./components/toast.js";
 
 // Récupération de l'user depuis le sessionStorage
 
-const données = ["pseudo", "nom", "prenom", "adresse", "telephone"];
+const données = ["pseudo", "nom", "prenom", "adresse", "telephone", "photo"];
 const user = JSON.parse(sessionStorage.getItem("user"));
 
 //remplissage des champs
@@ -130,7 +140,9 @@ async function supprimerVehicule(userId, vehiculeId) {
     const idVehiculeSupprime = await deleteVehicule(userId, vehiculeId);
     if (idVehiculeSupprime) {
       document.getElementById(idVehiculeSupprime).remove();
-      const updatedVehicules = user.vehicule.filter((v) => v.id !== idVehiculeSupprime);
+      const updatedVehicules = user.vehicule.filter(
+        (v) => v.id !== idVehiculeSupprime
+      );
       user.vehicule = updatedVehicules;
       sessionStorage.setItem("user", JSON.stringify(user));
     }
@@ -168,7 +180,9 @@ async function ajoutVehicule(userId) {
         ajoutDivVehicule(newVehicule);
         user.vehicule.push(newVehicule);
         sessionStorage.setItem("user", JSON.stringify(user));
-        const modal = bootstrap.Modal.getInstance(document.getElementById("modalVehicule"));
+        const modal = bootstrap.Modal.getInstance(
+          document.getElementById("modalVehicule")
+        );
         modal.hide();
       }
     } catch (error) {

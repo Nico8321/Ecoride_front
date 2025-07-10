@@ -1,4 +1,5 @@
 import { apiUrl } from "../config.js";
+import { showToast } from "../components/toast.js";
 
 export async function loginUser(email, password) {
   try {
@@ -32,10 +33,10 @@ export async function newUser(user) {
     if (!response.ok) {
       throw new Error(`Erreur HTTP: ${response.status}`);
     }
-    console.log("Utilisateur créé avec succés");
+    showToast("Utilisateur créé avec succés", "succes");
     window.location.href = "signin.html";
   } catch (error) {
-    console.error(`Erreur : ${error.message}`);
+    showToast(error.message, "alert");
   }
 }
 
