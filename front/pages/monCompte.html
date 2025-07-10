@@ -175,12 +175,8 @@
             <label for="telephone" class="form-label">Telephone :</label>
             <input type="tel" class="form-control" id="telephone" value="$telephone" />
           </div>
-          <div class="mb-3">
-            <label for="photo" class="form-label">Photo de profil :</label>
-            <input class="form-control" type="file" id="photo" accept="image/*" />
-          </div>
 
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalValidation">Sauvergarder</button>
+          <button type="button" class="btn btn-primary mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#modalValidation">Sauvergarder</button>
 
           <!-- Modal pour enregistrer les modifs -->
           <div class="modal fade" id="modalValidation" tabindex="-1" aria-labelledby="Validation" aria-hidden="true">
@@ -198,6 +194,15 @@
               </div>
             </div>
           </div>
+        </form>
+
+        <h2 class="pt-3">Ajouter/Modifier ma photo de profil</h2>
+        <form id="formPhoto" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label for="photo" class="form-label"></label>
+            <input class="form-control" type="file" id="photo" accept="image/*" />
+          </div>
+          <button type="button" class="btn btn-primary mt-3 mb-3" id="btnAddPhoto">Envoyer la photo</button>
         </form>
 
         <div class="pt-3">

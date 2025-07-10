@@ -1,6 +1,6 @@
 import { getReservationByUser } from "./api/reservation.js";
 import { getCovoituragesByUser, postCovoiturage } from "./api/covoiturage.js";
-import { addVehicule, deleteUser, deleteVehicule } from "./api/user.js";
+import { addVehicule, deleteUser, deleteVehicule, postPhoto } from "./api/user.js";
 import { createCovoiturageCard } from "./components/covoiturageCard.js";
 import { inputValidator } from "./utils/inputValidator.js";
 import { patchUser } from "./api/user.js";
@@ -271,3 +271,17 @@ const deleteUserBtn = document.getElementById("deleteUserBtn");
 deleteUserBtn.addEventListener("click", () => {
   desinscription(user.id);
 });
+
+// GESTION DE LA PHOTO DE PROFIL
+// récupération du fichier dans le champ input et envoi via l'API
+const btnAddPhoto = document.getElementById("btnAddPhoto");
+
+function addPhoto() {
+  // Récupère le fichier sélectionné dans le champ "photo"
+  const fichier = document.getElementById("photo").files[0];
+  // vérifie qu'un fichier est bien sélectionné
+  if (fichier) {
+    postPhoto(fichier);
+  }
+}
+btnAddPhoto.addEventListener("click", () => addPhoto());
