@@ -1,6 +1,11 @@
 import { getReservationByUser } from "./api/reservation.js";
 import { getCovoituragesByUser, postCovoiturage } from "./api/covoiturage.js";
-import { addVehicule, deleteUser, deleteVehicule, postPhoto } from "./api/user.js";
+import {
+  addVehicule,
+  deleteUser,
+  deleteVehicule,
+  postPhoto,
+} from "./api/user.js";
 import { createCovoiturageCard } from "./components/covoiturageCard.js";
 import { inputValidator } from "./utils/inputValidator.js";
 import { patchUser } from "./api/user.js";
@@ -19,7 +24,15 @@ if (!sessionStorage.getItem("user")) {
       note: "4.2",
       credit: "25",
       vehicule: [
-        { id: "154", immatriculation: "AB-454-CD", marque: "Bmw", modele: "serie 3", energie: "essence", couleur: "noir", dateImmat: "25.01.2023" },
+        {
+          id: "154",
+          immatriculation: "AB-454-CD",
+          marque: "Bmw",
+          modele: "serie 3",
+          energie: "essence",
+          couleur: "noir",
+          dateImmat: "25.01.2023",
+        },
         {
           id: "258",
           marque: "Mercedes",
@@ -143,7 +156,9 @@ async function supprimerVehicule(userId, vehiculeId) {
     const idVehiculeSupprime = await deleteVehicule(userId, vehiculeId);
     if (idVehiculeSupprime) {
       document.getElementById(idVehiculeSupprime).remove();
-      const updatedVehicules = user.vehicule.filter((v) => v.id !== idVehiculeSupprime);
+      const updatedVehicules = user.vehicule.filter(
+        (v) => v.id !== idVehiculeSupprime
+      );
       user.vehicule = updatedVehicules;
       sessionStorage.setItem("user", JSON.stringify(user));
     }
@@ -187,7 +202,9 @@ async function ajoutVehicule(userId) {
         ajoutDivVehicule(newVehicule);
         user.vehicule.push(newVehicule);
         sessionStorage.setItem("user", JSON.stringify(user));
-        const modal = bootstrap.Modal.getInstance(document.getElementById("modalVehicule"));
+        const modal = bootstrap.Modal.getInstance(
+          document.getElementById("modalVehicule")
+        );
         modal.hide();
       }
     } catch (error) {
@@ -279,9 +296,13 @@ const btnAddPhoto = document.getElementById("btnAddPhoto");
 function addPhoto() {
   // Récupère le fichier sélectionné dans le champ "photo"
   const fichier = document.getElementById("photo").files[0];
-  // vérifie qu'un fichier est bien sélectionné
   if (fichier) {
-    postPhoto(fichier);
+    if (fichier.size > 2 * 1024 * 1024) {
+      showToast("Fichier trop lourd (max 2 Mo)", "error");
+      return;
+    } else {
+      postPhoto(fichier);
+    }
   }
 }
 btnAddPhoto.addEventListener("click", () => addPhoto());

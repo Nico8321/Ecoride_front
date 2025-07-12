@@ -1,9 +1,12 @@
 import { apiUrl } from "../config.js";
 export async function deleteVehicule(userId, vehiculeId) {
   try {
-    const response = await fetch(`${apiUrl}/vehicule/${vehiculeId}/user/${userId}`, {
-      method: "DELETE",
-    });
+    const response = await fetch(
+      `${apiUrl}/vehicule/${vehiculeId}/user/${userId}`,
+      {
+        method: "DELETE",
+      }
+    );
     if (!response.ok) {
       throw new Error(`Erreur HTTP : ${response.status}`);
     }
@@ -102,7 +105,7 @@ export async function postPhoto(fichier) {
     } else {
       showToast(result.message || "Erreur lors de l'envoi", "error");
     }
-  } catch (err) {
-    showToast("Erreur de réseau", "error");
+  } catch (error) {
+    showToast("Erreur:", "error");
   }
 }
