@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       propose.innerHTML = "";
       covoiturages.forEach((covoiturage) => {
         if (covoiturage.date >= today) {
-          createCovoituragetCard(covoiturage, reserve);
+          createCovoiturageCard(covoiturage, reserve);
         } else {
           createCovoiturageCard(covoiturage, passe);
         }
@@ -306,3 +306,8 @@ function addPhoto() {
   }
 }
 btnAddPhoto.addEventListener("click", () => addPhoto());
+
+const nomFichier = user.photo; // récupéré depuis l'API, par exemple
+document.getElementById(
+  "photoProfil"
+).src = `${apiUrl}/uploads/photos/${nomFichier}`;
