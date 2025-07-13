@@ -1,12 +1,10 @@
 import { apiUrl } from "../config.js";
+import { showToast } from "../components/toast.js";
 export async function deleteVehicule(userId, vehiculeId) {
   try {
-    const response = await fetch(
-      `${apiUrl}/vehicule/${vehiculeId}/user/${userId}`,
-      {
-        method: "DELETE",
-      }
-    );
+    const response = await fetch(`${apiUrl}/vehicule/${vehiculeId}/user/${userId}`, {
+      method: "DELETE",
+    });
     if (!response.ok) {
       throw new Error(`Erreur HTTP : ${response.status}`);
     }
@@ -101,6 +99,9 @@ export async function postPhoto(fichier) {
 
     const result = await response.json();
     if (response.ok) {
+      const user = JSON.parse(sessionStorage.getItem("user"));
+      user.photo = result.filename;
+      sessionStorage.setItem("user", JSON.stringify(user));
       showToast("Photo enregistrée !");
     } else {
       showToast(result.message || "Erreur lors de l'envoi", "error");

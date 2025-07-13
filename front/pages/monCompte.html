@@ -1,32 +1,17 @@
 <!-- Sidebar fixe à gauche (desktop uniquement) -->
 
 <div class="row">
-  <div
-    class="sidebar d-none d-md-flex flex-column col-3"
-    style="position: fixed; height: 100vh"
-  >
-    <div
-      class="background-2 d-flex flex-column pt-4 p-3 col-3"
-      style="height: 100vh; position: fixed"
-    >
+  <div class="sidebar d-none d-md-flex flex-column col-3" style="position: fixed; height: 100vh">
+    <div class="background-2 d-flex flex-column pt-4 p-3 col-3" style="height: 100vh; position: fixed">
       <div class="card w-100 mb-3 background-2 border-0">
         <div class="card-body row">
           <div class="col-1 d-flex align-items-center">
             <div class="me-3">
-              <img
-                id="photoProfil"
-                src=""
-                alt="photo de profil"
-                style="height: 75px; width: 75px; object-fit: cover"
-                class="rounded-circle"
-              />
+              <img id="photoProfil" src="" alt="photo de profil" style="height: 75px; width: 75px; object-fit: cover" class="rounded-circle" />
             </div>
             <div>
               <p class="card-text h3 mb-1 ms-2" id="sidebarPseudo"></p>
-              <p class="card-text h3 mb-1 ms-2">
-                <span id="sidebarNote"></span
-                ><i class="bi bi-star-fill ps-1"></i>
-              </p>
+              <p class="card-text h3 mb-1 ms-2"><span id="sidebarNote"></span><i class="bi bi-star-fill ps-1"></i></p>
             </div>
           </div>
         </div>
@@ -42,35 +27,21 @@
   </div>
 
   <!-- Version mobile de la sidebar -->
-  <div
-    class="sidebar-mobile d-flex d-md-none sticky-top pt-3 mt-1 align-items-center justify-content-between background-3 w-100 px-3"
-  >
+  <div class="sidebar-mobile d-flex d-md-none sticky-top pt-3 mt-1 align-items-center justify-content-between background-3 w-100 px-3">
     <div class="d-flex align-items-center">
-      <img
-        id="photoProfil"
-        src=""
-        alt="photo de profil"
-        style="height: 40px; width: 40px; object-fit: cover"
-        class="rounded-circle"
-      />
+      <img id="photoProfil" src="" alt="photo de profil" style="height: 40px; width: 40px; object-fit: cover" class="rounded-circle" />
       <p class="pt-3 ps-2" id="sidebarPseudoM"></p>
-      <p class="pt-3 ps-2">
-        <span id="sidebarNoteM"></span><i class="bi bi-star-fill ps-2"></i>
-      </p>
+      <p class="pt-3 ps-2"><span id="sidebarNoteM"></span><i class="bi bi-star-fill ps-2"></i></p>
     </div>
     <p class="pt-3" id="sidebarCreditM"></p>
   </div>
 
-  <div
-    class="sidebar-mobile d-flex d-md-none sticky-top background-2 pt-3 overflow-auto"
-  >
+  <div class="sidebar-mobile d-flex d-md-none sticky-top background-2 pt-3 overflow-auto">
     <a href="#reservations" class="me-3 p-2">Mes covoiturages reservés</a>
     <a href="#propose" class="me-3 p-2">Mes covoiturages proposés</a>
     <a href="#passe" class="me-3 p-2">Mes covoiturages passés</a>
     <a href="#mesVehicules" class="me-3 p-2">Mes Véhicules</a>
-    <a href="#mesInfo" class="me-3 p-2"
-      >Modifier mes informations personnelles</a
-    >
+    <a href="#mesInfo" class="me-3 p-2">Modifier mes informations personnelles</a>
     <a href="#desinscrire" class="me-3 p-2">Me désinscrire</a>
   </div>
 
@@ -127,105 +98,50 @@
           <a href="">Supprimer</a>
         </div>-->
       </div>
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#modalVehicule"
-      >
-        Ajouter un vehicule
-      </button>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalVehicule">Ajouter un vehicule</button>
 
       <!-- Modal -->
-      <div
-        class="modal fade"
-        id="modalVehicule"
-        tabindex="-1"
-        aria-hidden="true"
-      >
+      <div class="modal fade" id="modalVehicule" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title h5">Ajouter un véhicule</h1>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <form id="form-ajout-vehicule">
                 <div class="mb-3">
                   <label for="marque" class="form-label">Marque :</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="marque"
-                    required
-                  />
+                  <input type="text" class="form-control" id="marque" required />
                 </div>
                 <div class="mb-3">
                   <label for="modele" class="form-label">Modele :</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="modele"
-                    required
-                  />
+                  <input type="text" class="form-control" id="modele" required />
                 </div>
                 <div class="mb-3">
-                  <label for="immatriculation" class="form-label"
-                    >Immatriculation:</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="immatriculation"
-                    required
-                  />
+                  <label for="immatriculation" class="form-label">Immatriculation:</label>
+                  <input type="text" class="form-control" id="immatriculation" required />
                 </div>
                 <div class="mb-3">
-                  <label for="dateImmat" class="form-label"
-                    >Date 1er Immatriculation:</label
-                  >
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="dateImmat"
-                    required
-                  />
+                  <label for="dateImmat" class="form-label">Date 1er Immatriculation:</label>
+                  <input type="date" class="form-control" id="dateImmat" required />
                 </div>
                 <div class="mb-3">
                   <label for="couleur" class="form-label">Couleur :</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="couleur"
-                    required
-                  />
+                  <input type="text" class="form-control" id="couleur" required />
                 </div>
                 <div class="mb-3">
                   <label for="energie" class="form-label">Energie :</label>
 
-                  <select
-                    name="energie"
-                    class="form-select"
-                    id="energie"
-                    required
-                  >
-                    <option disabled selected>
-                      -- Sélectionner un carburant --
-                    </option>
+                  <select name="energie" class="form-select" id="energie" required>
+                    <option disabled selected>-- Sélectionner un carburant --</option>
                     <option value="electrique">Electrique</option>
                     <option value="hybride">Hybride</option>
                     <option value="diesel">Diesel</option>
                     <option value="essence">Essence</option>
                   </select>
                 </div>
-                <button type="button" id="addVehicule" class="btn btn-primary">
-                  Enregistrer le véhicule
-                </button>
+                <button type="button" id="addVehicule" class="btn btn-primary">Enregistrer le véhicule</button>
               </form>
             </div>
           </div>
@@ -245,89 +161,35 @@
           </div>
           <div class="mb-3">
             <label for="prenom" class="form-label">Prenom :</label>
-            <input
-              type="text"
-              class="form-control"
-              id="prenom"
-              value="$prenom"
-            />
+            <input type="text" class="form-control" id="prenom" value="$prenom" />
           </div>
           <div class="mb-3">
             <label for="pseudo" class="form-label">Pseudo :</label>
-            <input
-              type="text"
-              class="form-control"
-              id="pseudo"
-              value="$pseudo"
-            />
+            <input type="text" class="form-control" id="pseudo" value="$pseudo" />
           </div>
           <div class="mb-3">
             <label for="adresse" class="form-label">Adresse :</label>
-            <input
-              type="text"
-              class="form-control"
-              id="adresse"
-              value="$adresse"
-            />
+            <input type="text" class="form-control" id="adresse" value="$adresse" />
           </div>
           <div class="mb-3">
             <label for="telephone" class="form-label">Telephone :</label>
-            <input
-              type="tel"
-              class="form-control"
-              id="telephone"
-              value="$telephone"
-            />
+            <input type="tel" class="form-control" id="telephone" value="$telephone" />
           </div>
 
-          <button
-            type="button"
-            class="btn btn-primary mt-3 mb-3"
-            data-bs-toggle="modal"
-            data-bs-target="#modalValidation"
-          >
-            Sauvergarder
-          </button>
+          <button type="button" class="btn btn-primary mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#modalValidation">Sauvergarder</button>
 
           <!-- Modal pour enregistrer les modifs -->
-          <div
-            class="modal fade"
-            id="modalValidation"
-            tabindex="-1"
-            aria-labelledby="Validation"
-            aria-hidden="true"
-          >
+          <div class="modal fade" id="modalValidation" tabindex="-1" aria-labelledby="Validation" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="modalLabel">
-                    Valider les modifications
-                  </h1>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
+                  <h1 class="modal-title fs-5" id="modalLabel">Valider les modifications</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                  Souhaitez-vous valider vos changements ?
-                </div>
+                <div class="modal-body">Souhaitez-vous valider vos changements ?</div>
                 <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Fermer
-                  </button>
-                  <button
-                    type="button"
-                    id="updateUserBtn"
-                    class="btn btn-primary"
-                  >
-                    Enregistrer les modifications
-                  </button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                  <button type="button" id="updateUserBtn" class="btn btn-primary">Enregistrer les modifications</button>
                 </div>
               </div>
             </div>
@@ -338,20 +200,9 @@
         <form id="formPhoto" enctype="multipart/form-data">
           <div class="mb-3">
             <label for="photo" class="form-label"></label>
-            <input
-              class="form-control"
-              type="file"
-              id="photo"
-              accept="image/*"
-            />
+            <input class="form-control" type="file" id="photo" accept="image/*" />
           </div>
-          <button
-            type="button"
-            class="btn btn-primary mt-3 mb-3"
-            id="btnAddPhoto"
-          >
-            Envoyer la photo
-          </button>
+          <button type="button" class="btn btn-primary mt-3 mb-3" id="btnAddPhoto">Envoyer la photo</button>
         </form>
 
         <div class="pt-3">
@@ -365,50 +216,20 @@
     <section id="desinscrire" class="p-3" style="scroll-margin-top: 125px">
       <h2>Me désinscrire</h2>
       <div>
-        <button
-          type="button"
-          class="btn btn-danger"
-          data-bs-toggle="modal"
-          data-bs-target="#modalDesinscription"
-        >
-          Désinscription
-        </button>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDesinscription">Désinscription</button>
         <!-- Modal pour enregistrer les modifs -->
-        <div
-          class="modal fade"
-          id="modalDesinscription"
-          tabindex="-1"
-          aria-labelledby="Désinscription"
-          aria-hidden="true"
-        >
+        <div class="modal fade" id="modalDesinscription" tabindex="-1" aria-labelledby="Désinscription" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="modalLabel">
-                  Confirmer la suppression votre compte
-                </h1>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                <h1 class="modal-title fs-5" id="modalLabel">Confirmer la suppression votre compte</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body">
-                Vous êtes sur le point de supprimer définitivement votre compte
-              </div>
+              <div class="modal-body">Vous êtes sur le point de supprimer définitivement votre compte</div>
 
               <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Fermer
-                </button>
-                <button id="deleteUserBtn" class="btn btn-danger">
-                  Supprimer
-                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <button id="deleteUserBtn" class="btn btn-danger">Supprimer</button>
               </div>
             </div>
           </div>

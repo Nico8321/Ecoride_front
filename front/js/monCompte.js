@@ -5,6 +5,7 @@ import { createCovoiturageCard } from "./components/covoiturageCard.js";
 import { inputValidator } from "./utils/inputValidator.js";
 import { patchUser } from "./api/user.js";
 import { showToast } from "./components/toast.js";
+import { apiUrl } from "./config.js";
 // TEMPORAIRE : Ajout manuel de données user dans sessionStorage pour test (à retirer après lien avec le back)
 
 /*if (!sessionStorage.getItem("user")) {
@@ -139,11 +140,11 @@ function ajoutDivVehicule(vehicule) {
           <button  id="${vehicule.id}" class="btn btn-link shadow-none p-0 m-0">Supprimer</button>`;
   vehiculeDiv.appendChild(div);
 }
-
-vehicules.forEach((vehicule) => {
-  ajoutDivVehicule(vehicule);
-});
-
+if (vehicules) {
+  vehicules.forEach((vehicule) => {
+    ajoutDivVehicule(vehicule);
+  });
+}
 // Suppression d’un véhicule
 //fonction pour suppression
 
@@ -299,5 +300,5 @@ function addPhoto() {
 }
 btnAddPhoto.addEventListener("click", () => addPhoto());
 
-const nomFichier = user.photo; // récupéré depuis l'API, par exemple
+const nomFichier = user.photo;
 document.getElementById("photoProfil").src = `${apiUrl}/uploads/photos/${nomFichier}`;
