@@ -1,9 +1,8 @@
 import { getReservationByUser } from "./api/reservation.js";
 import { getCovoituragesByUser, postCovoiturage } from "./api/covoiturage.js";
-import { addVehicule, deleteUser, deleteVehicule, postPhoto } from "./api/user.js";
+import { addVehicule, deleteUser, deleteVehicule, postPhoto, getVehicules, patchUser } from "./api/user.js";
 import { createCovoiturageCard } from "./components/covoiturageCard.js";
 import { inputValidator } from "./utils/inputValidator.js";
-import { patchUser } from "./api/user.js";
 import { showToast } from "./components/toast.js";
 import { apiUrl } from "./config.js";
 // TEMPORAIRE : Ajout manuel de données user dans sessionStorage pour test (à retirer après lien avec le back)
@@ -121,7 +120,17 @@ telInput.addEventListener("change", () => {
 // Affichage des véhicules de l'user depuis sessionStorage
 
 const vehiculeDiv = document.getElementById("vehicule");
-const vehicules = user.vehicule;
+
+let vehicules = [];
+
+(async () => {
+  vehicules = await getVehicules(user.id);
+  user.vehicules = vehicules;
+  sessionStorage.setItem("user", JSON.stringify(user));
+  vehicules.forEach((vehicule) => {
+    ajoutDivVehicule(vehicule);
+  });
+})();
 
 // Génère le bloc HTML d’un véhicule (utilisé pour chaque véhicule ou pour l'ajout)
 
@@ -130,21 +139,22 @@ function ajoutDivVehicule(vehicule) {
   div.className = "p-3";
   div.id = vehicule.id;
   div.innerHTML = `
-  <h3>Véhicule ${vehicule.id} </h3>
-          <p>${vehicule.immatriculation}</p>
-          <p>${vehicule.marque}</p>
-          <p>${vehicule.modele}</p>
-          <p>${vehicule.couleur}</p>
-          <p>${vehicule.dateImmat}</p>
-          <p>${vehicule.energie}</p>
-          <button  id="${vehicule.id}" class="btn btn-link shadow-none p-0 m-0">Supprimer</button>`;
+    <h3>Véhicule ${vehicule.id} </h3>
+            <p>${vehicule.immatriculation}</p>
+            <p>${vehicule.marque}</p>
+            <p>${vehicule.modele}</p>
+            <p>${vehicule.couleur}</p>
+            <p>${vehicule.dateImmat}</p>
+            <p>${vehicule.energie}</p>
+            <button class="btn btn-link shadow-none p-0 m-0">Supprimer</button>`;
+
+  div.querySelector("button").addEventListener("click", () => {
+    supprimerVehicule(user.id, vehicule.id);
+  });
+
   vehiculeDiv.appendChild(div);
 }
-if (vehicules) {
-  vehicules.forEach((vehicule) => {
-    ajoutDivVehicule(vehicule);
-  });
-}
+
 // Suppression d’un véhicule
 //fonction pour suppression
 
@@ -153,21 +163,14 @@ async function supprimerVehicule(userId, vehiculeId) {
     const idVehiculeSupprime = await deleteVehicule(userId, vehiculeId);
     if (idVehiculeSupprime) {
       document.getElementById(idVehiculeSupprime).remove();
-      const updatedVehicules = user.vehicule.filter((v) => v.id !== idVehiculeSupprime);
-      user.vehicule = updatedVehicules;
+      const updatedVehicules = user.vehicules.filter((v) => v.id !== idVehiculeSupprime);
+      user.vehicules = updatedVehicules;
       sessionStorage.setItem("user", JSON.stringify(user));
     }
   } catch (error) {
     console.error("Erreur:", error.message);
   }
 }
-// Écouteur sur les boutons "Supprimer" pour chaque véhicule
-const boutonsSuppr = vehiculeDiv.querySelectorAll("button");
-boutonsSuppr.forEach((button) => {
-  button.addEventListener("click", () => {
-    supprimerVehicule(user.id, button.id);
-  });
-});
 
 // Ajout d’un véhicule
 
@@ -191,17 +194,25 @@ async function ajoutVehicule(userId) {
       immatriculation: immatriculation.value,
       couleur: couleur.value,
     };
+
     try {
-      const newVehicule = await addVehicule(user.id, vehicule);
-      if (newVehicule) {
-        ajoutDivVehicule(newVehicule);
-        user.vehicule.push(newVehicule);
-        sessionStorage.setItem("user", JSON.stringify(user));
+      const response = await addVehicule(user.id, vehicule);
+      if (response) {
         const modal = bootstrap.Modal.getInstance(document.getElementById("modalVehicule"));
         modal.hide();
+        showToast(response.message);
+
+        // Mise à jour des véhicules
+        const updatedVehicules = await getVehicules(user.id);
+        user.vehicules = updatedVehicules;
+        sessionStorage.setItem("user", JSON.stringify(user));
+
+        // Réaffichage
+        vehiculeDiv.innerHTML = "";
+        updatedVehicules.forEach((v) => ajoutDivVehicule(v));
       }
     } catch (error) {
-      console.error("Erreur:", error.message);
+      showToast(error.message, "error");
     }
   }
 }
@@ -270,7 +281,7 @@ async function desinscription(userId) {
     if (response) {
       showToast(response.message); //toast de confirmation
       sessionStorage.clear(); //suppression de l'user dans sessionStorage
-      window.location.href = "home.html"; //redirection a l'accueil
+      window.location.href = "/"; //redirection a l'accueil
     }
   } catch (error) {
     showToast(error.message, "error"); //toast d'erreur
@@ -302,3 +313,4 @@ btnAddPhoto.addEventListener("click", () => addPhoto());
 
 const nomFichier = user.photo;
 document.getElementById("photoProfil").src = `${apiUrl}/uploads/photos/${nomFichier}`;
+document.getElementById("photoProfilMobile").src = `${apiUrl}/uploads/photos/${nomFichier}`;

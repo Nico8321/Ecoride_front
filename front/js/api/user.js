@@ -13,6 +13,19 @@ export async function deleteVehicule(userId, vehiculeId) {
     throw error;
   }
 }
+export async function getVehicules(userId) {
+  try {
+    const response = await fetch(`${apiUrl}/vehicule/user/${userId}`);
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Erreur : ${error.message}`);
+    throw error;
+  }
+}
 export async function addVehicule(userId, newVehicule) {
   try {
     const response = await fetch(`${apiUrl}/vehicule/user/${userId}`, {
