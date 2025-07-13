@@ -7,8 +7,7 @@ import { isEmpty, nettoyage, ajoutMessage, validator } from "./utils/inputValida
 const signin = document.getElementById("signin");
 const password = document.getElementById("password");
 const email = document.getElementById("email");
-const button = document.getElementById("connexion");
-
+const bouton = document.getElementById("bouton");
 // Vérifie le format de l'adresse email
 
 email.addEventListener("change", () => {
@@ -34,7 +33,8 @@ function formulaireValide() {
 
   return isValid;
 }
-button.addEventListener("click", () => {
+
+bouton.addEventListener("click", () => {
   if (formulaireValide()) {
     loginUser(email.value, password.value);
   }

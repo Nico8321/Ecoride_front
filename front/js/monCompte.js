@@ -1,18 +1,13 @@
 import { getReservationByUser } from "./api/reservation.js";
 import { getCovoituragesByUser, postCovoiturage } from "./api/covoiturage.js";
-import {
-  addVehicule,
-  deleteUser,
-  deleteVehicule,
-  postPhoto,
-} from "./api/user.js";
+import { addVehicule, deleteUser, deleteVehicule, postPhoto } from "./api/user.js";
 import { createCovoiturageCard } from "./components/covoiturageCard.js";
 import { inputValidator } from "./utils/inputValidator.js";
 import { patchUser } from "./api/user.js";
 import { showToast } from "./components/toast.js";
 // TEMPORAIRE : Ajout manuel de données user dans sessionStorage pour test (à retirer après lien avec le back)
 
-if (!sessionStorage.getItem("user")) {
+/*if (!sessionStorage.getItem("user")) {
   sessionStorage.setItem(
     "user",
     JSON.stringify({
@@ -49,7 +44,7 @@ if (!sessionStorage.getItem("user")) {
     })
   );
 }
-
+*/
 // ==========================
 // GESTION DES INFOS DE L'USER
 // ==========================
@@ -80,6 +75,7 @@ async function updateUser() {
       const data = await patchUser(user.id, userUpdated);
       sessionStorage.setItem("user", JSON.stringify(data));
       inputIncrement();
+      showToast("Profil mis à jour");
     } catch (error) {
       console.error("Erreur:", error.message);
     }
@@ -156,9 +152,7 @@ async function supprimerVehicule(userId, vehiculeId) {
     const idVehiculeSupprime = await deleteVehicule(userId, vehiculeId);
     if (idVehiculeSupprime) {
       document.getElementById(idVehiculeSupprime).remove();
-      const updatedVehicules = user.vehicule.filter(
-        (v) => v.id !== idVehiculeSupprime
-      );
+      const updatedVehicules = user.vehicule.filter((v) => v.id !== idVehiculeSupprime);
       user.vehicule = updatedVehicules;
       sessionStorage.setItem("user", JSON.stringify(user));
     }
@@ -202,9 +196,7 @@ async function ajoutVehicule(userId) {
         ajoutDivVehicule(newVehicule);
         user.vehicule.push(newVehicule);
         sessionStorage.setItem("user", JSON.stringify(user));
-        const modal = bootstrap.Modal.getInstance(
-          document.getElementById("modalVehicule")
-        );
+        const modal = bootstrap.Modal.getInstance(document.getElementById("modalVehicule"));
         modal.hide();
       }
     } catch (error) {
@@ -308,6 +300,4 @@ function addPhoto() {
 btnAddPhoto.addEventListener("click", () => addPhoto());
 
 const nomFichier = user.photo; // récupéré depuis l'API, par exemple
-document.getElementById(
-  "photoProfil"
-).src = `${apiUrl}/uploads/photos/${nomFichier}`;
+document.getElementById("photoProfil").src = `${apiUrl}/uploads/photos/${nomFichier}`;
