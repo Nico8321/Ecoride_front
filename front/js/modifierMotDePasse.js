@@ -56,7 +56,7 @@ async function updatedPassword(userId, password, newPassword) {
       const updatedPassword = await patchUserPassword(userId, password, newPassword);
       if (updatedPassword) {
         showToast("Le mot de passe a été mis à jour");
-        window.location.href = "monCompte.html";
+        window.location.href = "/monCompte";
       }
     } catch (error) {
       showToast(error.message, "error");

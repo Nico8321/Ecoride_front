@@ -1,7 +1,7 @@
 import { verificationAdresse } from "./utils/verifAdresse.js";
 import { isLoggedIn } from "./auth/authHelper.js";
 import { postCovoiturage } from "./api/covoiturage.js";
-
+import { showToast } from "./components/toast.js";
 // Lancement de l'autocomplétion sur les champs départ et destination
 verificationAdresse("depart", "suggestions-depart");
 verificationAdresse("destination", "suggestions-destination");
@@ -9,7 +9,7 @@ verificationAdresse("destination", "suggestions-destination");
 // Récupération des véhicules de l'utilisateur connecté
 const vehiculeSelect = document.getElementById("vehicule");
 const user = JSON.parse(sessionStorage.getItem("user"));
-const vehicules = user.vehicule;
+const vehicules = user.vehicules;
 
 // Ajout des véhicules dans la liste si y en a
 
@@ -58,22 +58,22 @@ publierBtn.addEventListener("click", async () => {
     } else {
       const covoiturage = {
         depart: depart.value,
-        destination: destination.value,
-        d_date: d_date.value,
-        d_time: d_time.value,
-        nbPlace: nbPlace.value,
+        arrivee: destination.value,
+        dateDepart: d_date.value,
+        heureDepart: d_time.value,
+        nbPlaces: nbPlace.value,
         prix: prix.value,
-        vehicule: vehicule.value,
-        fumeur: fumeur.value,
-        animaux: animaux.value,
-        conducteur_id: user.id,
+        vehiculeId: vehicule.value,
+        fumeur: fumeur.checked,
+        animaux: animaux.checked,
+        conducteurId: user.id,
       };
       // Envoi des infos du covoiturage si tout est bon
       try {
         const res = await postCovoiturage(covoiturage);
         if (res) {
-          alert("Covoiturage créé avec succès");
-          window.location.href = "monCompte.html";
+          showToast("Covoiturage créé avec succès");
+          window.location.href = "/monCompte";
         }
       } catch (error) {
         console.error("Erreur:", error.message);

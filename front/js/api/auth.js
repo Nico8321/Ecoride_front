@@ -15,7 +15,7 @@ export async function loginUser(email, password) {
     }
     const data = await response.json();
     storeSession(data);
-    window.location.href = "monCompte.html";
+    window.location.href = "/monCompte";
   } catch (error) {
     console.error(`Erreur : ${error.message}`);
   }
@@ -34,7 +34,7 @@ export async function newUser(user) {
       throw new Error(`Erreur HTTP: ${response.status}`);
     }
     showToast("Utilisateur créé avec succés", "succes");
-    window.location.href = "signin.html";
+    window.location.href = "/signin";
   } catch (error) {
     showToast(error.message, "alert");
   }
@@ -42,5 +42,5 @@ export async function newUser(user) {
 
 function storeSession(data) {
   sessionStorage.setItem("token", data.token);
-  sessionStorage.setItem("user", JSON.stringify(data.user));
+  sessionStorage.setItem("user", JSON.stringify(data));
 }
