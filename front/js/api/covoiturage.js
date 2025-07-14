@@ -1,7 +1,7 @@
 import { apiUrl } from "../config.js";
 export async function postCovoiturage(covoiturage) {
   try {
-    const response = await fetch(`${apiUrl}/covoiturages`, {
+    const response = await fetch(`${apiUrl}/covoiturage`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

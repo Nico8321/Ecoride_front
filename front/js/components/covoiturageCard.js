@@ -1,5 +1,9 @@
+import { apiUrl } from "../config.js";
+
+const isMonCompte = window.location.pathname.includes("monCompte");
+
 export function createCovoiturageCard(covoiturage, destination) {
-  const container = document.getElementById(destination);
+  const container = destination;
   const card = document.createElement("div");
   card.className = "card shadow-sm w-100 mb-3";
   card.innerHTML = `
@@ -15,43 +19,38 @@ export function createCovoiturageCard(covoiturage, destination) {
       <!-- Colonne : Profil + Nom + Note -->
       <div class="d-flex align-items-center">
         <div class="me-3">
-          <img src="${
-            covoiturage.conducteur_photo
-          }" alt="photo de profil" style="height: 75px; width: 75px; object-fit: cover" class="rounded-circle" />
+          <img src="${apiUrl}/uploads/photos/${
+    covoiturage.conducteur_photo
+  }" alt="photo de profil" style="height: 75px; width: 75px; object-fit: cover" class="rounded-circle" />
         </div>
         <div>
-          <p class="card-text fw-bold mb-1">${covoiturage.conducteur}</p>
-          <p class="card-text text-warning mb-0">Note : ${
-            covoiturage.note
-          } <i class="bi bi-star-fill"></i></p>
+          <p class="card-text fw-bold mb-1">${covoiturage.conducteur_pseudo}</p>
+          <p class="card-text text-warning mb-0">Note : ${covoiturage.note} <i class="bi bi-star-fill"></i></p>
         </div>
       </div>
 
       <!-- Colonne : Infos covoiturage -->
       <div class="d-flex align-items-center justify-content-center text-center flex-fill">
         <h3 class="card-title mb-0">
-          <span class="small-text p-3 d-block">${covoiturage.date} à ${
-    covoiturage.heure
-  }</span>
-           ${covoiturage.depart} → ${covoiturage.destination}
+          <span class="small-text p-3 d-block">${covoiturage.date_depart} à ${covoiturage.heure_depart}</span>
+           ${covoiturage.ville_depart} → ${covoiturage.ville_arrivee}
            <br />
-           <span class="small-text pt-3 d-block ">Durée: ${
-             covoiturage.duree
-           } minutes</span>
-          <span class="small-text d-block p-1 ">places disponibles : ${
-            covoiturage.nbPlaces
-          }</span>
+           <span class="small-text pt-3 d-block ">Durée: ${covoiturage.duree} minutes</span>
+          <span class="small-text d-block p-1 ">places disponibles : ${covoiturage.nb_Places}</span>
         </h3>
       </div>
 
       <!-- Colonne : Bouton + crédits -->
       <div class="d-flex align-items-center justify-content-end ms-md-auto gap-3">
-        <button class="btn btn-primary" data-id="${
-          covoiturage.id
-        }" data-bs-toggle="modal" data-bs-target="#reservationModal">Réserver</button>
-        <p class="card-text fw-bold mb-0 text-nowrap">${
-          covoiturage.prix
-        }  crédits</p>
+        ${
+          !isMonCompte
+            ? `
+            <button class="btn btn-primary" data-id="${covoiturage.id}" data-bs-toggle="modal" data-bs-target="#reservationModal">
+              Réserver
+            </button> `
+            : ""
+        }
+        <p class="card-text fw-bold mb-0 text-nowrap">${covoiturage.prix}  crédits</p>
       </div>
     </div>
 
@@ -77,18 +76,14 @@ export function createCovoiturageCard(covoiturage, destination) {
           data-bs-parent="#accordionDetails-${covoiturage.id}"
         >
           <div class="accordion-body">
-            <p><strong>Départ :</strong> ${covoiturage.depart}</p>
-            <p><strong>Destination :</strong> ${covoiturage.destination}</p>
-            <p><strong>Date :</strong> ${covoiturage.date}</p>
-            <p><strong>Heure :</strong> ${covoiturage.heure}</p>
+            <p><strong>Départ :</strong> ${covoiturage.rue_depart} ${covoiturage.code_postal_depart} ${covoiturage.ville_depart}</p>
+            <p><strong>Destination :</strong> ${covoiturage.rue_arrivee} ${covoiturage.code_postal_arrivee} ${covoiturage.ville_arrivee}</p>
+            <p><strong>Date :</strong> ${covoiturage.date_depart}</p>
+            <p><strong>Heure :</strong> ${covoiturage.heure_depart}</p>
             <p><strong>Énergie :</strong> ${covoiturage.energie}</p>
-            <p><strong>Fumeur accepté :</strong> ${
-              covoiturage.fumeur ? "Oui" : "Non"
-            }</p>
-            <p><strong>Animaux acceptés :</strong> ${
-              covoiturage.animaux ? "Oui" : "Non"
-            }</p>
-            <p><strong>Places disponibles :</strong> ${covoiturage.nbPlaces}</p>
+            <p><strong>Fumeur accepté :</strong> ${covoiturage.fumeur ? "Oui" : "Non"}</p>
+            <p><strong>Animaux acceptés :</strong> ${covoiturage.animaux ? "Oui" : "Non"}</p>
+            <p><strong>Places disponibles :</strong> ${covoiturage.nb_Places}</p>
           </div>
         </div>
       </div>

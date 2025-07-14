@@ -228,23 +228,23 @@ btnAddVehicule.addEventListener("click", () => {
 // ==========================
 // Récupère et affiche les covoiturages proposés par l’utilisateur
 
-const propose = document.getElementById("propose");
-document.addEventListener("DOMContentLoaded", async () => {
+const trajetPropose = document.getElementById("trajetPropose");
+async function affichageTrajet() {
   try {
     const covoiturages = await getCovoituragesByUser(user.id);
     if (covoiturages.length > 0) {
-      propose.innerHTML = "";
+      trajetPropose.innerHTML = "";
       covoiturages.forEach((covoiturage) => {
         if (covoiturage.conducteur_id === user.id) {
-          createCovoiturageCard(covoiturage, propose);
+          createCovoiturageCard(covoiturage, trajetPropose);
         }
       });
     }
   } catch (error) {
     console.error("Erreur:", error.message);
   }
-});
-
+}
+affichageTrajet();
 // Récupère les covoiturages réservés : à venir → zone "Réservés", passés → zone "Passés"
 
 const reserve = document.getElementById("reserve");
