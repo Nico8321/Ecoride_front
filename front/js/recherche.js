@@ -5,11 +5,12 @@ import { showToast } from "./components/toast.js";
 import { findCovoiturage } from "./api/covoiturage.js";
 import { isLoggedIn } from "./auth/authHelper.js";
 import { getFiltres } from "./utils/getFiltres.js";
+import { reserver } from "./api/reservation.js";
 
 // Active la suggestion automatique pour les champs adresse
 
 verificationAdresse("depart", "suggestions-depart");
-verificationAdresse("destination", "suggestions-destination");
+verificationAdresse("arrivee", "suggestions-destination");
 
 // Change le texte du bouton accordéon au clic
 
@@ -27,8 +28,8 @@ async function rechercherCovoiturages() {
     if (covoiturages.length > 0) {
       covoiturages.forEach((covoiturage) => {
         // N'affiche que les covoiturages avec des places disponibles
-        if (covoiturage.nbPlaces > 0) {
-          createCovoiturageCard(covoiturage, "resultatsContainer");
+        if (covoiturage.nb_places > 0) {
+          createCovoiturageCard(covoiturage, resultatsContainer);
         }
       });
     } else {
@@ -63,7 +64,7 @@ const nbPlaces = document.getElementById("nbPlaces");
 
 async function confirmerReservation(covoiturageId) {
   const reservationInfo = {
-    userId: user.id,
+    utilisateurId: user.id,
     covoiturageId: covoiturageId,
     nbPlaces: nbPlaces.value,
   };
@@ -94,7 +95,7 @@ btnConfirm.addEventListener("click", async () => {
 
 const filtreUrl = new URLSearchParams(window.location.search);
 if (filtreUrl) {
-  const keys = ["depart", "destination", "date", "heure", "prix", "note", "duree", "energie"];
+  const keys = ["depart", "arrivee", "date", "heure", "prix", "note", "duree", "energie"];
   let hasValue = false;
 
   keys.forEach((key) => {

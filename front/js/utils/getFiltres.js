@@ -1,7 +1,7 @@
 // fonction pour la recuperation des valeurs des inputs pour la recherche
 
 export function getFiltres() {
-  const donnees = ["depart", "destination", "date", "heure", "prix", "note", "duree"];
+  const donnees = ["depart", "arrivee", "date", "heure", "prix", "note", "duree"];
   const filtres = {};
 
   donnees.forEach((key) => {

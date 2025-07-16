@@ -249,7 +249,7 @@ affichageTrajet();
 
 const reserve = document.getElementById("reserve");
 const passe = document.getElementById("passe");
-document.addEventListener("DOMContentLoaded", async () => {
+async function affichageReservation() {
   // Date du jour pour différencier les covoiturages passés / à venir
 
   const today = new Date().toISOString().split("T")[0];
@@ -268,7 +268,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (error) {
     console.error("Erreur:", error.message);
   }
-});
+}
+affichageReservation();
 // ==========================
 // GESTION DE LA DESINSCRIPTION
 // ==========================
