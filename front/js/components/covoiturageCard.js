@@ -5,12 +5,12 @@ const isMonCompte = window.location.pathname.includes("monCompte");
 export function createCovoiturageCard(covoiturage, destination) {
   const container = destination;
   const card = document.createElement("div");
-  card.className = "card shadow-sm w-100 mb-3";
+  card.className = "card shadow-sm w-100 rounded-4 overflow-hidden";
   card.innerHTML = `
 <div class="card-body d-flex flex-column flex-md-row gap-3">
  ${
-   covoiturage.energie === "electrique"
-     ? `<div class="position-absolute top-0 start-0 bg-success text-white px-2 py-1 rounded-start">
+   covoiturage.vehicule_energie === "electrique"
+     ? `<div class="position-absolute top-0 start-0 end-0 bg-success text-white px-2 py-1 rounded-top">
          ECO
        </div>`
      : ""
@@ -80,10 +80,12 @@ export function createCovoiturageCard(covoiturage, destination) {
             <p><strong>Destination :</strong> ${covoiturage.rue_arrivee} ${covoiturage.code_postal_arrivee} ${covoiturage.ville_arrivee}</p>
             <p><strong>Date :</strong> ${covoiturage.date_depart}</p>
             <p><strong>Heure :</strong> ${covoiturage.heure_depart}</p>
-            <p><strong>Énergie :</strong> ${covoiturage.energie}</p>
+            <p><strong>Énergie :</strong> ${covoiturage.vehicule_energie}</p>
             <p><strong>Fumeur accepté :</strong> ${covoiturage.fumeur ? "Oui" : "Non"}</p>
             <p><strong>Animaux acceptés :</strong> ${covoiturage.animaux ? "Oui" : "Non"}</p>
             <p><strong>Places disponibles :</strong> ${covoiturage.nb_places}</p>
+              <p><strong>Vehicules:</strong> ${covoiturage.vehicule_marque}  ${covoiturage.vehicule_modele} ${covoiturage.vehicule_couleur} </p>
+
           </div>
         </div>
       </div>
