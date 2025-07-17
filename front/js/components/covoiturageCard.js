@@ -25,7 +25,7 @@ export function createCovoiturageCard(covoiturage, destination) {
         </div>
         <div>
           <p class="card-text fw-bold mb-1">${covoiturage.conducteur_pseudo}</p>
-          <p class="card-text text-warning mb-0">Note : ${covoiturage.note} <i class="bi bi-star-fill"></i></p>
+          <p class="card-text text-warning mb-0">Note : ${covoiturage.conducteur_note.moyenne} <i class="bi bi-star-fill"></i></p>
         </div>
       </div>
 
@@ -36,7 +36,7 @@ export function createCovoiturageCard(covoiturage, destination) {
            ${covoiturage.ville_depart} → ${covoiturage.ville_arrivee}
            <br />
            <span class="small-text pt-3 d-block ">Durée: ${covoiturage.duree} minutes</span>
-          <span class="small-text d-block p-1 ">places disponibles : ${covoiturage.nb_Places}</span>
+          <span class="small-text d-block p-1 ">places disponibles : ${covoiturage.nb_places}</span>
         </h3>
       </div>
 
@@ -83,7 +83,7 @@ export function createCovoiturageCard(covoiturage, destination) {
             <p><strong>Énergie :</strong> ${covoiturage.energie}</p>
             <p><strong>Fumeur accepté :</strong> ${covoiturage.fumeur ? "Oui" : "Non"}</p>
             <p><strong>Animaux acceptés :</strong> ${covoiturage.animaux ? "Oui" : "Non"}</p>
-            <p><strong>Places disponibles :</strong> ${covoiturage.nb_Places}</p>
+            <p><strong>Places disponibles :</strong> ${covoiturage.nb_places}</p>
           </div>
         </div>
       </div>
