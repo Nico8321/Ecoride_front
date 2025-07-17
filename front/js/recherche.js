@@ -6,6 +6,7 @@ import { findCovoiturage } from "./api/covoiturage.js";
 import { isLoggedIn } from "./auth/authHelper.js";
 import { getFiltres } from "./utils/getFiltres.js";
 import { reserver } from "./api/reservation.js";
+import { getMoyenneByUser } from "./api/avis.js";
 
 // Active la suggestion automatique pour les champs adresse
 
@@ -18,6 +19,14 @@ const accordionButton = document.getElementById("accordionButton");
 accordionButton.addEventListener("click", changeText);
 
 // Fonction principale pour lancer la recherche récupère les covoiturages filtrés et les affiche
+async function ajouterNoteUser(userId) {
+  try {
+    const note = await getMoyenneByUser(userId);
+    return note;
+  } catch (error) {
+    console.error("Erreur lors de la récupération de la note :", error);
+  }
+}
 
 async function rechercherCovoiturages() {
   const filtres = getFiltres();
@@ -26,12 +35,12 @@ async function rechercherCovoiturages() {
   try {
     const covoiturages = await findCovoiturage(filtres);
     if (covoiturages.length > 0) {
-      covoiturages.forEach((covoiturage) => {
-        // N'affiche que les covoiturages avec des places disponibles
+      for (const covoiturage of covoiturages) {
+        covoiturage.conducteur_note = await ajouterNoteUser(covoiturage.conducteur_id);
         if (covoiturage.nb_places > 0) {
           createCovoiturageCard(covoiturage, resultatsContainer);
         }
-      });
+      }
     } else {
       showToast("Aucun covoiturage trouvé", "info");
     }

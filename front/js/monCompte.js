@@ -5,6 +5,7 @@ import { createCovoiturageCard } from "./components/covoiturageCard.js";
 import { inputValidator } from "./utils/inputValidator.js";
 import { showToast } from "./components/toast.js";
 import { apiUrl } from "./config.js";
+import { getMoyenneByUser } from "./api/avis.js";
 // TEMPORAIRE : Ajout manuel de données user dans sessionStorage pour test (à retirer après lien avec le back)
 
 /*if (!sessionStorage.getItem("user")) {
@@ -48,12 +49,26 @@ import { apiUrl } from "./config.js";
 // ==========================
 // GESTION DES INFOS DE L'USER
 // ==========================
-
+// ajout de la note au sessionStorage
 // Récupération de l'user depuis le sessionStorage
 
 const données = ["pseudo", "nom", "prenom", "adresse", "telephone"];
 const user = JSON.parse(sessionStorage.getItem("user"));
+// ajout de la note au sessionStorage
+const userId = user.id;
 
+async function ajouterNoteUser() {
+  try {
+    const note = await getMoyenneByUser(userId);
+    user.note = note;
+    sessionStorage.setItem("user", JSON.stringify(user));
+    sidebarNote.innerText = note.moyenne;
+    sidebarNoteM.innerText = note.moyenne;
+  } catch (error) {
+    console.error("Erreur lors de la récupération de la note :", error);
+  }
+}
+ajouterNoteUser();
 //remplissage des champs
 
 function inputIncrement() {
