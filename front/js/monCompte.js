@@ -2,54 +2,15 @@ import { getReservationByUser } from "./api/reservation.js";
 import { getCovoituragesByUser, postCovoiturage } from "./api/covoiturage.js";
 import { addVehicule, deleteUser, deleteVehicule, postPhoto, getVehicules, patchUser } from "./api/user.js";
 import { createCovoiturageCard } from "./components/covoiturageCard.js";
+import { createReservationCard } from "./components/ReservationCard.js";
 import { inputValidator } from "./utils/inputValidator.js";
 import { showToast } from "./components/toast.js";
 import { apiUrl } from "./config.js";
 import { getMoyenneByUser } from "./api/avis.js";
-// TEMPORAIRE : Ajout manuel de données user dans sessionStorage pour test (à retirer après lien avec le back)
 
-/*if (!sessionStorage.getItem("user")) {
-  sessionStorage.setItem(
-    "user",
-    JSON.stringify({
-      pseudo: "NicoTest",
-      nom: "Beuve",
-      prenom: "Nicolas",
-      adresse: "123 rue du Test",
-      telephone: "0612345678",
-      note: "4.2",
-      credit: "25",
-      vehicule: [
-        {
-          id: "154",
-          immatriculation: "AB-454-CD",
-          marque: "Bmw",
-          modele: "serie 3",
-          energie: "essence",
-          couleur: "noir",
-          dateImmat: "25.01.2023",
-        },
-        {
-          id: "258",
-          marque: "Mercedes",
-          modele: "classe a",
-          energie: "hybride",
-        },
-        {
-          id: "345",
-          marque: "Mercedes",
-          modele: "classe c",
-          energie: "electrique",
-        },
-      ],
-    })
-  );
-}
-*/
 // ==========================
 // GESTION DES INFOS DE L'USER
 // ==========================
-// ajout de la note au sessionStorage
 // Récupération de l'user depuis le sessionStorage
 
 const données = ["pseudo", "nom", "prenom", "adresse", "telephone"];
@@ -264,19 +225,20 @@ affichageTrajet();
 
 const reserve = document.getElementById("reserve");
 const passe = document.getElementById("passe");
+
 async function affichageReservation() {
   // Date du jour pour différencier les covoiturages passés / à venir
 
   const today = new Date().toISOString().split("T")[0];
   try {
-    const covoiturages = await getReservationByUser(user.id);
-    if (covoiturages.length > 0) {
-      propose.innerHTML = "";
-      covoiturages.forEach((covoiturage) => {
-        if (covoiturage.date >= today) {
-          createCovoiturageCard(covoiturage, reserve);
+    const reservations = await getReservationByUser(user.id);
+    if (reservations.length > 0) {
+      reserve.innerHTML = "";
+      reservations.forEach((reservation) => {
+        if (reservation.covoiturage.date_depart >= today) {
+          createReservationCard(reservation, reserve);
         } else {
-          createCovoiturageCard(covoiturage, passe);
+          createReservationCard(reservation, passe);
         }
       });
     }
@@ -284,6 +246,7 @@ async function affichageReservation() {
     console.error("Erreur:", error.message);
   }
 }
+
 affichageReservation();
 // ==========================
 // GESTION DE LA DESINSCRIPTION

@@ -5,7 +5,7 @@ const isMonCompte = window.location.pathname.includes("monCompte");
 export function createCovoiturageCard(covoiturage, destination) {
   const container = destination;
   const card = document.createElement("div");
-  card.className = "card shadow-sm w-100 rounded-4 overflow-hidden";
+  card.className = "card shadow-sm w-100 rounded-4 overflow-hidden mb-2";
   card.innerHTML = `
 <div class="card-body d-flex flex-column flex-md-row gap-3">
  ${
@@ -25,7 +25,7 @@ export function createCovoiturageCard(covoiturage, destination) {
         </div>
         <div>
           <p class="card-text fw-bold mb-1">${covoiturage.conducteur_pseudo}</p>
-          <p class="card-text text-warning mb-0">Note : ${covoiturage.conducteur_note.moyenne} <i class="bi bi-star-fill"></i></p>
+          <p class="card-text text-warning mb-0">Note : ${covoiturage.conducteur_note} <i class="bi bi-star-fill"></i></p>
         </div>
       </div>
 
