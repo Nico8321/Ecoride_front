@@ -1,55 +1,18 @@
-import { getReservationByUser } from "./api/reservation.js";
-import { getCovoituragesByUser, postCovoiturage } from "./api/covoiturage.js";
+import { getReservationByUser, getReservationsByCovoiturage } from "./api/reservation.js";
+import { getCovoituragesByUser } from "./api/covoiturage.js";
 import { addVehicule, deleteUser, deleteVehicule, postPhoto, getVehicules, patchUser } from "./api/user.js";
 import { createCovoiturageCard } from "./components/covoiturageCard.js";
+import { createReservationCard } from "./components/ReservationCard.js";
+import { createReservationValidationCard } from "./components/reservationValidationCard.js";
 import { inputValidator } from "./utils/inputValidator.js";
 import { showToast } from "./components/toast.js";
 import { apiUrl } from "./config.js";
 import { getMoyenneByUser } from "./api/avis.js";
-// TEMPORAIRE : Ajout manuel de données user dans sessionStorage pour test (à retirer après lien avec le back)
 
-/*if (!sessionStorage.getItem("user")) {
-  sessionStorage.setItem(
-    "user",
-    JSON.stringify({
-      pseudo: "NicoTest",
-      nom: "Beuve",
-      prenom: "Nicolas",
-      adresse: "123 rue du Test",
-      telephone: "0612345678",
-      note: "4.2",
-      credit: "25",
-      vehicule: [
-        {
-          id: "154",
-          immatriculation: "AB-454-CD",
-          marque: "Bmw",
-          modele: "serie 3",
-          energie: "essence",
-          couleur: "noir",
-          dateImmat: "25.01.2023",
-        },
-        {
-          id: "258",
-          marque: "Mercedes",
-          modele: "classe a",
-          energie: "hybride",
-        },
-        {
-          id: "345",
-          marque: "Mercedes",
-          modele: "classe c",
-          energie: "electrique",
-        },
-      ],
-    })
-  );
-}
-*/
 // ==========================
 // GESTION DES INFOS DE L'USER
 // ==========================
-// ajout de la note au sessionStorage
+
 // Récupération de l'user depuis le sessionStorage
 
 const données = ["pseudo", "nom", "prenom", "adresse", "telephone"];
@@ -243,15 +206,63 @@ btnAddVehicule.addEventListener("click", () => {
 // ==========================
 // Récupère et affiche les covoiturages proposés par l’utilisateur
 
-const trajetPropose = document.getElementById("trajetPropose");
-async function affichageTrajet() {
+const covoituragePropose = document.getElementById("covoituragePropose");
+const historiqueCovoiturage = document.getElementById("historiqueCovoiturage");
+async function affichageCovoiturage() {
   try {
     const covoiturages = await getCovoituragesByUser(user.id);
     if (covoiturages.length > 0) {
-      trajetPropose.innerHTML = "";
+      covoituragePropose.innerHTML = "";
       covoiturages.forEach((covoiturage) => {
         if (covoiturage.conducteur_id === user.id) {
-          createCovoiturageCard(covoiturage, trajetPropose);
+          if (covoiturage.statut === "termine") {
+            createCovoiturageCard(covoiturage, historiqueCovoiturage);
+          } else {
+            const card = createCovoiturageCard(covoiturage, covoituragePropose);
+            const module = document.getElementById(`moduleCovoiturage${covoiturage.id}`);
+            if (module) {
+              getReservationsByCovoiturage(covoiturage.id)
+                .then((reservations) => {
+                  if (reservations.length > 0) {
+                    const statuts = {
+                      "en attente": [],
+                      confirme: [],
+                      refuse: [],
+                    };
+
+                    reservations.forEach((reservation) => {
+                      if (statuts[reservation.statut]) {
+                        statuts[reservation.statut].push(reservation);
+                      }
+                    });
+
+                    for (const [statut, liste] of Object.entries(statuts)) {
+                      if (liste.length > 0) {
+                        const section = document.createElement("div");
+                        section.className = "p-3";
+
+                        const titre = {
+                          "en attente": "Réservations en attente",
+                          confirme: "Réservations acceptées",
+                          refuse: "Réservations refusées",
+                        };
+
+                        section.innerHTML = `<h5>${titre[statut]}</h5>`;
+
+                        liste.forEach((reservation) => {
+                          createReservationValidationCard(reservation, section);
+                        });
+
+                        module.appendChild(section);
+                      }
+                    }
+                  }
+                })
+                .catch((error) => {
+                  console.error("Erreur lors de la récupération des réservations :", error);
+                });
+            }
+          }
         }
       });
     }
@@ -259,24 +270,29 @@ async function affichageTrajet() {
     console.error("Erreur:", error.message);
   }
 }
-affichageTrajet();
-// Récupère les covoiturages réservés : à venir → zone "Réservés", passés → zone "Passés"
+affichageCovoiturage();
 
-const reserve = document.getElementById("reserve");
-const passe = document.getElementById("passe");
+// ==========================
+// GESTION DES RESERVATIONS
+// ==========================
+// Récupère les covoiturages réservés :
+
+const reservationsEnCours = document.getElementById("reservationsEnCours");
+const historiqueReservations = document.getElementById("historiqueReservations");
+
 async function affichageReservation() {
   // Date du jour pour différencier les covoiturages passés / à venir
 
   const today = new Date().toISOString().split("T")[0];
   try {
-    const covoiturages = await getReservationByUser(user.id);
-    if (covoiturages.length > 0) {
-      propose.innerHTML = "";
-      covoiturages.forEach((covoiturage) => {
-        if (covoiturage.date >= today) {
-          createCovoiturageCard(covoiturage, reserve);
+    const reservations = await getReservationByUser(user.id);
+    if (reservations.length > 0) {
+      reservationsEnCours.innerHTML = "";
+      reservations.forEach((reservation) => {
+        if (reservation.covoiturage.date_depart >= today) {
+          createReservationCard(reservation, reservationsEnCours);
         } else {
-          createCovoiturageCard(covoiturage, passe);
+          createReservationCard(reservation, historiqueReservations);
         }
       });
     }
@@ -284,7 +300,9 @@ async function affichageReservation() {
     console.error("Erreur:", error.message);
   }
 }
+
 affichageReservation();
+
 // ==========================
 // GESTION DE LA DESINSCRIPTION
 // ==========================

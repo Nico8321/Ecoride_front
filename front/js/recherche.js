@@ -36,7 +36,6 @@ async function rechercherCovoiturages() {
     const covoiturages = await findCovoiturage(filtres);
     if (covoiturages.length > 0) {
       for (const covoiturage of covoiturages) {
-        covoiturage.conducteur_note = await ajouterNoteUser(covoiturage.conducteur_id);
         if (covoiturage.nb_places > 0) {
           createCovoiturageCard(covoiturage, resultatsContainer);
         }

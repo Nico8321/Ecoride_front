@@ -17,12 +17,13 @@
         </div>
         <p class="card-text h3 mb-1 text-center" id="sidebarCredit"></p>
       </div>
-      <a href="#reservations" class="m-3">Mes covoiturages reservés</a>
-      <a href="#propose" class="m-3">Mes covoiturages proposés</a>
-      <a href="#passe" class="m-3">Mes covoiturages passés</a>
-      <a href="#mesVehicules" class="m-3">Mes Véhicules</a>
-      <a href="#mesInfo" class="m-3">Modifier mes informations personnelles</a>
-      <a href="#desinscrire" class="m-3">Me désinscrire</a>
+      <a href="#" data-scroll="covoiturage_propose" class="m-3">Mes covoiturages proposés</a>
+      <a href="#" data-scroll="historique_covoiturage" class="m-3">Historique de mes covoiturages </a>
+      <a href="#" data-scroll="reservations" class="m-3">Mes reservations</a>
+      <a href="#" data-scroll="historique_reservation" class="m-3">Historique de mes reservations</a>
+      <a href="#" data-scroll="mesVehicules" class="m-3">Mes Véhicules</a>
+      <a href="#" data-scroll="mesInfo" class="m-3">Modifier mes informations personnelles</a>
+      <a href="#" data-scroll="desinscrire" class="m-3">Me désinscrire</a>
     </div>
   </div>
 
@@ -37,67 +38,59 @@
   </div>
 
   <div class="sidebar-mobile d-flex d-md-none sticky-top background-2 pt-3 overflow-auto">
-    <a href="#reservations" class="me-3 p-2">Mes covoiturages reservés</a>
-    <a href="#propose" class="me-3 p-2">Mes covoiturages proposés</a>
-    <a href="#passe" class="me-3 p-2">Mes covoiturages passés</a>
-    <a href="#mesVehicules" class="me-3 p-2">Mes Véhicules</a>
-    <a href="#mesInfo" class="me-3 p-2">Modifier mes informations personnelles</a>
-    <a href="#desinscrire" class="me-3 p-2">Me désinscrire</a>
+    <a href="#" data-scroll="ovoiturage_propose" class="m-3">Mes covoiturages proposés</a>
+    <a href="#" data-scroll="historique_covoiturage" class="m-3">Historique de mes covoiturages </a>
+    <a href="#" data-scroll="reservations" class="m-3">Mes reservations</a>
+    <a href="#" data-scroll="historique_reservation" class="m-3">Historique de mes reservations</a>
+    <a href="#" data-scroll="mesVehicules" class="m-3">Mes Véhicules</a>
+    <a href="#" data-scroll="mesInfo" class="m-3">Modifier mes informations personnelles</a>
+    <a href="#" data-scroll="desinscrire" class="m-3">Me désinscrire</a>
   </div>
 
   <!-- Décalage équivalent à la sidebar (visible que sur desktop) pour éviter que le contenu passe dessous -->
 
   <div class="d-none d-md-flex flex-column col-3" style="width: 25%"></div>
-  <div class="d-flex flex-column pt-4 p-3 col-9">
-    <!-- Section Mes covoiturages réservés, + scroll-margin sur chaque section pour bien tomber après le header -->
+  <div class="d-flex flex-column pt-4 p-3 col-12 col-md-9">
+    <!-- Section Mes covoiturages proposés, + scroll-margin sur chaque section pour bien tomber après le header -->
 
-    <section id="reservations" class="p-3" style="scroll-margin-top: 125px">
-      <h2>Mes covoiturages reservés</h2>
-      <div id="reserve"><p>Aucun covoiturage</p></div>
+    <section id="covoiturage_propose" class="p-3" style="scroll-margin-top: 125px">
+      <h2>Mes covoiturages proposés</h2>
+      <div id="covoituragePropose">
+        <p>Aucun covoiturage reservé</p>
+      </div>
     </section>
 
     <!-- Section Mes covoiturages proposés -->
 
-    <section id="propose" class="p-3" style="scroll-margin-top: 140px">
-      <h2>Mes covoiturages proposés</h2>
-      <div id="trajetPropose">
-        <p>Aucun covoiturage</p>
+    <section id="historique_covoiturage" class="p-3" style="scroll-margin-top: 140px">
+      <h2>Historique de mes covoiturages</h2>
+      <div id="historiqueCovoiturage">
+        <p>Aucun covoiturage proposés</p>
       </div>
     </section>
 
-    <!-- Section Mes covoiturages passés -->
+    <!-- Section Mes covoiturages reservés -->
 
-    <section id="passe" class="p-3" style="scroll-margin-top: 125px">
-      <h2>Mes covoiturages passés</h2>
-      <div></div>
+    <section id="reservations" class="p-3" style="scroll-margin-top: 125px">
+      <h2>Mes reservations</h2>
+      <div id="reservationsEnCours">
+        <p>Aucune reservation en cours</p>
+      </div>
+    </section>
+
+    <!-- Section Mes reservations passés -->
+
+    <section id="historique_reservation" class="p-3" style="scroll-margin-top: 125px">
+      <h2>Mes reservations passées</h2>
+      <div id="historiqueReservations">
+        <p>Aucune reservations</p>
+      </div>
     </section>
     <!-- Section Mes Véhicules -->
 
     <section id="mesVehicules" class="p-3" style="scroll-margin-top: 125px">
       <h2>Mes Véhicules</h2>
-      <div id="vehicule" class="d-flex">
-        <!--<div class="p-3" id="v1">
-         <h3>vehicule 1</h3>
-          <p>$Marque</p>
-          <p>$Modele</p>
-          <p>$energie</p>
-          <a href="">Supprimer</a>
-        </div>
-        <div class="p-3" id="v2">
-          <h3>vehicule 2</h3>
-          <p>$Marque</p>
-          <p>$Modele</p>
-          <p>$energie</p>
-          <a href="">Supprimer</a>
-        </div>
-        <div class="p-3" id="v3">
-          <h3>vehicule 3</h3>
-          <p>$Marque</p>
-          <p>$Modele</p>
-          <p>$energie</p>
-          <a href="">Supprimer</a>
-        </div>-->
-      </div>
+      <div id="vehicule" class="d-flex"></div>
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalVehicule">Ajouter un vehicule</button>
 
       <!-- Modal -->
@@ -236,5 +229,39 @@
         </div>
       </div>
     </section>
+  </div>
+</div>
+<!-- Modale confirmation reservation-->
+<div class="modal fade" id="validationReservationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Accepter la reservation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">Voulez-vous accepter cette reservation ?</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnRefuserReservation">Refuser</button>
+        <button type="button" class="btn btn-primary" id="btnAccepterReservation">Accepter</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modale annulation reservation-->
+<div class="modal fade" id="annulationReservationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Annuler la reservation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">Voulez-vous annuler cette reservation ?</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-danger" id="btnAnnulerReservation">Annuler</button>
+      </div>
+    </div>
   </div>
 </div>

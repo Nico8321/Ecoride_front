@@ -5,7 +5,7 @@ const isMonCompte = window.location.pathname.includes("monCompte");
 export function createCovoiturageCard(covoiturage, destination) {
   const container = destination;
   const card = document.createElement("div");
-  card.className = "card shadow-sm w-100 rounded-4 overflow-hidden";
+  card.className = "card shadow-sm w-100 rounded-4 overflow-hidden mb-2";
   card.innerHTML = `
 <div class="card-body d-flex flex-column flex-md-row gap-3">
  ${
@@ -15,7 +15,7 @@ export function createCovoiturageCard(covoiturage, destination) {
        </div>`
      : ""
  }
-
+    <div id="moduleReservation${covoiturage.id}"></div>
       <!-- Colonne : Profil + Nom + Note -->
       <div class="d-flex align-items-center">
         <div class="me-3">
@@ -25,14 +25,14 @@ export function createCovoiturageCard(covoiturage, destination) {
         </div>
         <div>
           <p class="card-text fw-bold mb-1">${covoiturage.conducteur_pseudo}</p>
-          <p class="card-text text-warning mb-0">Note : ${covoiturage.conducteur_note.moyenne} <i class="bi bi-star-fill"></i></p>
+          <p class="card-text text-warning mb-0">Note : ${covoiturage.conducteur_note} <i class="bi bi-star-fill"></i></p>
         </div>
       </div>
 
       <!-- Colonne : Infos covoiturage -->
       <div class="d-flex align-items-center justify-content-center text-center flex-fill">
         <h3 class="card-title mb-0">
-          <span class="small-text p-3 d-block">${covoiturage.date_depart} à ${covoiturage.heure_depart}</span>
+          <span class=" p-3 d-block">${covoiturage.date_depart} à ${covoiturage.heure_depart}</span>
            ${covoiturage.ville_depart} → ${covoiturage.ville_arrivee}
            <br />
            <span class="small-text pt-3 d-block ">Durée: ${covoiturage.duree} minutes</span>
@@ -89,8 +89,10 @@ export function createCovoiturageCard(covoiturage, destination) {
           </div>
         </div>
       </div>
+<div id =moduleCovoiturage${covoiturage.id}></div>
     </div>
   `;
 
   container.appendChild(card);
+  return card;
 }

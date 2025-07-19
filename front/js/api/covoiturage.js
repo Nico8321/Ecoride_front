@@ -33,7 +33,7 @@ export async function getCovoituragesByUser(id) {
 export async function findCovoiturage(filtres) {
   try {
     const query = new URLSearchParams(filtres).toString();
-    const response = await fetch(`${apiUrl}/covoiturage?${query}`);
+    const response = await fetch(`${apiUrl}/covoiturages?${query}`);
     if (!response.ok) {
       throw new Error(`Erreur HTTP: ${response.status}`);
     }
