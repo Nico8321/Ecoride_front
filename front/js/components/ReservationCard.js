@@ -32,21 +32,24 @@ export function createReservationCard(reservation, destination) {
       <!-- Colonne : Infos covoiturage -->
       <div class="d-flex align-items-center justify-content-center text-center flex-fill">
         <h3 class="card-title mb-0">
+          <span class="d-block p-1 ">Statut: ${reservation.statut}</span>
+                    <span class="small-text d-block p-1 ">Nombres de places souhaitées : ${reservation.nb_places}</span>
           <span class="small-text p-3 d-block">${reservation.covoiturage.date_depart} à ${reservation.covoiturage.heure_depart}</span>
            ${reservation.covoiturage.ville_depart} → ${reservation.covoiturage.ville_arrivee}
            <br />
            <span class="small-text pt-3 d-block ">Durée: ${reservation.covoiturage.duree} minutes</span>
-          <span class="small-text d-block p-1 ">places disponibles : ${reservation.covoiturage.nb_places}</span>
+
+         
         </h3>
       </div>
 
       <!-- Colonne : Bouton + crédits -->
       <div class="d-flex align-items-center justify-content-end ms-md-auto gap-3">
         ${
-          !isMonCompte
+          reservation.statut === "en attente"
             ? `
-            <button class="btn btn-primary" data-id="${reservation.covoiturage.id}" data-bs-toggle="modal" data-bs-target="#reservationModal">
-              Réserver
+            <button class="btn btn-danger" data-id="${reservation.covoiturage.id}" data-bs-toggle="modal" data-bs-target="#annulationReservationModal">
+              Annuler
             </button> `
             : ""
         }
@@ -99,4 +102,5 @@ export function createReservationCard(reservation, destination) {
   `;
 
   container.appendChild(card);
+  return card;
 }

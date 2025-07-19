@@ -15,7 +15,7 @@ export function createCovoiturageCard(covoiturage, destination) {
        </div>`
      : ""
  }
-
+    <div id="moduleReservation${covoiturage.id}"></div>
       <!-- Colonne : Profil + Nom + Note -->
       <div class="d-flex align-items-center">
         <div class="me-3">
@@ -32,7 +32,7 @@ export function createCovoiturageCard(covoiturage, destination) {
       <!-- Colonne : Infos covoiturage -->
       <div class="d-flex align-items-center justify-content-center text-center flex-fill">
         <h3 class="card-title mb-0">
-          <span class="small-text p-3 d-block">${covoiturage.date_depart} à ${covoiturage.heure_depart}</span>
+          <span class=" p-3 d-block">${covoiturage.date_depart} à ${covoiturage.heure_depart}</span>
            ${covoiturage.ville_depart} → ${covoiturage.ville_arrivee}
            <br />
            <span class="small-text pt-3 d-block ">Durée: ${covoiturage.duree} minutes</span>
@@ -89,8 +89,10 @@ export function createCovoiturageCard(covoiturage, destination) {
           </div>
         </div>
       </div>
+<div id =moduleCovoiturage${covoiturage.id}></div>
     </div>
   `;
 
   container.appendChild(card);
+  return card;
 }
