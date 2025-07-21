@@ -7,7 +7,7 @@ import { createReservationValidationCard } from "./components/reservationValidat
 import { inputValidator } from "./utils/inputValidator.js";
 import { showToast } from "./components/toast.js";
 import { apiUrl } from "./config.js";
-import { getMoyenneByUser } from "./api/avis.js";
+import { getMoyenneByUser, postAvis } from "./api/avis.js";
 
 // ==========================
 // GESTION DES INFOS DE L'USER
@@ -304,6 +304,53 @@ async function affichageReservation() {
 affichageReservation();
 
 // ==========================
+// GESTION DES AVIS
+// ==========================
+
+document.addEventListener("click", (e) => {
+  if (e.target && e.target.classList.contains("btn-open-modal-avis")) {
+    const covoiturageId = e.target.getAttribute("data-covoiturage-id");
+    const conducteurId = e.target.getAttribute("data-conducteur-id");
+    const utilisateurId = e.target.getAttribute("data-utilisateur-id");
+
+    document.getElementById("avisCovoiturageId").value = covoiturageId;
+    document.getElementById("avisConducteurId").value = conducteurId;
+    document.getElementById("avisAuteurId").value = utilisateurId;
+  }
+
+  if (e.target && e.target.id === "btnPostAvis") {
+    envoyerAvis();
+  }
+});
+
+async function envoyerAvis() {
+  const avisCovoiturageId = document.getElementById("avisCovoiturageId");
+  const avisAuteurId = document.getElementById("avisAuteurId");
+  const noteAvis = document.getElementById("noteAvis");
+  const commentaireAvis = document.getElementById("commentaireAvis");
+  // Création de l'objet avis
+  const avis = {
+    conducteur_id: document.getElementById("avisConducteurId").value,
+    covoiturage_id: avisCovoiturageId.value,
+    auteur_id: avisAuteurId.value,
+    note: noteAvis.value,
+    commentaire: commentaireAvis.value,
+  };
+  try {
+    const response = await postAvis(avis);
+    if (response) {
+      showToast("Avis publié avec succès");
+      const modalAvis = bootstrap.Modal.getInstance(document.getElementById("deposerAvisModal"));
+      if (modalAvis) {
+        modalAvis.hide();
+      }
+    }
+  } catch (error) {
+    console.error("Erreur lors de la publication de l'avis :", error);
+  }
+}
+
+// ==========================
 // GESTION DE LA DESINSCRIPTION
 // ==========================
 
@@ -348,3 +395,14 @@ btnAddPhoto.addEventListener("click", () => addPhoto());
 const nomFichier = user.photo;
 document.getElementById("photoProfil").src = `${apiUrl}/uploads/photos/${nomFichier}`;
 document.getElementById("photoProfilMobile").src = `${apiUrl}/uploads/photos/${nomFichier}`;
+
+document.querySelectorAll("[data-scroll]").forEach((link) => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    const targetId = link.getAttribute("data-scroll");
+    const target = document.getElementById(targetId);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+});

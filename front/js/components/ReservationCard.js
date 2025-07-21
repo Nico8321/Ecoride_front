@@ -52,7 +52,20 @@ export function createReservationCard(reservation, destination) {
               Annuler
             </button> `
             : ""
-        }
+        }${
+    reservation.statut === "confirme" && reservation.covoiturage.statut === "termine"
+      ? `
+        <button 
+          class="btn btn-primary btn-open-modal-avis"
+          data-covoiturage-id="${reservation.covoiturage.id}" 
+          data-conducteur-id="${reservation.covoiturage.conducteur_id}" 
+          data-utilisateur-id="${reservation.utilisateur_id}" 
+          data-bs-toggle="modal" 
+          data-bs-target="#deposerAvisModal">
+          Déposer un avis 
+        </button> `
+      : ""
+  }
         <p class="card-text fw-bold mb-0 text-nowrap">${reservation.covoiturage.prix}  crédits</p>
       </div>
     </div>
