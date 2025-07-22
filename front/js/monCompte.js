@@ -1,4 +1,4 @@
-import { getReservationByUser, getReservationsByCovoiturage } from "./api/reservation.js";
+import { getReservationByUser, getReservationsByCovoiturage, deleteReservation } from "./api/reservation.js";
 import { getCovoituragesByUser } from "./api/covoiturage.js";
 import { addVehicule, deleteUser, deleteVehicule, postPhoto, getVehicules, patchUser } from "./api/user.js";
 import { createCovoiturageCard } from "./components/covoiturageCard.js";
@@ -405,4 +405,22 @@ document.querySelectorAll("[data-scroll]").forEach((link) => {
       target.scrollIntoView({ behavior: "smooth" });
     }
   });
+});
+//supression des anciennes reservations
+async function supprimerReservation(reservationId) {
+  try {
+    const response = await deleteReservation(reservationId);
+    if (response) {
+      showToast(response.message); //toast de confirmation
+      const modal = bootstrap.Modal.getInstance(document.getElementById("deleteReservationModal"));
+      modal.hide();
+    }
+  } catch (error) {
+    showToast(error.message, "error"); //toast d'erreur
+  }
+}
+const deleteBtn = document.querySelector("#deleteOldReservation");
+deleteBtn.addEventListener("click", () => {
+  const reservationId = deleteBtn.getAttribute("data-id");
+  supprimerReservation(reservationId);
 });
