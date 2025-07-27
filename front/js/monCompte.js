@@ -8,7 +8,7 @@ import { createReservationValidationCard } from "./components/reservationValidat
 import { inputValidator } from "./utils/inputValidator.js";
 import { showToast } from "./components/toast.js";
 import { apiUrl } from "./config.js";
-import { getAvisByCovoiturage, getMoyenneByUser, postAvis } from "./api/avis.js";
+import { getAvisByCovoiturage, getMoyenneByUser, postAvis, changeStatut } from "./api/avis.js";
 
 // ==========================
 // GESTION DES INFOS DE L'USER
@@ -376,6 +376,7 @@ async function desinscription(userId) {
     showToast(error.message, "error"); //toast d'erreur
   }
 }
+
 // Ajout de l'ecouteur sur le bouton pour confirmer la desinscription
 const deleteUserBtn = document.getElementById("deleteUserBtn");
 deleteUserBtn.addEventListener("click", () => {
@@ -384,6 +385,7 @@ deleteUserBtn.addEventListener("click", () => {
 
 // GESTION DE LA PHOTO DE PROFIL
 // récupération du fichier dans le champ input et envoi via l'API
+
 const btnAddPhoto = document.getElementById("btnAddPhoto");
 
 function addPhoto() {
@@ -414,7 +416,8 @@ document.querySelectorAll("[data-scroll]").forEach((link) => {
     }
   });
 });
-//supression des anciennes reservations
+
+// suppression d'une ancienne réservation via l'API
 async function supprimerReservation(reservationId) {
   try {
     const response = await deleteReservation(reservationId);
@@ -428,7 +431,46 @@ async function supprimerReservation(reservationId) {
   }
 }
 const deleteBtn = document.querySelector("#deleteOldReservation");
+
+// récupération de l'id de réservation à supprimer (ancienne résa)
 deleteBtn.addEventListener("click", () => {
   const reservationId = deleteBtn.getAttribute("data-id");
   supprimerReservation(reservationId);
+});
+
+// modification du statut d'une réservation (confirme ou refuse)
+async function changeStatutReservation(reservationId, statut) {
+  try {
+    const response = await changeStatut(reservationId, statut);
+    if (response) {
+      showToast(response.message); //toast de confirmation
+      const modal = bootstrap.Modal.getInstance(document.getElementById("validationReservationModal"));
+      modal.hide();
+    }
+  } catch (error) {
+    showToast(error.message, "error"); //toast d'erreur
+  }
+}
+
+const modal = document.getElementById("validationReservationModal");
+const confirmBtn = modal.querySelector("#btnAccepterReservation");
+const refuseBtn = modal.querySelector("#btnRefuserReservation");
+
+// injection de l'id de la réservation dans les boutons de la modal
+modal.addEventListener("show.bs.modal", function (event) {
+  const trigger = event.relatedTarget;
+  const reservationId = trigger.getAttribute("data-reservation-id");
+
+  confirmBtn.dataset.idReservation = reservationId;
+  refuseBtn.dataset.idReservation = reservationId;
+});
+
+// ajout des écouteurs pour changer le statut via la modal (acceptation)
+confirmBtn.addEventListener("click", () => {
+  changeStatutReservation(confirmBtn.dataset.idReservation, "confirme");
+});
+
+// ajout des écouteurs pour changer le statut via la modal (refus)
+refuseBtn.addEventListener("click", () => {
+  changeStatutReservation(refuseBtn.dataset.idReservation, "refuse");
 });
