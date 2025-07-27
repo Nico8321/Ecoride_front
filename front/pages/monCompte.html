@@ -1,5 +1,3 @@
-<!-- Sidebar fixe à gauche (desktop uniquement) -->
-
 <div class="row">
   <div class="sidebar d-none d-md-flex flex-column col-3" style="position: fixed; height: 100vh">
     <div class="background-2 d-flex flex-column pt-4 p-3 col-3" style="height: 100vh; position: fixed">
@@ -38,7 +36,7 @@
   </div>
 
   <div class="sidebar-mobile d-flex d-md-none sticky-top background-2 pt-3 overflow-auto">
-    <a href="#" data-scroll="ovoiturage_propose" class="m-3">Mes covoiturages proposés</a>
+    <a href="#" data-scroll="covoiturage_propose" class="m-3">Mes covoiturages proposés</a>
     <a href="#" data-scroll="historique_covoiturage" class="m-3">Historique de mes covoiturages </a>
     <a href="#" data-scroll="reservations" class="m-3">Mes reservations</a>
     <a href="#" data-scroll="historique_reservation" class="m-3">Historique de mes reservations</a>
@@ -86,6 +84,7 @@
         <p>Aucune reservations</p>
       </div>
     </section>
+
     <!-- Section Mes Véhicules -->
 
     <section id="mesVehicules" class="p-3" style="scroll-margin-top: 125px">
@@ -172,6 +171,7 @@
           <button type="button" class="btn btn-primary mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#modalValidation">Sauvergarder</button>
 
           <!-- Modal pour enregistrer les modifs -->
+
           <div class="modal fade" id="modalValidation" tabindex="-1" aria-labelledby="Validation" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
@@ -231,7 +231,9 @@
     </section>
   </div>
 </div>
+
 <!-- Modale confirmation reservation-->
+
 <div class="modal fade" id="validationReservationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -248,7 +250,9 @@
     </div>
   </div>
 </div>
+
 <!-- Modale annulation reservation-->
+
 <div class="modal fade" id="annulationReservationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -261,6 +265,59 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
         <button type="button" class="btn btn-danger" id="btnAnnulerReservation">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modale Poster Avis globale -->
+<div class="modal fade" id="deposerAvisModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Votre avis sur ce covoiturage</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3 p-2 d-flex align-items-start flex-fill">
+            <label for="noteAvis" class="form-label">Note conducteur :</label>
+            <select id="noteAvis" class="form-select w-auto border-0 pt-0 text-primary background-2">
+              <option value="1">★☆☆☆☆</option>
+              <option value="2">★★☆☆☆</option>
+              <option value="3">★★★☆☆</option>
+              <option value="4">★★★★☆</option>
+              <option value="5">★★★★★</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="commentaireAvis" class="form-label">Votre commentaire :</label>
+            <textarea class="form-control" id="commentaireAvis" rows="3"></textarea>
+          </div>
+          <input type="hidden" id="avisConducteurId" />
+          <input type="hidden" id="avisCovoiturageId" />
+          <input type="hidden" id="avisAuteurId" />
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" id="btnPostAvis">Publier</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteReservationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Supprimer la reservation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">Voulez-vous supprimer cette reservation ?</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" id="deleteOldReservation">Supprimer</button>
       </div>
     </div>
   </div>

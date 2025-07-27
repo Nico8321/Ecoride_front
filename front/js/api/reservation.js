@@ -43,3 +43,18 @@ export async function getReservationsByCovoiturage(id) {
     throw error;
   }
 }
+
+export async function deleteReservation(reservationId) {
+  try {
+    const response = await fetch(`${apiUrl}/reservation/delete/${reservationId}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}

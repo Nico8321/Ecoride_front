@@ -41,3 +41,14 @@ export async function postAvis(avis) {
     throw error;
   }
 }
+export async function getAvisByCovoiturage(covoiturageId) {
+  try {
+    const response = await fetch(`${apiUrl}/avis?covoiturage_id=${covoiturageId}`);
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+}

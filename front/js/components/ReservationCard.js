@@ -45,14 +45,41 @@ export function createReservationCard(reservation, destination) {
 
       <!-- Colonne : Bouton + crédits -->
       <div class="d-flex align-items-center justify-content-end ms-md-auto gap-3">
-        ${
-          reservation.statut === "en attente"
-            ? `
-            <button class="btn btn-danger" data-id="${reservation.covoiturage.id}" data-bs-toggle="modal" data-bs-target="#annulationReservationModal">
-              Annuler
-            </button> `
-            : ""
-        }
+        ${(function () {
+          const now = new Date();
+          const dateDepart = new Date(reservation.covoiturage.date_depart);
+          const departPlusUnJour = new Date(dateDepart);
+          departPlusUnJour.setDate(dateDepart.getDate() + 1);
+          if (reservation.statut === "en attente" && now > departPlusUnJour) {
+            return `
+                 <button class="btn btn-primary" data-id="${reservation.covoiturage.id}"
+                 data-bs-toggle="modal"
+                 data-bs-target="#deleteReservationModal"
+                 onclick="document.querySelector('#deleteOldReservation').setAttribute('data-id','${reservation.id}')">
+                  Supprimer la </br> réservation expirée
+                </button>`;
+          } else if (reservation.statut === "en attente") {
+            return `
+                <button class="btn btn-danger" data-id="${reservation.covoiturage.id}" data-bs-toggle="modal" data-bs-target="#annulationReservationModal">
+                  Annuler
+                </button> `;
+          } else {
+            return "";
+          }
+        })()}${
+    reservation.statut === "confirme" && reservation.covoiturage.statut === "termine"
+      ? `
+        <button 
+          class="btn btn-primary btn-open-modal-avis"
+          data-covoiturage-id="${reservation.covoiturage.id}" 
+          data-conducteur-id="${reservation.covoiturage.conducteur_id}" 
+          data-utilisateur-id="${reservation.utilisateur_id}" 
+          data-bs-toggle="modal" 
+          data-bs-target="#deposerAvisModal">
+          Déposer un avis 
+        </button> `
+      : ""
+  }
         <p class="card-text fw-bold mb-0 text-nowrap">${reservation.covoiturage.prix}  crédits</p>
       </div>
     </div>
