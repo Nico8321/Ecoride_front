@@ -29,8 +29,8 @@ export function createReservationValidationCard(reservation, destination) {
         ${
           reservation.statut === "en attente"
             ? `
-            <button class="btn btn-primary" data-id="${reservation.id}" data-bs-toggle="modal" data-bs-target="#validationReservationModal">
-              accepter la reservation
+            <button class="btn btn-primary" data-reservation-id="${reservation.id}" data-bs-toggle="modal" data-bs-target="#validationReservationModal">
+              Gerer la reservation
             </button> `
             : `<p class="h3" >
               Reservation ${reservation.statut}<p>`
