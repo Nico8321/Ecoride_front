@@ -3,11 +3,12 @@ import { getCovoituragesByUser } from "./api/covoiturage.js";
 import { addVehicule, deleteUser, deleteVehicule, postPhoto, getVehicules, patchUser } from "./api/user.js";
 import { createCovoiturageCard } from "./components/covoiturageCard.js";
 import { createReservationCard } from "./components/ReservationCard.js";
+import { createAvisCard } from "./components/AvisCard.js";
 import { createReservationValidationCard } from "./components/reservationValidationCard.js";
 import { inputValidator } from "./utils/inputValidator.js";
 import { showToast } from "./components/toast.js";
 import { apiUrl } from "./config.js";
-import { getMoyenneByUser, postAvis } from "./api/avis.js";
+import { getAvisByCovoiturage, getMoyenneByUser, postAvis } from "./api/avis.js";
 
 // ==========================
 // GESTION DES INFOS DE L'USER
@@ -217,6 +218,13 @@ async function affichageCovoiturage() {
         if (covoiturage.conducteur_id === user.id) {
           if (covoiturage.statut === "termine") {
             createCovoiturageCard(covoiturage, historiqueCovoiturage);
+            getAvisByCovoiturage(covoiturage.id)
+              .then((avis) => {
+                createAvisCard(avis, historiqueCovoiturage);
+              })
+              .catch((error) => {
+                console.error("Erreur lors de la récupération des avis :", error);
+              });
           } else {
             const card = createCovoiturageCard(covoiturage, covoituragePropose);
             const module = document.getElementById(`moduleCovoiturage${covoiturage.id}`);
