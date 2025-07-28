@@ -42,14 +42,32 @@ export function createCovoiturageCard(covoiturage, destination) {
 
       <!-- Colonne : Bouton + crédits -->
       <div class="d-flex align-items-center justify-content-end ms-md-auto gap-3">
-        ${
-          !isMonCompte
-            ? `
-            <button class="btn btn-primary" data-id="${covoiturage.id}" data-bs-toggle="modal" data-bs-target="#reservationModal">
-              Réserver
-            </button> `
-            : ""
-        }
+          
+  ${
+    !isMonCompte
+      ? `<button class="btn btn-primary" data-id="${covoiturage.id}" data-bs-toggle="modal" data-bs-target="#reservationModal">
+        Réserver
+      </button>`
+      : ""
+  }
+  
+${
+  covoiturage.statut === "ouvert" || covoiturage.statut === "complet"
+    ? `
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#annulationCovoiturageModal"
+              data-id="${covoiturage.id}"
+            >
+              Annuler
+            </button>
+          `
+    : ""
+}
+
+  
         <p class="card-text fw-bold mb-0 text-nowrap">${covoiturage.prix}  crédits</p>
       </div>
     </div>

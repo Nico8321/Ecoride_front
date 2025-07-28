@@ -43,3 +43,18 @@ export async function findCovoiturage(filtres) {
     throw error;
   }
 }
+
+export async function annulerCovoiturage(userId, covoiturgeId) {
+  try {
+    const response = await fetch(`${apiUrl}/covoiturage/annule/${userId}/${covoiturgeId}`, {
+      method: "PATCH",
+    });
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}

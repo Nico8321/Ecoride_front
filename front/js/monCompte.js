@@ -1,5 +1,5 @@
-import { getReservationByUser, getReservationsByCovoiturage, deleteReservation } from "./api/reservation.js";
-import { getCovoituragesByUser } from "./api/covoiturage.js";
+import { getReservationByUser, getReservationsByCovoiturage, deleteReservation, changeStatut } from "./api/reservation.js";
+import { getCovoituragesByUser, annulerCovoiturage } from "./api/covoiturage.js";
 import { addVehicule, deleteUser, deleteVehicule, postPhoto, getVehicules, patchUser } from "./api/user.js";
 import { createCovoiturageCard } from "./components/covoiturageCard.js";
 import { createReservationCard } from "./components/ReservationCard.js";
@@ -8,7 +8,7 @@ import { createReservationValidationCard } from "./components/reservationValidat
 import { inputValidator } from "./utils/inputValidator.js";
 import { showToast } from "./components/toast.js";
 import { apiUrl } from "./config.js";
-import { getAvisByCovoiturage, getMoyenneByUser, postAvis, changeStatut } from "./api/avis.js";
+import { getAvisByCovoiturage, getMoyenneByUser, postAvis } from "./api/avis.js";
 
 // ==========================
 // GESTION DES INFOS DE L'USER
@@ -425,6 +425,7 @@ async function supprimerReservation(reservationId) {
       showToast(response.message); //toast de confirmation
       const modal = bootstrap.Modal.getInstance(document.getElementById("deleteReservationModal"));
       modal.hide();
+      affichageReservation();
     }
   } catch (error) {
     showToast(error.message, "error"); //toast d'erreur
@@ -446,6 +447,7 @@ async function changeStatutReservation(reservationId, statut) {
       showToast(response.message); //toast de confirmation
       const modal = bootstrap.Modal.getInstance(document.getElementById("validationReservationModal"));
       modal.hide();
+      affichageCovoiturage();
     }
   } catch (error) {
     showToast(error.message, "error"); //toast d'erreur
@@ -473,4 +475,32 @@ confirmBtn.addEventListener("click", () => {
 // ajout des écouteurs pour changer le statut via la modal (refus)
 refuseBtn.addEventListener("click", () => {
   changeStatutReservation(refuseBtn.dataset.idReservation, "refuse");
+});
+
+// annulation du covoiturage
+
+const annulationCovoiturageModal = document.getElementById("annulationCovoiturageModal");
+annulationCovoiturageModal.addEventListener("show.bs.modal", (event) => {
+  const button = event.relatedTarget;
+  const covoiturageId = button.getAttribute("data-id");
+  const btnConfirmationAnullation = document.getElementById("btnConfirmationAnullation");
+  btnConfirmationAnullation.dataset.id = covoiturageId;
+});
+
+async function annulationCovoiturage(userId, covoiturageId) {
+  try {
+    const response = await annulerCovoiturage(userId, covoiturageId);
+    if (response) {
+      showToast(response.message); //toast de confirmation
+      const modal = bootstrap.Modal.getInstance(document.getElementById("annulationCovoiturageModal"));
+      modal.hide();
+      affichageCovoiturage();
+    }
+  } catch (error) {
+    showToast(error.message, "error"); //toast d'erreur
+  }
+}
+
+btnConfirmationAnullation.addEventListener("click", () => {
+  annulationCovoiturage(userId, btnConfirmationAnullation.dataset.id);
 });

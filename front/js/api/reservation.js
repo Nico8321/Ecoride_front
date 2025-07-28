@@ -58,3 +58,16 @@ export async function deleteReservation(reservationId) {
     throw error;
   }
 }
+export async function changeStatut(reservationId, statut) {
+  try {
+    const response = await fetch(`${apiUrl}/reservation/change/${reservationId}/${statut}`, {
+      method: "PATCH",
+    });
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+}
