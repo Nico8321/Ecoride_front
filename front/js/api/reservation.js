@@ -58,3 +58,29 @@ export async function deleteReservation(reservationId) {
     throw error;
   }
 }
+export async function accepterReservation(reservationId) {
+  try {
+    const response = await fetch(`${apiUrl}/reservation/accepte/${reservationId}`, {
+      method: "PATCH",
+    });
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+}
+export async function refuserReservation(reservationId) {
+  try {
+    const response = await fetch(`${apiUrl}/reservation/refuse/${reservationId}`, {
+      method: "PATCH",
+    });
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+}
