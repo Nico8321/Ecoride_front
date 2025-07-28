@@ -44,9 +44,9 @@ export async function findCovoiturage(filtres) {
   }
 }
 
-export async function annulerCovoiturage(userId, covoiturgeId) {
+export async function annulerCovoiturage(userId, covoiturageId) {
   try {
-    const response = await fetch(`${apiUrl}/covoiturage/annule/${userId}/${covoiturgeId}`, {
+    const response = await fetch(`${apiUrl}/covoiturage/annule/${userId}/${covoiturageId}`, {
       method: "PATCH",
     });
     if (!response.ok) {

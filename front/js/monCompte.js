@@ -1,4 +1,4 @@
-import { getReservationByUser, getReservationsByCovoiturage, deleteReservation, changeStatut } from "./api/reservation.js";
+import { getReservationByUser, getReservationsByCovoiturage, deleteReservation, accepterReservation, refuserReservation } from "./api/reservation.js";
 import { getCovoituragesByUser, annulerCovoiturage } from "./api/covoiturage.js";
 import { addVehicule, deleteUser, deleteVehicule, postPhoto, getVehicules, patchUser } from "./api/user.js";
 import { createCovoiturageCard } from "./components/covoiturageCard.js";
@@ -10,9 +10,8 @@ import { showToast } from "./components/toast.js";
 import { apiUrl } from "./config.js";
 import { getAvisByCovoiturage, getMoyenneByUser, postAvis } from "./api/avis.js";
 
-// ==========================
-// GESTION DES INFOS DE L'USER
-// ==========================
+// 1. GESTION DES INFOS DE L'USER
+// ───────────────────────────────
 
 // Récupération de l'user depuis le sessionStorage
 
@@ -20,6 +19,8 @@ const données = ["pseudo", "nom", "prenom", "adresse", "telephone"];
 const user = JSON.parse(sessionStorage.getItem("user"));
 // ajout de la note au sessionStorage
 const userId = user.id;
+
+// ajouterNoteUser : récupérer et afficher la note de l'utilisateur
 
 async function ajouterNoteUser() {
   try {
@@ -35,6 +36,8 @@ async function ajouterNoteUser() {
 ajouterNoteUser();
 //remplissage des champs
 
+// inputIncrement : remplir les champs du formulaire avec les données utilisateur
+
 function inputIncrement() {
   données.forEach((key) => {
     const input = document.getElementById(key);
@@ -42,6 +45,8 @@ function inputIncrement() {
   });
 }
 inputIncrement();
+// updateUser : envoyer les modifications du profil au serveur
+
 async function updateUser() {
   const form = document.getElementById("formUserData");
   if (form.reportValidity()) {
@@ -92,9 +97,8 @@ telInput.addEventListener("change", () => {
   inputValidator("telephone");
 });
 
-// ==========================
-// GESTION VEHICULES
-// ==========================
+// 2. GESTION DES VÉHICULES
+// ──────────────────────────
 
 // Affichage des véhicules de l'user depuis sessionStorage
 
@@ -112,6 +116,8 @@ let vehicules = [];
 })();
 
 // Génère le bloc HTML d’un véhicule (utilisé pour chaque véhicule ou pour l'ajout)
+
+// ajoutDivVehicule : générer et afficher une carte de véhicule
 
 function ajoutDivVehicule(vehicule) {
   const div = document.createElement("div");
@@ -137,6 +143,8 @@ function ajoutDivVehicule(vehicule) {
 // Suppression d’un véhicule
 //fonction pour suppression
 
+// supprimerVehicule : supprimer un véhicule et mettre à jour l'affichage
+
 async function supprimerVehicule(userId, vehiculeId) {
   try {
     const idVehiculeSupprime = await deleteVehicule(userId, vehiculeId);
@@ -161,6 +169,8 @@ const energie = document.getElementById("energie");
 const couleur = document.getElementById("couleur");
 const immatriculation = document.getElementById("immatriculation");
 const dateImmat = document.getElementById("dateImmat");
+
+// ajoutVehicule : envoyer un nouveau véhicule au backend et rafraîchir la liste
 
 async function ajoutVehicule(userId) {
   const form = document.getElementById("form-ajout-vehicule");
@@ -202,10 +212,9 @@ btnAddVehicule.addEventListener("click", () => {
   ajoutVehicule(user.id);
 });
 
-// ==========================
-// GESTION DES COVOITURAGES
-// ==========================
-// Récupère et affiche les covoiturages proposés par l’utilisateur
+// 3. GESTION DES COVOITURAGES
+// ────────────────────────────
+// affichageCovoiturage : récupérer et afficher les covoiturages de l'utilisateur
 
 const covoituragePropose = document.getElementById("covoituragePropose");
 const historiqueCovoiturage = document.getElementById("historiqueCovoiturage");
@@ -214,6 +223,7 @@ async function affichageCovoiturage() {
     const covoiturages = await getCovoituragesByUser(user.id);
     if (covoiturages.length > 0) {
       covoituragePropose.innerHTML = "";
+      historiqueCovoiturage.innerHTML = "";
       covoiturages.forEach((covoiturage) => {
         if (covoiturage.conducteur_id === user.id) {
           if (covoiturage.statut === "termine") {
@@ -278,12 +288,44 @@ async function affichageCovoiturage() {
     console.error("Erreur:", error.message);
   }
 }
+
 affichageCovoiturage();
 
-// ==========================
-// GESTION DES RESERVATIONS
-// ==========================
-// Récupère les covoiturages réservés :
+// 4. ANNULATION D'UN COVOITURAGE
+// ───────────────────────────────
+// annulationCovoiturageModal : préparer l'ID pour la modal d'annulation
+
+const annulationCovoiturageModal = document.getElementById("annulationCovoiturageModal");
+annulationCovoiturageModal.addEventListener("show.bs.modal", (event) => {
+  const button = event.relatedTarget;
+  const covoiturageId = button.getAttribute("data-id");
+  const btnConfirmationAnnulation = document.getElementById("btnConfirmationAnnulation");
+  btnConfirmationAnnulation.dataset.id = covoiturageId;
+});
+
+// annulationCovoiturage : appeler l'API pour annuler un covoiturage et rafraîchir l'affichage
+
+async function annulationCovoiturage(userId, covoiturageId) {
+  try {
+    const response = await annulerCovoiturage(userId, covoiturageId);
+    if (response) {
+      showToast(response.message); //toast de confirmation
+      const modal = bootstrap.Modal.getInstance(document.getElementById("annulationCovoiturageModal"));
+      modal.hide();
+      affichageCovoiturage();
+    }
+  } catch (error) {
+    showToast(error.message, "error"); //toast d'erreur
+  }
+}
+
+btnConfirmationAnnulation.addEventListener("click", () => {
+  annulationCovoiturage(userId, btnConfirmationAnnulation.dataset.id);
+});
+
+// 5. GESTION DES RÉSERVATIONS
+// ─────────────────────────────
+// affichageReservation : récupérer et afficher les réservations passées et à venir
 
 const reservationsEnCours = document.getElementById("reservationsEnCours");
 const historiqueReservations = document.getElementById("historiqueReservations");
@@ -296,6 +338,7 @@ async function affichageReservation() {
     const reservations = await getReservationByUser(user.id);
     if (reservations.length > 0) {
       reservationsEnCours.innerHTML = "";
+      historiqueReservations.innerHTML = "";
       reservations.forEach((reservation) => {
         if (reservation.covoiturage.date_depart >= today) {
           createReservationCard(reservation, reservationsEnCours);
@@ -311,9 +354,84 @@ async function affichageReservation() {
 
 affichageReservation();
 
-// ==========================
-// GESTION DES AVIS
-// ==========================
+// supprimerReservation : appeler l'API pour supprimer une ancienne réservation et rafraîchir
+
+async function supprimerReservation(reservationId) {
+  try {
+    const response = await deleteReservation(reservationId);
+    if (response) {
+      showToast(response.message); //toast de confirmation
+      const modal = bootstrap.Modal.getInstance(document.getElementById("deleteReservationModal"));
+      modal.hide();
+      affichageReservation();
+    }
+  } catch (error) {
+    showToast(error.message, "error"); //toast d'erreur
+  }
+}
+const deleteBtn = document.querySelector("#deleteOldReservation");
+
+// récupération de l'id de réservation à supprimer (ancienne résa)
+deleteBtn.addEventListener("click", () => {
+  const reservationId = deleteBtn.getAttribute("data-id");
+  supprimerReservation(reservationId);
+});
+
+// changeStatutReservation : mettre à jour le statut d'une réservation et rafraîchir
+
+async function changeStatutReservation(reservationId, statut) {
+  if (statut === "confirme") {
+    try {
+      const response = await accepterReservation(reservationId);
+      if (response) {
+        showToast(response.message); //toast de confirmation
+        const modal = bootstrap.Modal.getInstance(document.getElementById("validationReservationModal"));
+        modal.hide();
+        affichageCovoiturage();
+      }
+    } catch (error) {
+      showToast(error.message, "error"); //toast d'erreur
+    }
+  } else if (statut === "refuse") {
+    try {
+      const response = await refuserReservation(reservationId);
+      if (response) {
+        showToast(response.message); //toast de confirmation
+        const modal = bootstrap.Modal.getInstance(document.getElementById("validationReservationModal"));
+        modal.hide();
+        affichageCovoiturage();
+      }
+    } catch (error) {
+      showToast(error.message, "error"); //toast d'erreur
+    }
+  }
+}
+
+const modal = document.getElementById("validationReservationModal");
+const confirmBtn = modal.querySelector("#btnAccepterReservation");
+const refuseBtn = modal.querySelector("#btnRefuserReservation");
+
+// injection de l'id de la réservation dans les boutons de la modal
+modal.addEventListener("show.bs.modal", function (event) {
+  const trigger = event.relatedTarget;
+  const reservationId = trigger.getAttribute("data-reservation-id");
+
+  confirmBtn.dataset.idReservation = reservationId;
+  refuseBtn.dataset.idReservation = reservationId;
+});
+
+// ajout des écouteurs pour changer le statut via la modal (acceptation)
+confirmBtn.addEventListener("click", () => {
+  changeStatutReservation(confirmBtn.dataset.idReservation, "confirme");
+});
+
+// ajout des écouteurs pour changer le statut via la modal (refus)
+refuseBtn.addEventListener("click", () => {
+  changeStatutReservation(refuseBtn.dataset.idReservation, "refuse");
+});
+
+// 6. GESTION DES AVIS
+// ────────────────────
 
 document.addEventListener("click", (e) => {
   if (e.target && e.target.classList.contains("btn-open-modal-avis")) {
@@ -330,6 +448,8 @@ document.addEventListener("click", (e) => {
     envoyerAvis();
   }
 });
+
+// envoyerAvis : envoyer un nouvel avis au backend et fermer la modal
 
 async function envoyerAvis() {
   const avisCovoiturageId = document.getElementById("avisCovoiturageId");
@@ -358,11 +478,9 @@ async function envoyerAvis() {
   }
 }
 
-// ==========================
-// GESTION DE LA DESINSCRIPTION
-// ==========================
-
-//Fonction pour la desinscriprion
+// 7. DÉSINSCRIPTION UTILISATEUR
+// ───────────────────────────────
+// desinscription : supprimer le compte utilisateur et rediriger
 
 async function desinscription(userId) {
   try {
@@ -383,8 +501,9 @@ deleteUserBtn.addEventListener("click", () => {
   desinscription(user.id);
 });
 
-// GESTION DE LA PHOTO DE PROFIL
-// récupération du fichier dans le champ input et envoi via l'API
+// 8. PHOTO DE PROFIL
+// ───────────────────
+// addPhoto : récupération du fichier dans le champ input et envoi via l'API
 
 const btnAddPhoto = document.getElementById("btnAddPhoto");
 
@@ -415,92 +534,4 @@ document.querySelectorAll("[data-scroll]").forEach((link) => {
       target.scrollIntoView({ behavior: "smooth" });
     }
   });
-});
-
-// suppression d'une ancienne réservation via l'API
-async function supprimerReservation(reservationId) {
-  try {
-    const response = await deleteReservation(reservationId);
-    if (response) {
-      showToast(response.message); //toast de confirmation
-      const modal = bootstrap.Modal.getInstance(document.getElementById("deleteReservationModal"));
-      modal.hide();
-      affichageReservation();
-    }
-  } catch (error) {
-    showToast(error.message, "error"); //toast d'erreur
-  }
-}
-const deleteBtn = document.querySelector("#deleteOldReservation");
-
-// récupération de l'id de réservation à supprimer (ancienne résa)
-deleteBtn.addEventListener("click", () => {
-  const reservationId = deleteBtn.getAttribute("data-id");
-  supprimerReservation(reservationId);
-});
-
-// modification du statut d'une réservation (confirme ou refuse)
-async function changeStatutReservation(reservationId, statut) {
-  try {
-    const response = await changeStatut(reservationId, statut);
-    if (response) {
-      showToast(response.message); //toast de confirmation
-      const modal = bootstrap.Modal.getInstance(document.getElementById("validationReservationModal"));
-      modal.hide();
-      affichageCovoiturage();
-    }
-  } catch (error) {
-    showToast(error.message, "error"); //toast d'erreur
-  }
-}
-
-const modal = document.getElementById("validationReservationModal");
-const confirmBtn = modal.querySelector("#btnAccepterReservation");
-const refuseBtn = modal.querySelector("#btnRefuserReservation");
-
-// injection de l'id de la réservation dans les boutons de la modal
-modal.addEventListener("show.bs.modal", function (event) {
-  const trigger = event.relatedTarget;
-  const reservationId = trigger.getAttribute("data-reservation-id");
-
-  confirmBtn.dataset.idReservation = reservationId;
-  refuseBtn.dataset.idReservation = reservationId;
-});
-
-// ajout des écouteurs pour changer le statut via la modal (acceptation)
-confirmBtn.addEventListener("click", () => {
-  changeStatutReservation(confirmBtn.dataset.idReservation, "confirme");
-});
-
-// ajout des écouteurs pour changer le statut via la modal (refus)
-refuseBtn.addEventListener("click", () => {
-  changeStatutReservation(refuseBtn.dataset.idReservation, "refuse");
-});
-
-// annulation du covoiturage
-
-const annulationCovoiturageModal = document.getElementById("annulationCovoiturageModal");
-annulationCovoiturageModal.addEventListener("show.bs.modal", (event) => {
-  const button = event.relatedTarget;
-  const covoiturageId = button.getAttribute("data-id");
-  const btnConfirmationAnullation = document.getElementById("btnConfirmationAnullation");
-  btnConfirmationAnullation.dataset.id = covoiturageId;
-});
-
-async function annulationCovoiturage(userId, covoiturageId) {
-  try {
-    const response = await annulerCovoiturage(userId, covoiturageId);
-    if (response) {
-      showToast(response.message); //toast de confirmation
-      const modal = bootstrap.Modal.getInstance(document.getElementById("annulationCovoiturageModal"));
-      modal.hide();
-      affichageCovoiturage();
-    }
-  } catch (error) {
-    showToast(error.message, "error"); //toast d'erreur
-  }
-}
-
-btnConfirmationAnullation.addEventListener("click", () => {
-  annulationCovoiturage(userId, btnConfirmationAnullation.dataset.id);
 });
