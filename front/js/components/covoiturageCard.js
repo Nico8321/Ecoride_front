@@ -10,7 +10,7 @@ export function createCovoiturageCard(covoiturage, destination) {
 <div class="card-body d-flex flex-column flex-md-row gap-3">
  ${
    covoiturage.vehicule_energie === "electrique"
-     ? `<div class="position-absolute top-0 start-0 end-0 bg-success text-white px-2 py-1 rounded-top">
+     ? `<div class="position-absolute top-0 start-0 bg-success text-white px-2 py-1 rounded-top-start">
          ECO
        </div>`
      : ""
@@ -25,7 +25,7 @@ export function createCovoiturageCard(covoiturage, destination) {
         </div>
         <div>
           <p class="card-text fw-bold mb-1">${covoiturage.conducteur_pseudo}</p>
-          <p class="card-text text-warning mb-0">Note : ${covoiturage.conducteur_note} <i class="bi bi-star-fill"></i></p>
+          <p class="card-text text-warning mb-0">Note : ${covoiturage.conducteur_note || "aucune note"} <i class="bi bi-star-fill"></i></p>
         </div>
       </div>
 

@@ -97,6 +97,10 @@ btnConfirm.addEventListener("click", async () => {
     return;
   }
   confirmerReservation(covoiturageId);
+  const reservationModal = bootstrap.Modal.getInstance(document.getElementById("reservationModal"));
+  if (reservationModal) {
+    reservationModal.hide();
+  }
 });
 
 // recherche automatique apres redirection depuis le Header ou page Home

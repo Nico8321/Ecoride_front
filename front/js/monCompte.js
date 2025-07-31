@@ -25,10 +25,15 @@ const userId = user.id;
 async function ajouterNoteUser() {
   try {
     const note = await getMoyenneByUser(userId);
-    user.note = note;
-    sessionStorage.setItem("user", JSON.stringify(user));
-    sidebarNote.innerText = note.moyenne;
-    sidebarNoteM.innerText = note.moyenne;
+    if (!note.moyenne) {
+      user.note = "Aucune note";
+    } else {
+      user.note = note;
+
+      sessionStorage.setItem("user", JSON.stringify(user));
+      sidebarNote.innerText = note.moyenne;
+      sidebarNoteM.innerText = note.moyenne;
+    }
   } catch (error) {
     console.error("Erreur lors de la récupération de la note :", error);
   }
