@@ -23,7 +23,7 @@ export async function reserver(info, covoiturageId) {
       body: JSON.stringify(info),
     });
     if (!response.ok) {
-      throw new Error("Erreur HTTP:", response.status);
+      throw new Error(`Erreur HTTP: ${response.status}`);
     }
     return await response.json();
   } catch (error) {

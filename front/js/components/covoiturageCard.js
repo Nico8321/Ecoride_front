@@ -10,7 +10,7 @@ export function createCovoiturageCard(covoiturage, destination) {
 <div class="card-body d-flex flex-column flex-md-row gap-3">
  ${
    covoiturage.vehicule_energie === "electrique"
-     ? `<div class="position-absolute top-0 start-0 end-0 bg-success text-white px-2 py-1 rounded-top">
+     ? `<div class="position-absolute top-0 start-0 bg-success text-white px-2 py-1 rounded-top-start">
          ECO
        </div>`
      : ""
@@ -25,7 +25,7 @@ export function createCovoiturageCard(covoiturage, destination) {
         </div>
         <div>
           <p class="card-text fw-bold mb-1">${covoiturage.conducteur_pseudo}</p>
-          <p class="card-text text-warning mb-0">Note : ${covoiturage.conducteur_note} <i class="bi bi-star-fill"></i></p>
+          <p class="card-text text-warning mb-0">Note : ${covoiturage.conducteur_note || "aucune note"} <i class="bi bi-star-fill"></i></p>
         </div>
       </div>
 
@@ -41,7 +41,9 @@ export function createCovoiturageCard(covoiturage, destination) {
       </div>
 
       <!-- Colonne : Bouton + crédits -->
-      <div class="d-flex align-items-center justify-content-end ms-md-auto gap-3">
+      <div class="d-block align-items-center justify-content-end ms-md-auto gap-3">
+              <p class="card-text fw-bold mb-0 text-nowrap p-1 "> ${covoiturage.prix}  crédits</p>
+        <p class="card-text fw-bold mb-0 text-nowrap pb-3 ">Statut: ${covoiturage.statut}</p>
           
   ${
     !isMonCompte
@@ -50,9 +52,8 @@ export function createCovoiturageCard(covoiturage, destination) {
       </button>`
       : ""
   }
-  
 ${
-  covoiturage.statut === "ouvert" || covoiturage.statut === "complet"
+  (isMonCompte && covoiturage.statut === "ouvert") || covoiturage.statut === "complet"
     ? `
             <button
               type="button"
@@ -68,7 +69,8 @@ ${
 }
 
   
-        <p class="card-text fw-bold mb-0 text-nowrap">${covoiturage.prix}  crédits</p>
+
+      </div>
       </div>
     </div>
 
