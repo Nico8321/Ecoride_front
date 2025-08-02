@@ -41,7 +41,9 @@ export function createCovoiturageCard(covoiturage, destination) {
       </div>
 
       <!-- Colonne : Bouton + crédits -->
-      <div class="d-flex align-items-center justify-content-end ms-md-auto gap-3">
+      <div class="d-block align-items-center justify-content-end ms-md-auto gap-3">
+              <p class="card-text fw-bold mb-0 text-nowrap p-1 "> ${covoiturage.prix}  crédits</p>
+        <p class="card-text fw-bold mb-0 text-nowrap pb-3 ">Statut: ${covoiturage.statut}</p>
           
   ${
     !isMonCompte
@@ -50,9 +52,8 @@ export function createCovoiturageCard(covoiturage, destination) {
       </button>`
       : ""
   }
-  
 ${
-  covoiturage.statut === "ouvert" || covoiturage.statut === "complet"
+  (isMonCompte && covoiturage.statut === "ouvert") || covoiturage.statut === "complet"
     ? `
             <button
               type="button"
@@ -68,7 +69,8 @@ ${
 }
 
   
-        <p class="card-text fw-bold mb-0 text-nowrap">${covoiturage.prix}  crédits</p>
+
+      </div>
       </div>
     </div>
 
