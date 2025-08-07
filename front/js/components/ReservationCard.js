@@ -24,7 +24,9 @@ export function createReservationCard(reservation, destination) {
   }" alt="photo de profil" style="height: 75px; width: 75px; object-fit: cover" class="rounded-circle" />
         </div>
         <div>
-          <p class="card-text fw-bold mb-1">${reservation.covoiturage.conducteur_pseudo}</p>
+          <p class="card-text fw-bold mb-1">${
+            reservation.covoiturage.conducteur_pseudo
+          }</p>
           <p class="card-text text-warning mb-0">Note : ${
             reservation.covoiturage.conducteur_note || "aucune note"
           } <i class="bi bi-star-fill"></i></p>
@@ -35,11 +37,19 @@ export function createReservationCard(reservation, destination) {
       <div class="d-flex align-items-center justify-content-center text-center flex-fill">
         <h3 class="card-title mb-0">
           <span class="d-block p-1 ">Statut: ${reservation.statut}</span>
-                    <span class="small-text d-block p-1 ">Nombres de places souhaitées : ${reservation.nb_places}</span>
-          <span class="small-text p-3 d-block">${reservation.covoiturage.date_depart} à ${reservation.covoiturage.heure_depart}</span>
-           ${reservation.covoiturage.ville_depart} → ${reservation.covoiturage.ville_arrivee}
+                    <span class="small-text d-block p-1 ">Nombres de places souhaitées : ${
+                      reservation.nb_places
+                    }</span>
+          <span class="small-text p-3 d-block">${
+            reservation.covoiturage.date_depart
+          } à ${reservation.covoiturage.heure_depart}</span>
+           ${reservation.covoiturage.ville_depart} → ${
+    reservation.covoiturage.ville_arrivee
+  }
            <br />
-           <span class="small-text pt-3 d-block ">Durée: ${reservation.covoiturage.duree} minutes</span>
+           <span class="small-text pt-3 d-block ">Durée: ${
+             reservation.covoiturage.duree
+           } minutes</span>
 
          
         </h3>
@@ -69,7 +79,8 @@ export function createReservationCard(reservation, destination) {
             return "";
           }
         })()}${
-    reservation.statut === "confirme" && reservation.covoiturage.statut === "termine"
+    reservation.statut === "confirme" &&
+    reservation.covoiturage.statut === "termine"
       ? `
         <button 
           class="btn btn-primary btn-open-modal-avis"
@@ -79,15 +90,28 @@ export function createReservationCard(reservation, destination) {
           data-bs-toggle="modal" 
           data-bs-target="#deposerAvisModal">
           Déposer un avis 
+        </button> 
+         <button 
+          class="btn btn-primary btn-open-modal-feedback"
+          data-covoiturage-id="${reservation.covoiturage.id}" 
+          data-conducteur-id="${reservation.covoiturage.conducteur_id}" 
+          data-utilisateur-id="${reservation.utilisateur_id}" 
+          data-bs-toggle="modal" 
+          data-bs-target="#feedbackModal">
+          Terminer
         </button> `
       : ""
   }
-        <p class="card-text fw-bold mb-0 text-nowrap">${reservation.covoiturage.prix}  crédits</p>
+        <p class="card-text fw-bold mb-0 text-nowrap">${
+          reservation.covoiturage.prix
+        }  crédits</p>
       </div>
     </div>
 
     <!-- Accordéon détails -->
-    <div class="accordion mt-3" id="accordionDetails-${reservation.covoiturage.id}">
+    <div class="accordion mt-3" id="accordionDetails-${
+      reservation.covoiturage.id
+    }">
       <div class="accordion-item border-0">
         <h2 class="accordion-header" id="heading-${reservation.covoiturage.id}">
           <button
@@ -108,19 +132,37 @@ export function createReservationCard(reservation, destination) {
           data-bs-parent="#accordionDetails-${reservation.covoiturage.id}"
         >
           <div class="accordion-body">
-            <p><strong>Départ :</strong> ${reservation.covoiturage.rue_depart} ${reservation.covoiturage.code_postal_depart} ${
+            <p><strong>Départ :</strong> ${
+              reservation.covoiturage.rue_depart
+            } ${reservation.covoiturage.code_postal_depart} ${
     reservation.covoiturage.ville_depart
   }</p>
-            <p><strong>Destination :</strong> ${reservation.covoiturage.rue_arrivee} ${reservation.covoiturage.code_postal_arrivee} ${
+            <p><strong>Destination :</strong> ${
+              reservation.covoiturage.rue_arrivee
+            } ${reservation.covoiturage.code_postal_arrivee} ${
     reservation.covoiturage.ville_arrivee
   }</p>
-            <p><strong>Date :</strong> ${reservation.covoiturage.date_depart}</p>
-            <p><strong>Heure :</strong> ${reservation.covoiturage.heure_depart}</p>
-            <p><strong>Énergie :</strong> ${reservation.covoiturage.vehicule_energie}</p>
-            <p><strong>Fumeur accepté :</strong> ${reservation.covoiturage.fumeur ? "Oui" : "Non"}</p>
-            <p><strong>Animaux acceptés :</strong> ${reservation.covoiturage.animaux ? "Oui" : "Non"}</p>
-            <p><strong>Places disponibles :</strong> ${reservation.covoiturage.nb_places}</p>
-              <p><strong>Vehicules:</strong> ${reservation.covoiturage.vehicule_marque}  ${reservation.covoiturage.vehicule_modele} ${
+            <p><strong>Date :</strong> ${
+              reservation.covoiturage.date_depart
+            }</p>
+            <p><strong>Heure :</strong> ${
+              reservation.covoiturage.heure_depart
+            }</p>
+            <p><strong>Énergie :</strong> ${
+              reservation.covoiturage.vehicule_energie
+            }</p>
+            <p><strong>Fumeur accepté :</strong> ${
+              reservation.covoiturage.fumeur ? "Oui" : "Non"
+            }</p>
+            <p><strong>Animaux acceptés :</strong> ${
+              reservation.covoiturage.animaux ? "Oui" : "Non"
+            }</p>
+            <p><strong>Places disponibles :</strong> ${
+              reservation.covoiturage.nb_places
+            }</p>
+              <p><strong>Vehicules:</strong> ${
+                reservation.covoiturage.vehicule_marque
+              }  ${reservation.covoiturage.vehicule_modele} ${
     reservation.covoiturage.vehicule_couleur
   } </p>
 
