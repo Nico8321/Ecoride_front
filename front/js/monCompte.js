@@ -1,4 +1,11 @@
-import { getReservationByUser, getReservationsByCovoiturage, deleteReservation, accepterReservation, refuserReservation } from "./api/reservation.js";
+import {
+  getReservationByUser,
+  getReservationsByCovoiturage,
+  deleteReservation,
+  accepterReservation,
+  refuserReservation,
+  terminerReservation,
+} from "./api/reservation.js";
 import { getCovoituragesByUser, annulerCovoiturage, demarreCovoiturage, termineCovoiturage } from "./api/covoiturage.js";
 import { addVehicule, deleteUser, deleteVehicule, postPhoto, getVehicules, patchUser } from "./api/user.js";
 import { createCovoiturageCard } from "./components/covoiturageCard.js";
@@ -498,6 +505,50 @@ confirmBtn.addEventListener("click", () => {
 // ajout des écouteurs pour changer le statut via la modal (refus)
 refuseBtn.addEventListener("click", () => {
   changeStatutReservation(refuseBtn.dataset.idReservation, "refuse");
+});
+
+// TERMINER RESERVATION: declarer la fin d'une reservation ou un litige
+
+async function validerFinReservation(reservationId) {
+  try {
+    const response = await terminerReservation(reservationId, userId);
+    if (response) {
+      showToast(response.message); //toast de confirmation
+      const modal = bootstrap.Modal.getInstance(document.getElementById("feedbackModal"));
+      modal.hide();
+      affichageCovoiturage();
+    }
+  } catch (error) {
+    showToast(error.message, "error"); //toast d'erreur
+  }
+}
+
+//redirection vers page Litige
+
+function redirectionlitige(reservationId) {
+  const query = new URLSearchParams();
+  query.append("reservationId", reservationId);
+
+  window.location.href = `/signalerProbleme?${query.toString()}`;
+}
+
+// injection de l'id de la réservation dans les boutons de la modal
+feedbackModal.addEventListener("show.bs.modal", function (event) {
+  const trigger = event.relatedTarget;
+  const reservationId = trigger.getAttribute("data-reservation-id");
+
+  btnTerminerReservation.dataset.idReservation = reservationId;
+  btnLitigeReservation.dataset.idReservation = reservationId;
+});
+
+// ajout des écouteurs pour terminer la reservation via la modal
+btnTerminerReservation.addEventListener("click", () => {
+  validerFinReservation(btnTerminerReservation.dataset.idReservation);
+});
+
+// ajout des écouteurs pour changer declarer un litige
+btnLitigeReservation.addEventListener("click", () => {
+  redirectionlitige(btnLitigeReservation.dataset.idReservation);
 });
 
 // 7. GESTION DES AVIS

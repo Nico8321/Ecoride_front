@@ -1,0 +1,41 @@
+<div class="m-5">
+  <h1 class="text-center">Veuillez nous decrire votre probleme</h1>
+  <form id="formLitige">
+    <div class="mb-3">
+      <input type="text" id="idReservation" hidden />
+    </div>
+    <div class="mb-3">
+      <label for="message" class="form-label h2"> </label>
+      <textarea class="form-control" id="message" rows="5" placeholder="Decrivez nous votre probleme en details " required></textarea>
+    </div>
+    <button type="button" id="btnModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalConfirmation">Envoyer</button>
+  </form>
+  <div
+    class="modal fade"
+    id="modalConfirmation"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Information:</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="text-danger h3 text-center">
+            La déclaration d’un problème entraînera la suspension du paiement de votre conducteur et la création d’un dossier de litige qui sera
+            examiné par l’un de nos agents. Nous vous contacterons par courriel, au besoin, afin de trouver une solution.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">fermer</button>
+          <button type="button" id="btnEnvoyerLitige" class="btn btn-primary">Envoyer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -46,12 +46,9 @@ export async function findCovoiturage(filtres) {
 
 export async function annulerCovoiturage(userId, covoiturageId) {
   try {
-    const response = await fetch(
-      `${apiUrl}/covoiturage/annuler/${userId}/${covoiturageId}`,
-      {
-        method: "PATCH",
-      }
-    );
+    const response = await fetch(`${apiUrl}/covoiturage/annuler/${userId}/${covoiturageId}`, {
+      method: "PATCH",
+    });
     if (!response.ok) {
       throw new Error(`Erreur HTTP: ${response.status}`);
     }
@@ -63,12 +60,9 @@ export async function annulerCovoiturage(userId, covoiturageId) {
 }
 export async function demarreCovoiturage(userId, covoiturageId) {
   try {
-    const response = await fetch(
-      `${apiUrl}/covoiturage/demarrer/${userId}/${covoiturageId}`,
-      {
-        method: "PATCH",
-      }
-    );
+    const response = await fetch(`${apiUrl}/covoiturage/demarrer/${userId}/${covoiturageId}`, {
+      method: "PATCH",
+    });
     if (!response.ok) {
       throw new Error(`Erreur HTTP: ${response.status}`);
     }
@@ -80,12 +74,9 @@ export async function demarreCovoiturage(userId, covoiturageId) {
 }
 export async function termineCovoiturage(userId, covoiturageId) {
   try {
-    const response = await fetch(
-      `${apiUrl}/covoiturage/terminer/${userId}/${covoiturageId}`,
-      {
-        method: "PATCH",
-      }
-    );
+    const response = await fetch(`${apiUrl}/covoiturage/terminer/${userId}/${covoiturageId}`, {
+      method: "PATCH",
+    });
     if (!response.ok) {
       throw new Error(`Erreur HTTP: ${response.status}`);
     }
