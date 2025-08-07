@@ -58,9 +58,9 @@ export async function deleteReservation(reservationId) {
     throw error;
   }
 }
-export async function accepterReservation(reservationId) {
+export async function accepterReservation(reservationId, userId) {
   try {
-    const response = await fetch(`${apiUrl}/reservation/accepte/${reservationId}`, {
+    const response = await fetch(`${apiUrl}/reservation/accepte/${reservationId}/${userId}`, {
       method: "PATCH",
     });
     if (!response.ok) {
@@ -71,9 +71,9 @@ export async function accepterReservation(reservationId) {
     throw error;
   }
 }
-export async function refuserReservation(reservationId) {
+export async function refuserReservation(reservationId, userId) {
   try {
-    const response = await fetch(`${apiUrl}/reservation/refuse/${reservationId}`, {
+    const response = await fetch(`${apiUrl}/reservation/refuse/${reservationId}/${userId}`, {
       method: "PATCH",
     });
     if (!response.ok) {
