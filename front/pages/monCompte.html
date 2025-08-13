@@ -1,90 +1,47 @@
 <div class="row">
-  <div
-    class="sidebar d-none d-md-flex flex-column col-3"
-    style="position: fixed; height: 100vh"
-  >
-    <div
-      class="background-2 d-flex flex-column pt-4 p-3 col-3"
-      style="height: 100vh; position: fixed"
-    >
+  <div class="sidebar d-none d-md-flex flex-column col-3" style="position: fixed; height: 100vh">
+    <div class="background-2 d-flex flex-column pt-4 p-3 col-3" style="height: 100vh; position: fixed">
       <div class="card w-100 mb-3 background-2 border-0">
         <div class="card-body row">
           <div class="col-1 d-flex align-items-center">
             <div class="me-3">
-              <img
-                id="photoProfil"
-                src=""
-                alt="photo de profil"
-                style="height: 75px; width: 75px; object-fit: cover"
-                class="rounded-circle"
-              />
+              <img id="photoProfil" src="" alt="photo de profil" style="height: 75px; width: 75px; object-fit: cover" class="rounded-circle" />
             </div>
             <div>
               <p class="card-text h3 mb-1 ms-2" id="sidebarPseudo"></p>
-              <p class="card-text h3 mb-1 ms-2">
-                <span id="sidebarNote"></span
-                ><i class="bi bi-star-fill ps-1"></i>
-              </p>
+              <p class="card-text h3 mb-1 ms-2"><span id="sidebarNote"></span><i class="bi bi-star-fill ps-1"></i></p>
             </div>
           </div>
         </div>
         <p class="card-text h3 mb-1 text-center" id="sidebarCredit"></p>
       </div>
-      <a href="#" data-scroll="covoiturage_propose" class="m-3"
-        >Mes covoiturages proposés</a
-      >
-      <a href="#" data-scroll="historique_covoiturage" class="m-3"
-        >Historique de mes covoiturages
-      </a>
+      <a href="#" data-scroll="covoiturage_propose" class="m-3">Mes covoiturages proposés</a>
+      <a href="#" data-scroll="historique_covoiturage" class="m-3">Historique de mes covoiturages </a>
       <a href="#" data-scroll="reservations" class="m-3">Mes reservations</a>
-      <a href="#" data-scroll="historique_reservation" class="m-3"
-        >Historique de mes reservations</a
-      >
+      <a href="#" data-scroll="historique_reservation" class="m-3">Historique de mes reservations</a>
       <a href="#" data-scroll="mesVehicules" class="m-3">Mes Véhicules</a>
-      <a href="#" data-scroll="mesInfo" class="m-3"
-        >Modifier mes informations personnelles</a
-      >
+      <a href="#" data-scroll="mesInfo" class="m-3">Modifier mes informations personnelles</a>
       <a href="#" data-scroll="desinscrire" class="m-3">Me désinscrire</a>
     </div>
   </div>
 
   <!-- Version mobile de la sidebar -->
-  <div
-    class="sidebar-mobile d-flex d-md-none sticky-top pt-3 mt-1 align-items-center justify-content-between background-3 w-100 px-3"
-  >
+  <div class="sidebar-mobile d-flex d-md-none sticky-top pt-3 mt-1 align-items-center justify-content-between background-3 w-100 px-3">
     <div class="d-flex align-items-center">
-      <img
-        id="photoProfilMobile"
-        src=""
-        alt="photo de profil"
-        style="height: 40px; width: 40px; object-fit: cover"
-        class="rounded-circle"
-      />
+      <img id="photoProfilMobile" src="" alt="photo de profil" style="height: 40px; width: 40px; object-fit: cover" class="rounded-circle" />
       <p class="pt-3 ps-2" id="sidebarPseudoM"></p>
-      <p class="pt-3 ps-2">
-        <span id="sidebarNoteM"></span><i class="bi bi-star-fill ps-2"></i>
-      </p>
+      <p class="pt-3 ps-2"><span id="sidebarNoteM"></span><i class="bi bi-star-fill ps-2"></i></p>
     </div>
     <p class="pt-3" id="sidebarCreditM"></p>
   </div>
 
-  <div
-    class="sidebar-mobile d-flex d-md-none sticky-top background-2 pt-3 overflow-auto"
-  >
-    <a href="#" data-scroll="covoiturage_propose" class="m-3"
-      >Mes covoiturages proposés</a
-    >
-    <a href="#" data-scroll="historique_covoiturage" class="m-3"
-      >Historique de mes covoiturages
-    </a>
+  <div class="sidebar-mobile d-flex d-md-none sticky-top background-2 pt-3 overflow-auto">
+    <a href="#" data-scroll="covoiturage_propose" class="m-3">Mes covoiturages proposés</a>
+    <a href="#" data-scroll="historique_covoiturage" class="m-3">Historique de mes covoiturages </a>
     <a href="#" data-scroll="reservations" class="m-3">Mes reservations</a>
-    <a href="#" data-scroll="historique_reservation" class="m-3"
-      >Historique de mes reservations</a
-    >
+    <a href="#" data-scroll="historique_reservation" class="m-3">Historique de mes reservations</a>
     <a href="#" data-scroll="mesVehicules" class="m-3">Mes Véhicules</a>
-    <a href="#" data-scroll="mesInfo" class="m-3"
-      >Modifier mes informations personnelles</a
-    >
+    <a href="#" data-scroll="mesInfo" class="m-3">Modifier mes informations personnelles</a>
     <a href="#" data-scroll="desinscrire" class="m-3">Me désinscrire</a>
   </div>
 
@@ -94,11 +51,7 @@
   <div class="d-flex flex-column pt-4 p-3 col-12 col-md-9">
     <!-- Section Mes covoiturages proposés, + scroll-margin sur chaque section pour bien tomber après le header -->
 
-    <section
-      id="covoiturage_propose"
-      class="p-3"
-      style="scroll-margin-top: 125px"
-    >
+    <section id="covoiturage_propose" class="p-3" style="scroll-margin-top: 125px">
       <h2>Mes covoiturages proposés</h2>
       <div id="covoituragePropose">
         <p>Aucun covoiturage reservé</p>
@@ -107,11 +60,7 @@
 
     <!-- Section Mes covoiturages proposés -->
 
-    <section
-      id="historique_covoiturage"
-      class="p-3"
-      style="scroll-margin-top: 140px"
-    >
+    <section id="historique_covoiturage" class="p-3" style="scroll-margin-top: 140px">
       <h2>Historique de mes covoiturages</h2>
       <div id="historiqueCovoiturage">
         <p>Aucun covoiturage proposés</p>
@@ -129,11 +78,7 @@
 
     <!-- Section Mes reservations passés -->
 
-    <section
-      id="historique_reservation"
-      class="p-3"
-      style="scroll-margin-top: 125px"
-    >
+    <section id="historique_reservation" class="p-3" style="scroll-margin-top: 125px">
       <h2>Mes reservations passées</h2>
       <div id="historiqueReservations">
         <p>Aucune reservations</p>
@@ -145,105 +90,50 @@
     <section id="mesVehicules" class="p-3" style="scroll-margin-top: 125px">
       <h2>Mes Véhicules</h2>
       <div id="vehicule" class="d-flex"></div>
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#modalVehicule"
-      >
-        Ajouter un vehicule
-      </button>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalVehicule">Ajouter un vehicule</button>
 
       <!-- Modal -->
-      <div
-        class="modal fade"
-        id="modalVehicule"
-        tabindex="-1"
-        aria-hidden="true"
-      >
+      <div class="modal fade" id="modalVehicule" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title h5">Ajouter un véhicule</h1>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <form id="form-ajout-vehicule">
                 <div class="mb-3">
                   <label for="marque" class="form-label">Marque :</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="marque"
-                    required
-                  />
+                  <input type="text" class="form-control" id="marque" required />
                 </div>
                 <div class="mb-3">
                   <label for="modele" class="form-label">Modele :</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="modele"
-                    required
-                  />
+                  <input type="text" class="form-control" id="modele" required />
                 </div>
                 <div class="mb-3">
-                  <label for="immatriculation" class="form-label"
-                    >Immatriculation:</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="immatriculation"
-                    required
-                  />
+                  <label for="immatriculation" class="form-label">Immatriculation:</label>
+                  <input type="text" class="form-control" id="immatriculation" required />
                 </div>
                 <div class="mb-3">
-                  <label for="dateImmat" class="form-label"
-                    >Date 1er Immatriculation:</label
-                  >
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="dateImmat"
-                    required
-                  />
+                  <label for="dateImmat" class="form-label">Date 1er Immatriculation:</label>
+                  <input type="date" class="form-control" id="dateImmat" required />
                 </div>
                 <div class="mb-3">
                   <label for="couleur" class="form-label">Couleur :</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="couleur"
-                    required
-                  />
+                  <input type="text" class="form-control" id="couleur" required />
                 </div>
                 <div class="mb-3">
                   <label for="energie" class="form-label">Energie :</label>
 
-                  <select
-                    name="energie"
-                    class="form-select"
-                    id="energie"
-                    required
-                  >
-                    <option disabled selected>
-                      -- Sélectionner un carburant --
-                    </option>
+                  <select name="energie" class="form-select" id="energie" required>
+                    <option disabled selected>-- Sélectionner un carburant --</option>
                     <option value="electrique">Electrique</option>
                     <option value="hybride">Hybride</option>
                     <option value="diesel">Diesel</option>
                     <option value="essence">Essence</option>
                   </select>
                 </div>
-                <button type="button" id="addVehicule" class="btn btn-primary">
-                  Enregistrer le véhicule
-                </button>
+                <button type="button" id="addVehicule" class="btn btn-primary">Enregistrer le véhicule</button>
               </form>
             </div>
           </div>
@@ -263,90 +153,36 @@
           </div>
           <div class="mb-3">
             <label for="prenom" class="form-label">Prenom :</label>
-            <input
-              type="text"
-              class="form-control"
-              id="prenom"
-              value="$prenom"
-            />
+            <input type="text" class="form-control" id="prenom" value="$prenom" />
           </div>
           <div class="mb-3">
             <label for="pseudo" class="form-label">Pseudo :</label>
-            <input
-              type="text"
-              class="form-control"
-              id="pseudo"
-              value="$pseudo"
-            />
+            <input type="text" class="form-control" id="pseudo" value="$pseudo" />
           </div>
           <div class="mb-3">
             <label for="adresse" class="form-label">Adresse :</label>
-            <input
-              type="text"
-              class="form-control"
-              id="adresse"
-              value="$adresse"
-            />
+            <input type="text" class="form-control" id="adresse" value="$adresse" />
           </div>
           <div class="mb-3">
             <label for="telephone" class="form-label">Telephone :</label>
-            <input
-              type="tel"
-              class="form-control"
-              id="telephone"
-              value="$telephone"
-            />
+            <input type="tel" class="form-control" id="telephone" value="$telephone" />
           </div>
 
-          <button
-            type="button"
-            class="btn btn-primary mt-3 mb-3"
-            data-bs-toggle="modal"
-            data-bs-target="#modalValidation"
-          >
-            Sauvergarder
-          </button>
+          <button type="button" class="btn btn-primary mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#modalValidation">Sauvergarder</button>
 
           <!-- Modal pour enregistrer les modifs -->
 
-          <div
-            class="modal fade"
-            id="modalValidation"
-            tabindex="-1"
-            aria-labelledby="Validation"
-            aria-hidden="true"
-          >
+          <div class="modal fade" id="modalValidation" tabindex="-1" aria-labelledby="Validation" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="modalLabel">
-                    Valider les modifications
-                  </h1>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
+                  <h1 class="modal-title fs-5" id="modalLabel">Valider les modifications</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                  Souhaitez-vous valider vos changements ?
-                </div>
+                <div class="modal-body">Souhaitez-vous valider vos changements ?</div>
                 <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Fermer
-                  </button>
-                  <button
-                    type="button"
-                    id="updateUserBtn"
-                    class="btn btn-primary"
-                  >
-                    Enregistrer les modifications
-                  </button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                  <button type="button" id="updateUserBtn" class="btn btn-primary">Enregistrer les modifications</button>
                 </div>
               </div>
             </div>
@@ -357,20 +193,9 @@
         <form id="formPhoto" enctype="multipart/form-data">
           <div class="mb-3">
             <label for="photo" class="form-label"></label>
-            <input
-              class="form-control"
-              type="file"
-              id="photo"
-              accept="image/*"
-            />
+            <input class="form-control" type="file" id="photo" accept="image/*" />
           </div>
-          <button
-            type="button"
-            class="btn btn-primary mt-3 mb-3"
-            id="btnAddPhoto"
-          >
-            Envoyer la photo
-          </button>
+          <button type="button" class="btn btn-primary mt-3 mb-3" id="btnAddPhoto">Envoyer la photo</button>
         </form>
 
         <div class="pt-3">
@@ -384,50 +209,20 @@
     <section id="desinscrire" class="p-3" style="scroll-margin-top: 125px">
       <h2>Me désinscrire</h2>
       <div>
-        <button
-          type="button"
-          class="btn btn-danger"
-          data-bs-toggle="modal"
-          data-bs-target="#modalDesinscription"
-        >
-          Désinscription
-        </button>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDesinscription">Désinscription</button>
         <!-- Modal pour enregistrer les modifs -->
-        <div
-          class="modal fade"
-          id="modalDesinscription"
-          tabindex="-1"
-          aria-labelledby="Désinscription"
-          aria-hidden="true"
-        >
+        <div class="modal fade" id="modalDesinscription" tabindex="-1" aria-labelledby="Désinscription" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="modalLabel">
-                  Confirmer la suppression votre compte
-                </h1>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                <h1 class="modal-title fs-5" id="modalLabel">Confirmer la suppression votre compte</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body">
-                Vous êtes sur le point de supprimer définitivement votre compte
-              </div>
+              <div class="modal-body">Vous êtes sur le point de supprimer définitivement votre compte</div>
 
               <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Fermer
-                </button>
-                <button id="deleteUserBtn" class="btn btn-danger">
-                  Supprimer
-                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <button id="deleteUserBtn" class="btn btn-danger">Supprimer</button>
               </div>
             </div>
           </div>
@@ -439,43 +234,18 @@
 
 <!-- Modale confirmation reservation-->
 
-<div
-  class="modal fade"
-  id="validationReservationModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="validationReservationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">
-          Accepter la reservation
-        </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Accepter la reservation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body">Voulez-vous accepter cette reservation ?</div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          id="btnRefuserReservation"
-        >
-          Refuser
-        </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          id="btnAccepterReservation"
-        >
-          Accepter
-        </button>
+        <button type="button" class="btn btn-secondary" id="btnRefuserReservation">Refuser</button>
+        <button type="button" class="btn btn-primary" id="btnAccepterReservation">Accepter</button>
       </div>
     </div>
   </div>
@@ -483,68 +253,35 @@
 
 <!-- Modale annulation reservation-->
 
-<div
-  class="modal fade"
-  id="annulationReservationModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="annulationReservationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">
-          Annuler la reservation
-        </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Annuler la reservation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body">Voulez-vous annuler cette reservation ?</div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Fermer
-        </button>
-        <button type="button" class="btn btn-danger" id="btnAnnulerReservation">
-          Annuler
-        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-danger" id="btnAnnulerReservation">Annuler</button>
       </div>
     </div>
   </div>
 </div>
 <!-- Modale Poster Avis globale -->
-<div
-  class="modal fade"
-  id="deposerAvisModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="deposerAvisModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">
-          Votre avis sur ce covoiturage
-        </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Fermer"
-        ></button>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Votre avis sur ce covoiturage</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
       </div>
       <div class="modal-body">
         <form>
           <div class="mb-3 p-2 d-flex align-items-start flex-fill">
             <label for="noteAvis" class="form-label">Note conducteur :</label>
-            <select
-              id="noteAvis"
-              class="form-select w-auto border-0 pt-0 text-primary background-2"
-            >
+            <select id="noteAvis" class="form-select w-auto border-0 pt-0 text-primary background-2">
               <option value="1">★☆☆☆☆</option>
               <option value="2">★★☆☆☆</option>
               <option value="3">★★★☆☆</option>
@@ -553,14 +290,8 @@
             </select>
           </div>
           <div class="mb-3">
-            <label for="commentaireAvis" class="form-label"
-              >Votre commentaire :</label
-            >
-            <textarea
-              class="form-control"
-              id="commentaireAvis"
-              rows="3"
-            ></textarea>
+            <label for="commentaireAvis" class="form-label">Votre commentaire :</label>
+            <textarea class="form-control" id="commentaireAvis" rows="3"></textarea>
           </div>
           <input type="hidden" id="avisConducteurId" />
           <input type="hidden" id="avisCovoiturageId" />
@@ -568,160 +299,97 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Fermer
-        </button>
-        <button type="button" class="btn btn-primary" id="btnPostAvis">
-          Publier
-        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" id="btnPostAvis">Publier</button>
       </div>
     </div>
   </div>
 </div>
 <!-- Modale Suppression reservation expirée -->
-<div
-  class="modal fade"
-  id="deleteReservationModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="deleteReservationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">
-          Supprimer la reservation
-        </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Supprimer la reservation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body">Voulez-vous supprimer cette reservation ?</div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Annuler
-        </button>
-        <button type="button" class="btn btn-primary" id="deleteOldReservation">
-          Supprimer
-        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" id="deleteOldReservation">Supprimer</button>
       </div>
     </div>
   </div>
 </div>
 <!-- Modale annulation Covoiturage-->
-<div
-  class="modal fade"
-  id="annulationCovoiturageModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="annulationCovoiturageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">
-          Confirmer la supression
-        </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmer la supression</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        Etes-vous sur de voulooir supprimer ce covoiturage
-      </div>
+      <div class="modal-body">Etes-vous sur de vouloir supprimer ce covoiturage</div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Annuler
-        </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          id="btnConfirmationAnnulation"
-        >
-          Supprimer
-        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" id="btnConfirmationAnnulation">Supprimer</button>
       </div>
     </div>
   </div>
 </div>
 <!-- Modale terminer covoiturage reservation-->
 
-<div
-  class="modal fade"
-  id="terminerCovoiturageModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="terminerCovoiturageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Bien arrivé ?</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body">Voulez-vous terminer ce covoiturage ?</div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Fermer
-        </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          id="btnTerminerCovoiturage"
-        >
-          Terminer
-        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" id="btnTerminerCovoiturage">Terminer</button>
       </div>
     </div>
   </div>
 </div>
--- Modale demarrer covoiturage reservation-->
 
-<div
-  class="modal fade"
-  id="demarrerCovoiturageModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<!-- Modale demarrer covoiturage reservation-->
+
+<div class="modal fade" id="demarrerCovoiturageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">En voiture !!!</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body">Voulez-vous demarrer ce covoiturage ?</div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Fermer
-        </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          id="btnDemarrerCovoiturage"
-        >
-          Demarrer
-        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" id="btnDemarrerCovoiturage">Demarrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modale terminer reservation-->
+
+<div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Bien arrivé ?</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">Votre covoiturage s'est il bien passé ?</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnLitigeReservation">Signaler un problême</button>
+        <button type="button" class="btn btn-primary" id="btnTerminerReservation">Confirmer</button>
       </div>
     </div>
   </div>

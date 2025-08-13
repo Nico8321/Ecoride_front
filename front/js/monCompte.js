@@ -4,21 +4,10 @@ import {
   deleteReservation,
   accepterReservation,
   refuserReservation,
+  terminerReservation,
 } from "./api/reservation.js";
-import {
-  getCovoituragesByUser,
-  annulerCovoiturage,
-  demarreCovoiturage,
-  termineCovoiturage,
-} from "./api/covoiturage.js";
-import {
-  addVehicule,
-  deleteUser,
-  deleteVehicule,
-  postPhoto,
-  getVehicules,
-  patchUser,
-} from "./api/user.js";
+import { getCovoituragesByUser, annulerCovoiturage, demarreCovoiturage, termineCovoiturage } from "./api/covoiturage.js";
+import { addVehicule, deleteUser, deleteVehicule, postPhoto, getVehicules, patchUser } from "./api/user.js";
 import { createCovoiturageCard } from "./components/covoiturageCard.js";
 import { createReservationCard } from "./components/ReservationCard.js";
 import { createAvisCard } from "./components/AvisCard.js";
@@ -26,11 +15,7 @@ import { createReservationValidationCard } from "./components/reservationValidat
 import { inputValidator } from "./utils/inputValidator.js";
 import { showToast } from "./components/toast.js";
 import { apiUrl } from "./config.js";
-import {
-  getAvisByCovoiturage,
-  getMoyenneByUser,
-  postAvis,
-} from "./api/avis.js";
+import { getAvisByCovoiturage, getMoyenneByUser, postAvis } from "./api/avis.js";
 
 // 1. GESTION DES INFOS DE L'USER
 // ───────────────────────────────
@@ -176,9 +161,7 @@ async function supprimerVehicule(userId, vehiculeId) {
     const idVehiculeSupprime = await deleteVehicule(userId, vehiculeId);
     if (idVehiculeSupprime) {
       document.getElementById(idVehiculeSupprime).remove();
-      const updatedVehicules = user.vehicules.filter(
-        (v) => v.id !== idVehiculeSupprime
-      );
+      const updatedVehicules = user.vehicules.filter((v) => v.id !== idVehiculeSupprime);
       user.vehicules = updatedVehicules;
       sessionStorage.setItem("user", JSON.stringify(user));
     }
@@ -215,9 +198,7 @@ async function ajoutVehicule(userId) {
     try {
       const response = await addVehicule(user.id, vehicule);
       if (response) {
-        const modal = bootstrap.Modal.getInstance(
-          document.getElementById("modalVehicule")
-        );
+        const modal = bootstrap.Modal.getInstance(document.getElementById("modalVehicule"));
         modal.hide();
         showToast(response.message);
 
@@ -257,16 +238,11 @@ async function affichageCovoiturage() {
       covoiturages.forEach((covoiturage) => {
         if (covoiturage.conducteur_id === user.id) {
           if (covoiturage.statut === "termine") {
-            const card = createCovoiturageCard(
-              covoiturage,
-              historiqueCovoiturage
-            );
+            const card = createCovoiturageCard(covoiturage, historiqueCovoiturage);
             getAvis(covoiturage.id, card);
           } else {
             const card = createCovoiturageCard(covoiturage, covoituragePropose);
-            const module = document.getElementById(
-              `moduleCovoiturage${covoiturage.id}`
-            );
+            const module = document.getElementById(`moduleCovoiturage${covoiturage.id}`);
             if (module) {
               getReservationsByCovoiturage(covoiturage.id)
                 .then((reservations) => {
@@ -306,10 +282,7 @@ async function affichageCovoiturage() {
                   }
                 })
                 .catch((error) => {
-                  console.error(
-                    "Erreur lors de la récupération des réservations :",
-                    error
-                  );
+                  console.error("Erreur lors de la récupération des réservations :", error);
                 });
             }
           }
@@ -336,15 +309,11 @@ async function getAvis(covoiturageId, destination) {
 // ───────────────────────────────
 // demarrerCovoiturageModal : préparer l'ID pour la modal d'annulation
 
-const demarrerCovoiturageModal = document.getElementById(
-  "demarrerCovoiturageModal"
-);
+const demarrerCovoiturageModal = document.getElementById("demarrerCovoiturageModal");
 demarrerCovoiturageModal.addEventListener("show.bs.modal", (event) => {
   const button = event.relatedTarget;
   const covoiturageId = button.getAttribute("data-id");
-  const btnDemarrerCovoiturage = document.getElementById(
-    "btnDemarrerCovoiturage"
-  );
+  const btnDemarrerCovoiturage = document.getElementById("btnDemarrerCovoiturage");
   btnDemarrerCovoiturage.dataset.id = covoiturageId;
 });
 
@@ -355,9 +324,7 @@ async function demarrerCovoiturage(userId, covoiturageId) {
     const response = await demarreCovoiturage(userId, covoiturageId);
     if (response) {
       showToast(response.message); //toast de confirmation
-      const modal = bootstrap.Modal.getInstance(
-        document.getElementById("annulationCovoiturageModal")
-      );
+      const modal = bootstrap.Modal.getInstance(document.getElementById("annulationCovoiturageModal"));
       modal.hide();
       affichageCovoiturage();
     }
@@ -373,15 +340,11 @@ btnDemarrerCovoiturage.addEventListener("click", () => {
 // ───────────────────────────────
 // terminerCovoiturageModal : préparer l'ID pour la modal
 
-const terminerCovoiturageModal = document.getElementById(
-  "terminerCovoiturageModal"
-);
+const terminerCovoiturageModal = document.getElementById("terminerCovoiturageModal");
 terminerCovoiturageModal.addEventListener("show.bs.modal", (event) => {
   const button = event.relatedTarget;
   const covoiturageId = button.getAttribute("data-id");
-  const btnTerminerCovoiturage = document.getElementById(
-    "btnTerminerCovoiturage"
-  );
+  const btnTerminerCovoiturage = document.getElementById("btnTerminerCovoiturage");
   btnTerminerCovoiturage.dataset.id = covoiturageId;
 });
 
@@ -392,9 +355,7 @@ async function terminerCovoiturage(userId, covoiturageId) {
     const response = await termineCovoiturage(userId, covoiturageId);
     if (response) {
       showToast(response.message); //toast de confirmation
-      const modal = bootstrap.Modal.getInstance(
-        document.getElementById("terminerCovoiturageModal")
-      );
+      const modal = bootstrap.Modal.getInstance(document.getElementById("terminerCovoiturageModal"));
       modal.hide();
       affichageCovoiturage();
     }
@@ -411,15 +372,11 @@ btnTerminerCovoiturage.addEventListener("click", () => {
 // ───────────────────────────────
 // annulationCovoiturageModal : préparer l'ID pour la modal d'annulation
 
-const annulationCovoiturageModal = document.getElementById(
-  "annulationCovoiturageModal"
-);
+const annulationCovoiturageModal = document.getElementById("annulationCovoiturageModal");
 annulationCovoiturageModal.addEventListener("show.bs.modal", (event) => {
   const button = event.relatedTarget;
   const covoiturageId = button.getAttribute("data-id");
-  const btnConfirmationAnnulation = document.getElementById(
-    "btnConfirmationAnnulation"
-  );
+  const btnConfirmationAnnulation = document.getElementById("btnConfirmationAnnulation");
   btnConfirmationAnnulation.dataset.id = covoiturageId;
 });
 
@@ -430,9 +387,7 @@ async function annulationCovoiturage(userId, covoiturageId) {
     const response = await annulerCovoiturage(userId, covoiturageId);
     if (response) {
       showToast(response.message); //toast de confirmation
-      const modal = bootstrap.Modal.getInstance(
-        document.getElementById("annulationCovoiturageModal")
-      );
+      const modal = bootstrap.Modal.getInstance(document.getElementById("annulationCovoiturageModal"));
       modal.hide();
       affichageCovoiturage();
     }
@@ -450,9 +405,7 @@ btnConfirmationAnnulation.addEventListener("click", () => {
 // affichageReservation : récupérer et afficher les réservations passées et à venir
 
 const reservationsEnCours = document.getElementById("reservationsEnCours");
-const historiqueReservations = document.getElementById(
-  "historiqueReservations"
-);
+const historiqueReservations = document.getElementById("historiqueReservations");
 
 async function affichageReservation() {
   // Date du jour pour différencier les covoiturages passés / à venir
@@ -485,9 +438,7 @@ async function supprimerReservation(reservationId) {
     const response = await deleteReservation(reservationId);
     if (response) {
       showToast(response.message); //toast de confirmation
-      const modal = bootstrap.Modal.getInstance(
-        document.getElementById("deleteReservationModal")
-      );
+      const modal = bootstrap.Modal.getInstance(document.getElementById("deleteReservationModal"));
       modal.hide();
       affichageReservation();
     }
@@ -508,12 +459,10 @@ deleteBtn.addEventListener("click", () => {
 async function changeStatutReservation(reservationId, statut) {
   if (statut === "confirme") {
     try {
-      const response = await accepterReservation(reservationId);
+      const response = await accepterReservation(reservationId, userId);
       if (response) {
         showToast(response.message); //toast de confirmation
-        const modal = bootstrap.Modal.getInstance(
-          document.getElementById("validationReservationModal")
-        );
+        const modal = bootstrap.Modal.getInstance(document.getElementById("validationReservationModal"));
         modal.hide();
         affichageCovoiturage();
       }
@@ -522,12 +471,10 @@ async function changeStatutReservation(reservationId, statut) {
     }
   } else if (statut === "refuse") {
     try {
-      const response = await refuserReservation(reservationId);
+      const response = await refuserReservation(reservationId, userId);
       if (response) {
         showToast(response.message); //toast de confirmation
-        const modal = bootstrap.Modal.getInstance(
-          document.getElementById("validationReservationModal")
-        );
+        const modal = bootstrap.Modal.getInstance(document.getElementById("validationReservationModal"));
         modal.hide();
         affichageCovoiturage();
       }
@@ -558,6 +505,50 @@ confirmBtn.addEventListener("click", () => {
 // ajout des écouteurs pour changer le statut via la modal (refus)
 refuseBtn.addEventListener("click", () => {
   changeStatutReservation(refuseBtn.dataset.idReservation, "refuse");
+});
+
+// TERMINER RESERVATION: declarer la fin d'une reservation ou un litige
+
+async function validerFinReservation(reservationId) {
+  try {
+    const response = await terminerReservation(reservationId, userId);
+    if (response) {
+      showToast(response.message); //toast de confirmation
+      const modal = bootstrap.Modal.getInstance(document.getElementById("feedbackModal"));
+      modal.hide();
+      affichageCovoiturage();
+    }
+  } catch (error) {
+    showToast(error.message, "error"); //toast d'erreur
+  }
+}
+
+//redirection vers page Litige
+
+function redirectionlitige(reservationId) {
+  const query = new URLSearchParams();
+  query.append("reservationId", reservationId);
+
+  window.location.href = `/signalerProbleme?${query.toString()}`;
+}
+
+// injection de l'id de la réservation dans les boutons de la modal
+feedbackModal.addEventListener("show.bs.modal", function (event) {
+  const trigger = event.relatedTarget;
+  const reservationId = trigger.getAttribute("data-reservation-id");
+
+  btnTerminerReservation.dataset.idReservation = reservationId;
+  btnLitigeReservation.dataset.idReservation = reservationId;
+});
+
+// ajout des écouteurs pour terminer la reservation via la modal
+btnTerminerReservation.addEventListener("click", () => {
+  validerFinReservation(btnTerminerReservation.dataset.idReservation);
+});
+
+// ajout des écouteurs pour changer declarer un litige
+btnLitigeReservation.addEventListener("click", () => {
+  redirectionlitige(btnLitigeReservation.dataset.idReservation);
 });
 
 // 7. GESTION DES AVIS
@@ -598,9 +589,7 @@ async function envoyerAvis() {
     const response = await postAvis(avis);
     if (response) {
       showToast("Avis publié avec succès");
-      const modalAvis = bootstrap.Modal.getInstance(
-        document.getElementById("deposerAvisModal")
-      );
+      const modalAvis = bootstrap.Modal.getInstance(document.getElementById("deposerAvisModal"));
       if (modalAvis) {
         modalAvis.hide();
       }
@@ -654,12 +643,8 @@ function addPhoto() {
 btnAddPhoto.addEventListener("click", () => addPhoto());
 
 const nomFichier = user.photo;
-document.getElementById(
-  "photoProfil"
-).src = `${apiUrl}/uploads/photos/${nomFichier}`;
-document.getElementById(
-  "photoProfilMobile"
-).src = `${apiUrl}/uploads/photos/${nomFichier}`;
+document.getElementById("photoProfil").src = `${apiUrl}/uploads/photos/${nomFichier}`;
+document.getElementById("photoProfilMobile").src = `${apiUrl}/uploads/photos/${nomFichier}`;
 
 document.querySelectorAll("[data-scroll]").forEach((link) => {
   link.addEventListener("click", (e) => {

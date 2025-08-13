@@ -69,7 +69,7 @@ export function createReservationCard(reservation, destination) {
             return "";
           }
         })()}${
-    reservation.statut === "confirme" && reservation.covoiturage.statut === "termine"
+    reservation.statut === "termine" && reservation.covoiturage.statut === "termine"
       ? `
         <button 
           class="btn btn-primary btn-open-modal-avis"
@@ -79,6 +79,18 @@ export function createReservationCard(reservation, destination) {
           data-bs-toggle="modal" 
           data-bs-target="#deposerAvisModal">
           Déposer un avis 
+        </button> 
+ `
+      : ""
+  }${
+    reservation.statut === "retour client" && reservation.covoiturage.statut === "termine"
+      ? `
+         <button 
+          class="btn btn-primary btn-open-modal-feedback"
+          data-reservation-id="${reservation.id}" 
+          data-bs-toggle="modal" 
+          data-bs-target="#feedbackModal">
+          Terminer
         </button> `
       : ""
   }
