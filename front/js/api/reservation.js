@@ -84,3 +84,34 @@ export async function refuserReservation(reservationId, userId) {
     throw error;
   }
 }
+export async function terminerReservation(reservationId, userId) {
+  try {
+    const response = await fetch(`${apiUrl}/reservation/termine/${reservationId}/${userId}`, {
+      method: "PATCH",
+    });
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function litigeReservation(reservationId, userId, litige) {
+  try {
+    const response = await fetch(`${apiUrl}/reservation/litige/${reservationId}/${userId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(litige),
+    });
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+}
