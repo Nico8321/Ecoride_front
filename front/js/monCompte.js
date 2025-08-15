@@ -70,6 +70,8 @@ async function updateUser() {
       const data = await patchUser(user.id, userUpdated);
       sessionStorage.setItem("user", JSON.stringify(data));
       inputIncrement();
+      const modal = bootstrap.Modal.getInstance(document.getElementById("modalValidation"));
+      modal.hide();
       showToast("Profil mis à jour");
     } catch (error) {
       showToast(`Erreur : ${error.message}`, "danger");
