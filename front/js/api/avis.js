@@ -4,7 +4,8 @@ export async function getAvisByUser(utilisateurId) {
   try {
     const response = await fetch(`${apiUrl}/avis?utilisateur_id=${utilisateurId}`);
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     return await response.json();
   } catch (error) {
@@ -16,7 +17,8 @@ export async function getMoyenneByUser(utilisateurId) {
   try {
     const response = await fetch(`${apiUrl}/avis-moyenne?moyenne_id=${utilisateurId}`);
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     return await response.json();
   } catch (error) {
@@ -33,11 +35,11 @@ export async function postAvis(avis) {
       body: JSON.stringify(avis),
     });
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     return await response.json();
   } catch (error) {
-    console.error(`Erreur : ${error.message}`);
     throw error;
   }
 }
@@ -45,7 +47,8 @@ export async function getAvisByCovoiturage(covoiturageId) {
   try {
     const response = await fetch(`${apiUrl}/avis?covoiturage_id=${covoiturageId}`);
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     return await response.json();
   } catch (error) {

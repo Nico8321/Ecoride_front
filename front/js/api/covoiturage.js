@@ -9,11 +9,11 @@ export async function postCovoiturage(covoiturage) {
       body: JSON.stringify(covoiturage),
     });
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     return await response.json();
   } catch (error) {
-    console.error(`Erreur : ${error.message}`);
     throw error;
   }
 }
@@ -21,12 +21,12 @@ export async function getCovoituragesByUser(id) {
   try {
     const response = await fetch(`${apiUrl}/covoiturage/user/${id}`);
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error(`Erreur : ${error.message}`);
     throw error;
   }
 }
@@ -35,7 +35,8 @@ export async function findCovoiturage(filtres) {
     const query = new URLSearchParams(filtres).toString();
     const response = await fetch(`${apiUrl}/covoiturages?${query}`);
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     const data = await response.json();
     return data;
@@ -50,7 +51,8 @@ export async function annulerCovoiturage(userId, covoiturageId) {
       method: "PATCH",
     });
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     const data = await response.json();
     return data;
@@ -64,7 +66,8 @@ export async function demarreCovoiturage(userId, covoiturageId) {
       method: "PATCH",
     });
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     const data = await response.json();
     return data;
@@ -78,7 +81,8 @@ export async function termineCovoiturage(userId, covoiturageId) {
       method: "PATCH",
     });
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     const data = await response.json();
     return data;

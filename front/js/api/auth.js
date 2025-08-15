@@ -11,7 +11,8 @@ export async function loginUser(email, password) {
       body: JSON.stringify({ email, password }),
     });
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     const data = await response.json();
     storeSession(data);
@@ -31,7 +32,8 @@ export async function newUser(user) {
       body: JSON.stringify(user),
     });
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     showToast("Utilisateur créé avec succés", "succes");
     window.location.href = "/signin";
