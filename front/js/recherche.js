@@ -24,7 +24,7 @@ async function ajouterNoteUser(userId) {
     const note = await getMoyenneByUser(userId);
     return note;
   } catch (error) {
-    console.error("Erreur lors de la récupération de la note :", error);
+    showToast("Erreur lors de la récupération de la note", "danger");
   }
 }
 
@@ -44,7 +44,7 @@ async function rechercherCovoiturages() {
       showToast("Aucun covoiturage trouvé", "info");
     }
   } catch (error) {
-    showToast(error.message, "error");
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 // Lancement de la recherche au clic sur le bouton
@@ -79,10 +79,10 @@ async function confirmerReservation(covoiturageId) {
   try {
     const response = await reserver(reservationInfo, covoiturageId);
     if (response) {
-      showToast("Reservation envoyée", response);
+      showToast("Reservation envoyée");
     }
   } catch (error) {
-    showToast(error.message, "error");
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 // Vérifie si l'utilisateur est connecté avant de réserver
@@ -92,7 +92,7 @@ btnConfirm.addEventListener("click", async () => {
   const covoiturageId = btnConfirm.dataset.id;
   const result = await isLoggedIn();
   if (!result) {
-    showToast("Vous devais etre connecté pour reserver", "info");
+    showToast("Vous devez être connecté pour reserver", "info");
     window.location.replace("/signin");
     return;
   }

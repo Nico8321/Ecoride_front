@@ -18,7 +18,7 @@ export async function loginUser(email, password) {
     storeSession(data);
     window.location.href = "/monCompte";
   } catch (error) {
-    console.error(`Erreur : ${error.message}`);
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 
@@ -35,10 +35,10 @@ export async function newUser(user) {
       const data = await response.json();
       throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
-    showToast("Utilisateur créé avec succés", "succes");
+    showToast("Utilisateur créé avec succès");
     window.location.href = "/signin";
   } catch (error) {
-    showToast(error.message, "alert");
+    showToast(error.message, "danger");
   }
 }
 

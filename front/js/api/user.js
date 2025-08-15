@@ -122,9 +122,9 @@ export async function postPhoto(fichier) {
       sessionStorage.setItem("user", JSON.stringify(user));
       showToast("Photo enregistrée !");
     } else {
-      showToast(result.message || "Erreur lors de l'envoi", "error");
+      showToast(result.message || "Erreur lors de l'envoi", "danger");
     }
   } catch (error) {
-    showToast("Erreur:", "error");
+    showToast(error.message, "danger");
   }
 }

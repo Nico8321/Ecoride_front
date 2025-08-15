@@ -27,7 +27,7 @@ async function litigeFinReservation(reservationId, userId) {
         window.location.href = "/monCompte";
       }
     } catch (error) {
-      showToast(error.message, "error"); //toast d'erreur
+      showToast(error.message, "danger"); //toast d'erreur
     }
   }
 }

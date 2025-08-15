@@ -41,7 +41,7 @@ async function ajouterNoteUser() {
     sidebarNote.innerText = note.moyenne;
     sidebarNoteM.innerText = note.moyenne;
   } catch (error) {
-    console.error("Erreur lors de la récupération de la note :", error);
+    showToast("Erreur lors de la récupération de la note", "danger");
   }
 }
 ajouterNoteUser();
@@ -72,7 +72,7 @@ async function updateUser() {
       inputIncrement();
       showToast("Profil mis à jour");
     } catch (error) {
-      console.error("Erreur:", error.message);
+      showToast(`Erreur : ${error.message}`, "danger");
     }
   }
 }
@@ -166,7 +166,7 @@ async function supprimerVehicule(userId, vehiculeId) {
       sessionStorage.setItem("user", JSON.stringify(user));
     }
   } catch (error) {
-    console.error("Erreur:", error.message);
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 
@@ -212,7 +212,7 @@ async function ajoutVehicule(userId) {
         updatedVehicules.forEach((v) => ajoutDivVehicule(v));
       }
     } catch (error) {
-      showToast(error.message, "error");
+      showToast(`Erreur : ${error.message}`, "danger");
     }
   }
 }
@@ -282,7 +282,7 @@ async function affichageCovoiturage() {
                   }
                 })
                 .catch((error) => {
-                  console.error("Erreur lors de la récupération des réservations :", error);
+                  showToast(`Erreur : ${error.message}`, "danger");
                 });
             }
           }
@@ -290,7 +290,7 @@ async function affichageCovoiturage() {
       });
     }
   } catch (error) {
-    console.error("Erreur:", error.message);
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 
@@ -302,7 +302,7 @@ async function getAvis(covoiturageId, destination) {
       liste.forEach((avis) => createAvisCard(avis, destination));
     }
   } catch (error) {
-    showToast("Erreur lors de la récupération des avis :", error);
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 // 4. DEMARRER UN COVOITURAGE
@@ -324,12 +324,12 @@ async function demarrerCovoiturage(userId, covoiturageId) {
     const response = await demarreCovoiturage(userId, covoiturageId);
     if (response) {
       showToast(response.message); //toast de confirmation
-      const modal = bootstrap.Modal.getInstance(document.getElementById("annulationCovoiturageModal"));
+      const modal = bootstrap.Modal.getInstance(document.getElementById("demarrerCovoiturageModal"));
       modal.hide();
       affichageCovoiturage();
     }
   } catch (error) {
-    showToast(error.message, "error"); //toast d'erreur
+    showToast(`Erreur : ${error.message}`, "danger"); //toast d'erreur
   }
 }
 
@@ -360,7 +360,7 @@ async function terminerCovoiturage(userId, covoiturageId) {
       affichageCovoiturage();
     }
   } catch (error) {
-    showToast(error.message, "error"); //toast d'erreur
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 
@@ -392,7 +392,7 @@ async function annulationCovoiturage(userId, covoiturageId) {
       affichageCovoiturage();
     }
   } catch (error) {
-    showToast(error.message, "error"); //toast d'erreur
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 
@@ -425,7 +425,7 @@ async function affichageReservation() {
       });
     }
   } catch (error) {
-    console.error("Erreur:", error.message);
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 
@@ -443,7 +443,7 @@ async function supprimerReservation(reservationId) {
       affichageReservation();
     }
   } catch (error) {
-    showToast(error.message, "error"); //toast d'erreur
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 const deleteBtn = document.querySelector("#deleteOldReservation");
@@ -467,7 +467,7 @@ async function changeStatutReservation(reservationId, statut) {
         affichageCovoiturage();
       }
     } catch (error) {
-      showToast(error.message, "error"); //toast d'erreur
+      showToast(`Erreur : ${error.message}`, "danger");
     }
   } else if (statut === "refuse") {
     try {
@@ -479,7 +479,7 @@ async function changeStatutReservation(reservationId, statut) {
         affichageCovoiturage();
       }
     } catch (error) {
-      showToast(error.message, "error"); //toast d'erreur
+      showToast(`Erreur : ${error.message}`, "danger");
     }
   }
 }
@@ -519,7 +519,7 @@ async function validerFinReservation(reservationId) {
       affichageCovoiturage();
     }
   } catch (error) {
-    showToast(error.message, "error"); //toast d'erreur
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 
@@ -595,7 +595,7 @@ async function envoyerAvis() {
       }
     }
   } catch (error) {
-    console.error("Erreur lors de la publication de l'avis :", error);
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 
@@ -612,7 +612,7 @@ async function desinscription(userId) {
       window.location.href = "/"; //redirection a l'accueil
     }
   } catch (error) {
-    showToast(error.message, "error"); //toast d'erreur
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 
@@ -633,7 +633,7 @@ function addPhoto() {
   const fichier = document.getElementById("photo").files[0];
   if (fichier) {
     if (fichier.size > 2 * 1024 * 1024) {
-      showToast("Fichier trop lourd (max 2 Mo)", "error");
+      showToast("Fichier trop lourd (max 2 Mo)", "warning");
       return;
     } else {
       postPhoto(fichier);

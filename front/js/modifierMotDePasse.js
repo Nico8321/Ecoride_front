@@ -59,7 +59,7 @@ async function updatedPassword(userId, password, newPassword) {
         window.location.href = "/monCompte";
       }
     } catch (error) {
-      showToast(error.message, "error");
+      showToast(error.message, "danger");
     }
   }
 }
