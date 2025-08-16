@@ -6,11 +6,11 @@ export function createReservationCard(reservation, destination) {
   const container = destination;
   const card = document.createElement("div");
   if (reservation.statut == "refuse") {
-    card.className = "card shadow-sm w-100 rounded-4 overflow-hidden mb-2 bg-danger";
+    card.className = "card shadow-sm w-100 rounded-4 overflow-hidden mb-2 bg-danger-subtle border-start border-5 border-danger";
   } else if (reservation.statut == "confirme" || reservation.statut == "termine") {
-    card.className = "card shadow-sm w-100 rounded-4 overflow-hidden mb-2 bg-primary";
+    card.className = "card shadow-sm w-100 rounded-4 overflow-hidden mb-2 bg-success-subtle border-start border-5 border-success";
   } else if (reservation.statut == "retour client") {
-    card.className = "card shadow-sm w-100 rounded-4 overflow-hidden mb-2 bg-warning";
+    card.className = "card shadow-sm w-100 rounded-4 overflow-hidden mb-2 bg-warning-subtle border-start border-5 border-warning";
   }
   card.innerHTML = `
 <div class="card-body d-flex flex-column flex-md-row gap-3">
