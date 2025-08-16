@@ -5,7 +5,13 @@ const isMonCompte = window.location.pathname.includes("monCompte");
 export function createReservationCard(reservation, destination) {
   const container = destination;
   const card = document.createElement("div");
-  card.className = "card shadow-sm w-100 rounded-4 overflow-hidden mb-2";
+  if (reservation.statut == "refuse") {
+    card.className = "card shadow-sm w-100 rounded-4 overflow-hidden mb-2 bg-danger";
+  } else if (reservation.statut == "confirme" || reservation.statut == "termine") {
+    card.className = "card shadow-sm w-100 rounded-4 overflow-hidden mb-2 bg-primary";
+  } else if (reservation.statut == "retour client") {
+    card.className = "card shadow-sm w-100 rounded-4 overflow-hidden mb-2 bg-warning";
+  }
   card.innerHTML = `
 <div class="card-body d-flex flex-column flex-md-row gap-3">
  ${
