@@ -33,7 +33,7 @@ async function ajouterNoteUser() {
   try {
     const note = await getMoyenneByUser(userId);
     if (!note.moyenne) {
-      user.note.moyenne = "Aucune note";
+      user.note = "Aucune note";
     } else {
       user.note = note;
     }
