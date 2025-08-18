@@ -5,6 +5,7 @@ import {
   accepterReservation,
   refuserReservation,
   terminerReservation,
+  annulerReservation,
 } from "./api/reservation.js";
 import { getCovoituragesByUser, annulerCovoiturage, demarreCovoiturage, termineCovoiturage } from "./api/covoiturage.js";
 import { addVehicule, deleteUser, deleteVehicule, postPhoto, getVehicules, patchUser } from "./api/user.js";
@@ -454,6 +455,37 @@ const deleteBtn = document.querySelector("#deleteOldReservation");
 deleteBtn.addEventListener("click", () => {
   const reservationId = deleteBtn.getAttribute("data-id");
   supprimerReservation(reservationId);
+});
+
+// annulationReservation : appeler l'API pour annuler une réservation et rafraîchir
+
+const annulationReservationModal = document.getElementById("annulationReservationModal");
+annulationReservationModal.addEventListener("show.bs.modal", (event) => {
+  const button = event.relatedTarget;
+  const reservationId = button.getAttribute("data-id");
+  const btnAnnulerReservation = document.getElementById("btnAnnulerReservation");
+  btnAnnulerReservation.dataset.id = reservationId;
+});
+
+async function annulationReservation(reservationId, userId) {
+  try {
+    const response = await annulerReservation(reservationId, userId);
+    if (response) {
+      showToast(response.message); //toast de confirmation
+      const modal = bootstrap.Modal.getInstance(document.getElementById("annulationReservationModal"));
+      modal.hide();
+      affichageReservation();
+    }
+  } catch (error) {
+    showToast(`Erreur : ${error.message}`, "danger");
+  }
+}
+const btnAnnulerReservation = document.querySelector("#btnAnnulerReservation");
+
+// récupération de l'id de réservation à supprimer (ancienne résa)
+btnAnnulerReservation.addEventListener("click", () => {
+  const reservationId = btnAnnulerReservation.getAttribute("data-id");
+  annulationReservation(reservationId, user.id);
 });
 
 // changeStatutReservation : mettre à jour le statut d'une réservation et rafraîchir

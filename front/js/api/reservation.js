@@ -62,6 +62,21 @@ export async function deleteReservation(reservationId) {
     throw error;
   }
 }
+export async function annulerReservation(reservationId, userId) {
+  try {
+    const response = await fetch(`${apiUrl}/reservation/annuler/${reservationId}/${userId}`, {
+      method: "PATCH",
+    });
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
 export async function accepterReservation(reservationId, userId) {
   try {
     const response = await fetch(`${apiUrl}/reservation/accepte/${reservationId}/${userId}`, {

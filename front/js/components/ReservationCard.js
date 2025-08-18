@@ -68,7 +68,7 @@ export function createReservationCard(reservation, destination) {
                 </button>`;
           } else if (reservation.statut === "en attente") {
             return `
-                <button class="btn btn-danger" data-id="${reservation.covoiturage.id}" data-bs-toggle="modal" data-bs-target="#annulationReservationModal">
+                <button class="btn btn-danger" data-id="${reservation.id}" data-bs-toggle="modal" data-bs-target="#annulationReservationModal">
                   Annuler
                 </button> `;
           } else {
