@@ -6,7 +6,8 @@ export async function deleteVehicule(userId, vehiculeId) {
       method: "DELETE",
     });
     if (!response.ok) {
-      throw new Error(`Erreur HTTP : ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     return vehiculeId;
   } catch (error) {
@@ -17,12 +18,12 @@ export async function getVehicules(userId) {
   try {
     const response = await fetch(`${apiUrl}/vehicule/user/${userId}`);
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error(`Erreur : ${error.message}`);
     throw error;
   }
 }
@@ -36,7 +37,8 @@ export async function addVehicule(userId, newVehicule) {
       body: JSON.stringify(newVehicule),
     });
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     const data = await response.json();
     return data;
@@ -54,7 +56,8 @@ export async function patchUser(userId, userData) {
       body: JSON.stringify(userData),
     });
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     const data = await response.json();
     return data;
@@ -72,7 +75,8 @@ export async function patchUserPassword(userId, password, newPassword) {
       body: JSON.stringify({ password, newPassword }),
     });
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     const data = await response.json();
     return data;
@@ -87,7 +91,8 @@ export async function deleteUser(userId) {
       method: "DELETE",
     });
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     const data = await response.json();
     return data;
@@ -117,9 +122,9 @@ export async function postPhoto(fichier) {
       sessionStorage.setItem("user", JSON.stringify(user));
       showToast("Photo enregistrée !");
     } else {
-      showToast(result.message || "Erreur lors de l'envoi", "error");
+      showToast(result.message || "Erreur lors de l'envoi", "danger");
     }
   } catch (error) {
-    showToast("Erreur:", "error");
+    showToast(error.message, "danger");
   }
 }

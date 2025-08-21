@@ -5,6 +5,7 @@ import {
   accepterReservation,
   refuserReservation,
   terminerReservation,
+  annulerReservation,
 } from "./api/reservation.js";
 import { getCovoituragesByUser, annulerCovoiturage, demarreCovoiturage, termineCovoiturage } from "./api/covoiturage.js";
 import { addVehicule, deleteUser, deleteVehicule, postPhoto, getVehicules, patchUser } from "./api/user.js";
@@ -32,16 +33,16 @@ const userId = user.id;
 async function ajouterNoteUser() {
   try {
     const note = await getMoyenneByUser(userId);
-    if (!note.moyenne) {
-      user.note.moyenne = "Aucune note";
+    if (note.moyenne == null) {
+      user.note = "Aucune note";
     } else {
-      user.note = note;
+      user.note = note.moyenne;
     }
     sessionStorage.setItem("user", JSON.stringify(user));
-    sidebarNote.innerText = note.moyenne;
-    sidebarNoteM.innerText = note.moyenne;
+    sidebarNote.innerText = user.note;
+    sidebarNoteM.innerText = user.note;
   } catch (error) {
-    console.error("Erreur lors de la récupération de la note :", error);
+    showToast("Erreur lors de la récupération de la note", "danger");
   }
 }
 ajouterNoteUser();
@@ -70,9 +71,11 @@ async function updateUser() {
       const data = await patchUser(user.id, userUpdated);
       sessionStorage.setItem("user", JSON.stringify(data));
       inputIncrement();
+      const modal = bootstrap.Modal.getInstance(document.getElementById("modalValidation"));
+      modal.hide();
       showToast("Profil mis à jour");
     } catch (error) {
-      console.error("Erreur:", error.message);
+      showToast(`Erreur : ${error.message}`, "danger");
     }
   }
 }
@@ -166,7 +169,7 @@ async function supprimerVehicule(userId, vehiculeId) {
       sessionStorage.setItem("user", JSON.stringify(user));
     }
   } catch (error) {
-    console.error("Erreur:", error.message);
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 
@@ -212,7 +215,7 @@ async function ajoutVehicule(userId) {
         updatedVehicules.forEach((v) => ajoutDivVehicule(v));
       }
     } catch (error) {
-      showToast(error.message, "error");
+      showToast(`Erreur : ${error.message}`, "danger");
     }
   }
 }
@@ -282,7 +285,7 @@ async function affichageCovoiturage() {
                   }
                 })
                 .catch((error) => {
-                  console.error("Erreur lors de la récupération des réservations :", error);
+                  showToast(`Erreur : ${error.message}`, "danger");
                 });
             }
           }
@@ -290,7 +293,7 @@ async function affichageCovoiturage() {
       });
     }
   } catch (error) {
-    console.error("Erreur:", error.message);
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 
@@ -302,7 +305,7 @@ async function getAvis(covoiturageId, destination) {
       liste.forEach((avis) => createAvisCard(avis, destination));
     }
   } catch (error) {
-    showToast("Erreur lors de la récupération des avis :", error);
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 // 4. DEMARRER UN COVOITURAGE
@@ -324,12 +327,12 @@ async function demarrerCovoiturage(userId, covoiturageId) {
     const response = await demarreCovoiturage(userId, covoiturageId);
     if (response) {
       showToast(response.message); //toast de confirmation
-      const modal = bootstrap.Modal.getInstance(document.getElementById("annulationCovoiturageModal"));
+      const modal = bootstrap.Modal.getInstance(document.getElementById("demarrerCovoiturageModal"));
       modal.hide();
       affichageCovoiturage();
     }
   } catch (error) {
-    showToast(error.message, "error"); //toast d'erreur
+    showToast(`Erreur : ${error.message}`, "danger"); //toast d'erreur
   }
 }
 
@@ -360,7 +363,7 @@ async function terminerCovoiturage(userId, covoiturageId) {
       affichageCovoiturage();
     }
   } catch (error) {
-    showToast(error.message, "error"); //toast d'erreur
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 
@@ -392,7 +395,7 @@ async function annulationCovoiturage(userId, covoiturageId) {
       affichageCovoiturage();
     }
   } catch (error) {
-    showToast(error.message, "error"); //toast d'erreur
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 
@@ -425,7 +428,7 @@ async function affichageReservation() {
       });
     }
   } catch (error) {
-    console.error("Erreur:", error.message);
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 
@@ -443,7 +446,7 @@ async function supprimerReservation(reservationId) {
       affichageReservation();
     }
   } catch (error) {
-    showToast(error.message, "error"); //toast d'erreur
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 const deleteBtn = document.querySelector("#deleteOldReservation");
@@ -452,6 +455,37 @@ const deleteBtn = document.querySelector("#deleteOldReservation");
 deleteBtn.addEventListener("click", () => {
   const reservationId = deleteBtn.getAttribute("data-id");
   supprimerReservation(reservationId);
+});
+
+// annulationReservation : appeler l'API pour annuler une réservation et rafraîchir
+
+const annulationReservationModal = document.getElementById("annulationReservationModal");
+annulationReservationModal.addEventListener("show.bs.modal", (event) => {
+  const button = event.relatedTarget;
+  const reservationId = button.getAttribute("data-id");
+  const btnAnnulerReservation = document.getElementById("btnAnnulerReservation");
+  btnAnnulerReservation.dataset.id = reservationId;
+});
+
+async function annulationReservation(reservationId, userId) {
+  try {
+    const response = await annulerReservation(reservationId, userId);
+    if (response) {
+      showToast(response.message); //toast de confirmation
+      const modal = bootstrap.Modal.getInstance(document.getElementById("annulationReservationModal"));
+      modal.hide();
+      affichageReservation();
+    }
+  } catch (error) {
+    showToast(`Erreur : ${error.message}`, "danger");
+  }
+}
+const btnAnnulerReservation = document.querySelector("#btnAnnulerReservation");
+
+// récupération de l'id de réservation à supprimer (ancienne résa)
+btnAnnulerReservation.addEventListener("click", () => {
+  const reservationId = btnAnnulerReservation.getAttribute("data-id");
+  annulationReservation(reservationId, user.id);
 });
 
 // changeStatutReservation : mettre à jour le statut d'une réservation et rafraîchir
@@ -467,7 +501,7 @@ async function changeStatutReservation(reservationId, statut) {
         affichageCovoiturage();
       }
     } catch (error) {
-      showToast(error.message, "error"); //toast d'erreur
+      showToast(`Erreur : ${error.message}`, "danger");
     }
   } else if (statut === "refuse") {
     try {
@@ -479,7 +513,7 @@ async function changeStatutReservation(reservationId, statut) {
         affichageCovoiturage();
       }
     } catch (error) {
-      showToast(error.message, "error"); //toast d'erreur
+      showToast(`Erreur : ${error.message}`, "danger");
     }
   }
 }
@@ -519,7 +553,7 @@ async function validerFinReservation(reservationId) {
       affichageCovoiturage();
     }
   } catch (error) {
-    showToast(error.message, "error"); //toast d'erreur
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 
@@ -595,7 +629,7 @@ async function envoyerAvis() {
       }
     }
   } catch (error) {
-    console.error("Erreur lors de la publication de l'avis :", error);
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 
@@ -612,7 +646,7 @@ async function desinscription(userId) {
       window.location.href = "/"; //redirection a l'accueil
     }
   } catch (error) {
-    showToast(error.message, "error"); //toast d'erreur
+    showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 
@@ -633,7 +667,7 @@ function addPhoto() {
   const fichier = document.getElementById("photo").files[0];
   if (fichier) {
     if (fichier.size > 2 * 1024 * 1024) {
-      showToast("Fichier trop lourd (max 2 Mo)", "error");
+      showToast("Fichier trop lourd (max 2 Mo)", "warning");
       return;
     } else {
       postPhoto(fichier);

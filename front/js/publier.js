@@ -54,7 +54,7 @@ publierBtn.addEventListener("click", async () => {
   if (form.reportValidity()) {
     if (!loggedIn) {
       // Redirection vers la connexion si l'utilisateur est pas connecté
-      window.location.href = "signin.html";
+      window.location.href = "/signin";
     } else {
       const covoiturage = {
         depart: depart.value,
@@ -76,7 +76,7 @@ publierBtn.addEventListener("click", async () => {
           window.location.href = "/monCompte";
         }
       } catch (error) {
-        console.error("Erreur:", error.message);
+        showToast(`Erreur : ${error.message}`, "danger");
       }
     }
   }

@@ -3,7 +3,8 @@ export async function getReservationByUser(id) {
   try {
     const response = await fetch(`${apiUrl}/reservation/utilisateur/${id}`);
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     const data = await response.json();
     return data;
@@ -23,7 +24,8 @@ export async function reserver(info, covoiturageId) {
       body: JSON.stringify(info),
     });
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     return await response.json();
   } catch (error) {
@@ -34,7 +36,8 @@ export async function getReservationsByCovoiturage(id) {
   try {
     const response = await fetch(`${apiUrl}/reservations/${id}`);
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     const data = await response.json();
     return data;
@@ -50,7 +53,23 @@ export async function deleteReservation(reservationId) {
       method: "DELETE",
     });
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+export async function annulerReservation(reservationId, userId) {
+  try {
+    const response = await fetch(`${apiUrl}/reservation/annuler/${reservationId}/${userId}`, {
+      method: "PATCH",
+    });
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     const data = await response.json();
     return data;
@@ -64,7 +83,8 @@ export async function accepterReservation(reservationId, userId) {
       method: "PATCH",
     });
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     return await response.json();
   } catch (error) {
@@ -77,7 +97,8 @@ export async function refuserReservation(reservationId, userId) {
       method: "PATCH",
     });
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     return await response.json();
   } catch (error) {
@@ -90,7 +111,8 @@ export async function terminerReservation(reservationId, userId) {
       method: "PATCH",
     });
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     return await response.json();
   } catch (error) {
@@ -108,7 +130,8 @@ export async function litigeReservation(reservationId, userId, litige) {
       body: JSON.stringify(litige),
     });
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
     return await response.json();
   } catch (error) {

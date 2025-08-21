@@ -14,6 +14,11 @@ export function getFiltres() {
   if (energieChecked) {
     filtres["energie"] = energieChecked.id;
   }
+  const userData = sessionStorage.getItem("user");
+  if (userData) {
+    const user = JSON.parse(userData);
+    filtres["userId"] = user.id;
+  }
 
   return filtres;
 }
