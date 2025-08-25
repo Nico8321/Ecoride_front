@@ -13,6 +13,10 @@ export const allRoutes = [
   new Route("/mentionsLegales", "Mentions Légales", "/pages/mentions.html", true, ""),
   new Route("/signalerProbleme", "signaler un problème", "/pages/signalerProbleme.html", false, "/js/litige.js"),
   new Route("/homeStaff", "Acceuil Staff", "/pages/staff/homeStaff.html", true, "/js/homeStaff.js"),
+  new Route("/avisStaff", "Avis Staff", "/pages/staff/avisStaff.html", true, "/js/avisStaff.js"),
+  new Route("/litigeStaff", "litige Staff", "/pages/staff/litigeStaff.html", true, "/js/litigeStaff.js"),
+  new Route("/graphiqueCovoiturage", "graphique covoiturage", "/pages/staff/graphCovoitStaff.html", true, "/js/graphCovoit.js"),
+  new Route("/gestionCompteStaff", "gestion compte", "/pages/staff/gestionCompteStaff.html", true, "/js/graphiqueCredit.js"),
 ];
 
 //Le titre s'affiche comme ceci : Route.titre - websitename

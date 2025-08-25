@@ -55,3 +55,15 @@ export async function getAvisByCovoiturage(covoiturageId) {
     throw error;
   }
 }
+export async function getAllAvisToCheck() {
+  try {
+    const response = await fetch(`${apiUrl}/avis/staff`);
+    if (!response) {
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
+    }
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+}
