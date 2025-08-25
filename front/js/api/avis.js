@@ -58,7 +58,21 @@ export async function getAvisByCovoiturage(covoiturageId) {
 export async function getAllAvisToCheck() {
   try {
     const response = await fetch(`${apiUrl}/avis/staff`);
-    if (!response) {
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
+    }
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+}
+export async function checkAvis(id, check) {
+  try {
+    const response = await fetch(`${apiUrl}/avis/check/${id}/${check}`, {
+      method: "PATCH",
+    });
+    if (!response.ok) {
       const data = await response.json();
       throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
     }
