@@ -67,9 +67,23 @@ export async function getAllAvisToCheck() {
     throw error;
   }
 }
-export async function checkAvis(id, check) {
+export async function accepterAvis(id) {
   try {
-    const response = await fetch(`${apiUrl}/avis/check/${id}/${check}`, {
+    const response = await fetch(`${apiUrl}/avis/${id}/accepte`, {
+      method: "PATCH",
+    });
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
+    }
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+}
+export async function refusAvis(id) {
+  try {
+    const response = await fetch(`${apiUrl}/avis/${id}/refus`, {
       method: "PATCH",
     });
     if (!response.ok) {

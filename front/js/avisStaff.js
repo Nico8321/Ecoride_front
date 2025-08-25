@@ -1,5 +1,5 @@
 import { createAvisCardStaff } from "./components/avisCardStaff.js";
-import { getAllAvisToCheck, checkAvis } from "./api/avis.js";
+import { getAllAvisToCheck, accepterAvis, refusAvis } from "./api/avis.js";
 import { showToast } from "./components/toast.js";
 
 const containerAvis = document.getElementById("containerAvis");
@@ -7,6 +7,14 @@ const containerAvis = document.getElementById("containerAvis");
 async function afficherAvis() {
   try {
     const listeAvis = await getAllAvisToCheck();
+    if (listeAvis.length === 0) {
+      const h1 = document.createElement("h1");
+      h1.textContent = "Aucun avis à valider";
+      h1.className = "mt-5";
+      h1.style.textAlign = "center";
+      containerAvis.appendChild(h1);
+      return;
+    }
     listeAvis.forEach((avis) => {
       createAvisCardStaff(avis, containerAvis);
     });
@@ -15,12 +23,12 @@ async function afficherAvis() {
   }
 }
 afficherAvis();
-
 async function validerAvis(id) {
   try {
-    const response = await checkAvis(id, "accepter");
+    const response = await accepterAvis(id);
     if (response) {
       showToast(response.message);
+      location.reload();
     }
   } catch (error) {
     showToast(`Erreur : ${error.message}`, "danger");
@@ -28,21 +36,15 @@ async function validerAvis(id) {
 }
 async function refuserAvis(id) {
   try {
-    const response = await checkAvis(id, "refuser");
+    const response = await refusAvis(id);
     if (response) {
       showToast(response.message);
+      location.reload();
     }
   } catch (error) {
     showToast(`Erreur : ${error.message}`, "danger");
   }
 }
-
-document.querySelectorAll(".validerAvisBtn").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const id = btn.getAttribute("data-id");
-    validerAvis(id);
-  });
-});
 
 containerAvis.addEventListener("click", (e) => {
   const btn = e.target.closest(".validerAvisBtn, .refuserAvisBtn");
