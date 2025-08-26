@@ -18,7 +18,7 @@ export function createAvisCardStaff(avis, destination) {
         </p>
         <p class="mb-0"><strong>Commentaire :</strong>${avis.commentaire} </p>
       </div>
-      <div class="d-flex align-items-center position-absolute end-0 m-3">
+      <div class="mt-3 mt-md-0 d-flex align-items-center ms-md-auto">
         <button class="btn btn-primary m-1 validerAvisBtn" data-id="${avis.id}">Accepter</button>
         <button class="btn btn-danger m-1 refuserAvisBtn" data-id="${avis.id}">Refuser</button>
       </div>
