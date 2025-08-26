@@ -17,6 +17,7 @@ export const allRoutes = [
   new Route("/litigeStaff", "litige Staff", "/pages/staff/litigeStaff.html", true, "/js/litigeStaff.js"),
   new Route("/graphiqueCovoiturage", "graphique covoiturage", "/pages/staff/graphCovoitStaff.html", true, "/js/graphCovoit.js"),
   new Route("/gestionCompteStaff", "gestion compte", "/pages/staff/gestionCompteStaff.html", true, "/js/graphiqueCredit.js"),
+  new Route("/vueLitige", "gestion du litige", "/pages/staff/vueLitige.html", true, "/js/vueLitige.js"),
 ];
 
 //Le titre s'affiche comme ceci : Route.titre - websitename
