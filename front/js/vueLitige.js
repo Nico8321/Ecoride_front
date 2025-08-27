@@ -1,5 +1,5 @@
 import { showToast } from "./components/toast.js";
-import { getLitigeById, envoyerNoteSuiviLitige } from "./api/litiges.js";
+import { getLitigeById, envoyerNoteSuiviLitige, cloturerLitige } from "./api/litiges.js";
 
 //Récuperation des id du DOM
 
@@ -74,12 +74,31 @@ async function ajouterNoteSuivi(id) {
   }
   try {
     const response = await envoyerNoteSuiviLitige(id, noteSuivi);
-    if (response) showToast(response.message);
-    suiviInput.value = "";
+    if (response) {
+      showToast(response.message);
+      suiviInput.value = "";
+    }
   } catch (error) {
     showToast(`Erreur : ${error.message}`, "danger");
   }
 }
 btnAjouterSuivi.addEventListener("click", () => {
   ajouterNoteSuivi(id);
+});
+
+//fonction pour cloturer le litige
+
+async function terminerLitige(id) {
+  try {
+    const response = await cloturerLitige(id);
+    if (response) {
+      showToast(response.message);
+      window.location.href = "/litigeStaff";
+    }
+  } catch (error) {
+    showToast(`Erreur : ${error.message}`, "danger");
+  }
+}
+btnCloturer.addEventListener("click", () => {
+  terminerLitige(id);
 });
