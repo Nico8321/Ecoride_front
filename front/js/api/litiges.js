@@ -20,7 +20,7 @@ export async function envoyerNoteSuiviLitige(id, noteSuivi) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ message: noteSuivi }),
+      body: JSON.stringify(noteSuivi),
     });
     if (!response.ok) {
       const data = await response.json();
