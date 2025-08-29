@@ -45,3 +45,21 @@ export async function cloturerLitige(id) {
     throw error;
   }
 }
+export async function creationLitige(reservationId, userId, litige) {
+  try {
+    const response = await fetch(`${apiUrl}/litige/${reservationId}/${userId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(litige),
+    });
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
+    }
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+}
