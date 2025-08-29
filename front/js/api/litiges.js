@@ -67,9 +67,9 @@ export async function creationLitige(reservationId, userId, litige) {
   }
 }
 
-export async function getAllLitiges(userId) {
+export async function getAllLitiges() {
   try {
-    const response = await fetch(`${apiUrl}/litige/${userId}`);
+    const response = await fetch(`${apiUrl}/litiges`);
     if (!response.ok) {
       const data = await response.json();
       throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
