@@ -12,6 +12,7 @@ export async function getLitigeById(id) {
     throw error;
   }
 }
+
 export async function envoyerNoteSuiviLitige(id, noteSuivi) {
   try {
     const response = await fetch(`${apiUrl}/litige/note/${id}`, {
@@ -30,6 +31,7 @@ export async function envoyerNoteSuiviLitige(id, noteSuivi) {
     throw error;
   }
 }
+
 export async function cloturerLitige(id) {
   try {
     const response = await fetch(`${apiUrl}/litige/${id}/cloture`, {
@@ -45,6 +47,7 @@ export async function cloturerLitige(id) {
     throw error;
   }
 }
+
 export async function creationLitige(reservationId, userId, litige) {
   try {
     const response = await fetch(`${apiUrl}/litige/${reservationId}/${userId}`, {
@@ -54,6 +57,19 @@ export async function creationLitige(reservationId, userId, litige) {
       },
       body: JSON.stringify(litige),
     });
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
+    }
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getAllLitiges(userId) {
+  try {
+    const response = await fetch(`${apiUrl}/litige/${userId}`);
     if (!response.ok) {
       const data = await response.json();
       throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
