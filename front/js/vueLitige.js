@@ -32,21 +32,21 @@ async function chargerLitige(id) {
     if (litige) {
       litigeId.textContent = `Litige n° ${litige.id ?? "—"}`;
       dateCreation.textContent = `Émis le ${formatDate(litige.createdAt)}`;
-      dateTrajet.textContent = formatDate(litige.dateTrajet) ?? "—";
-      trajet.textContent = `${litige.depart ?? "—"} -> ${litige.destination ?? "—"}`;
-      prix.textContent = litige.prix ?? "—";
-      nbPlaces.textContent = litige.nbPlaces ?? "—";
-      conducteurPseudo.textContent = litige.conducteurPseudo ?? "—";
-      conducteurMail.textContent = litige.conducteurMail ?? "—";
+      dateTrajet.textContent = formatDate(litige.covoiturage.date_depart) ?? "—";
+      trajet.textContent = `${litige.covoiturage.ville_depart ?? "—"} ———> ${litige.covoiturage.ville_arrivee ?? "—"}`;
+      prix.textContent = litige.covoiturage.prix ?? "—";
+      nbPlaces.textContent = litige.reservation.nb_places ?? "—";
+      conducteurPseudo.textContent = litige.conducteur.pseudo ?? "—";
+      conducteurMail.textContent = litige.conducteur.mail ?? "—";
       conducteurMail.href = `mailto:${litige.conducteurMail ?? "#"}`;
-      passagerPseudo.textContent = litige.passagerPseudo ?? "—";
-      passagerMail.textContent = litige.passagerMail ?? "—";
-      passagerMail.href = `mailto:${litige.passagerMail ?? "#"}`;
+      passagerPseudo.textContent = litige.redacteur.pseudo ?? "—";
+      passagerMail.textContent = litige.redacteur.mail ?? "—";
+      passagerMail.href = `mailto:${litige.redacteur.mail ?? "#"}`;
       message.textContent = litige.message ?? "—";
       if (litige.suivi?.length) {
         litige.suivi.forEach((element) => {
           const li = document.createElement("li");
-          li.textContent = `${formatDate(element.createdAt) ?? "-"}: ${element.message ?? "-"}`;
+          li.textContent = `${formatDate(element.at) ?? "-"}: ${element.note ?? "-"}`;
           suiviList.appendChild(li);
         });
       }

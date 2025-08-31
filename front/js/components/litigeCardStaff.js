@@ -14,10 +14,10 @@ export function createLitigeCardStaff(litige, destination) {
       </div>
       <div class="mt-3 ps-md-4 text-center mx-md-auto">
         <p class="h5 mb-1">Trajet:</p>
-        <p class="h5 mb-0">${litige.covoiturage.depart} -> ${litige.covoiturage.destination}</p>
+        <p class="h5 mb-0">${litige.covoiturage.ville_depart} -> ${litige.covoiturage.ville_arrivee}</p>
       </div>
       <div class="mt-3 mt-md-0 d-flex align-items-center ms-md-auto">
-        <button class="btn btn-primary voirLitige" data-id="${litige.id}">Voir</button>
+        <a href="/vueLitige?id=${litige.id}" class="btn btn-primary voirLitige" >Voir</a>
       </div>
     </div>
 

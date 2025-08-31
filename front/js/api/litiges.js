@@ -16,7 +16,7 @@ export async function getLitigeById(id) {
 export async function envoyerNoteSuiviLitige(id, noteSuivi) {
   try {
     const response = await fetch(`${apiUrl}/litige/note/${id}`, {
-      method: "POST",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
