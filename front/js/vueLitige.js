@@ -38,11 +38,12 @@ async function chargerLitige(id) {
       nbPlaces.textContent = litige.reservation.nb_places ?? "—";
       conducteurPseudo.textContent = litige.conducteur.pseudo ?? "—";
       conducteurMail.textContent = litige.conducteur.mail ?? "—";
-      conducteurMail.href = `mailto:${litige.conducteurMail ?? "#"}`;
+      conducteurMail.href = `mailto:${litige.conducteur.mail ?? "#"}`;
       passagerPseudo.textContent = litige.redacteur.pseudo ?? "—";
       passagerMail.textContent = litige.redacteur.mail ?? "—";
       passagerMail.href = `mailto:${litige.redacteur.mail ?? "#"}`;
       message.textContent = litige.message ?? "—";
+      suiviList.innerHTML = "";
       if (litige.suivi?.length) {
         litige.suivi.forEach((element) => {
           const li = document.createElement("li");
@@ -50,12 +51,15 @@ async function chargerLitige(id) {
           suiviList.appendChild(li);
         });
       }
+      if (litige.status === "clos") {
+        btnCloturer.classList.add("d-none");
+      }
     }
   } catch (error) {
     showToast(`Erreur : ${error.message}`, "danger");
   }
 }
-//Récupereation de l'id dans l'url
+//Récuperation de l'id dans l'url
 const qs = new URLSearchParams(location.search);
 const id = qs.get("id");
 if (id) {
