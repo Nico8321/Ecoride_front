@@ -2,6 +2,7 @@ export function createLitigeCardStaff(litige, destination) {
   const container = destination;
   const card = document.createElement("div");
   card.className = "card shadow-sm w-100 rounded-4 overflow-hidden mb-2";
+  card.dataset.status = litige.status; // "en_attente" | "en_traitement" | "clos"
   card.innerHTML = `
 
     <div class="card-body d-flex flex-column flex-md-row gap-3 position-relative">
