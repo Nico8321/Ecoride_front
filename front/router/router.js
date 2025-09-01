@@ -3,8 +3,7 @@ import { allRoutes, websiteName } from "./allRoutes.js";
 import { isLoggedIn } from "../js/auth/authHelper.js";
 
 // Création d'une route pour la page 404 (page introuvable)
-const route404 = new Route("404", "Page introuvable", "/pages/404.html", []);
-const token = sessionStorage.getItem("token");
+const route404 = new Route("/404", "Page introuvable", "/pages/404.html", true, "", []);
 // Fonction pour récupérer la route correspondant à une URL donnée
 const getRouteByUrl = (url) => {
   let currentRoute = null;
@@ -27,19 +26,23 @@ const LoadContentPage = async () => {
   const path = window.location.pathname;
   // Récupération de l'URL actuelle
   const actualRoute = getRouteByUrl(path);
-  //verifier droit d'acces a la page
+
+  //afficher ou masquer les élements en fonction du rôle
+  const user = JSON.parse(sessionStorage.getItem("user") || "null");
 
   const authorize = actualRoute.authorize;
-
   if (!authorize) {
     const result = await isLoggedIn();
     if (!result) {
-      window.location.replace("/");
+      return window.location.replace("/");
     }
   }
-
+  if (actualRoute.role && (!user || !actualRoute.role.includes(user.role_id))) {
+    return window.location.replace("/");
+  }
   // Récupération du contenu HTML de la route
   const html = await fetch(actualRoute.pathHtml).then((data) => data.text());
+
   // Ajout du contenu HTML à l'élément avec l'ID "main-page"
   document.getElementById("main-page").innerHTML = html;
 
@@ -56,8 +59,6 @@ const LoadContentPage = async () => {
 
   // Changement du titre de la page
   document.title = actualRoute.title + " - " + websiteName;
-
-  //afficher ou masquer les élements en fonction du rôle
 
   // showAndHideElementsForRoles();
 };

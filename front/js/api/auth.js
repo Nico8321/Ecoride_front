@@ -16,7 +16,12 @@ export async function loginUser(email, password) {
     }
     const data = await response.json();
     storeSession(data);
-    window.location.href = "/monCompte";
+    const user = JSON.parse(sessionStorage.getItem("user") || "null");
+    if (user.role_id === 2) {
+      window.location.href = "/homeStaff";
+    } else {
+      window.location.href = "/monCompte";
+    }
   } catch (error) {
     showToast(`Erreur : ${error.message}`, "danger");
   }
