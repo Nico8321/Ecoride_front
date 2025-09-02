@@ -247,7 +247,7 @@ async function affichageCovoiturage() {
             const card = createCovoiturageCard(covoiturage, covoituragePropose);
             const module = document.getElementById(`moduleCovoiturage${covoiturage.id}`);
             if (module) {
-              getReservationsByCovoiturage(covoiturage.id)
+              getReservationsByCovoiturage(covoiturage.id, user.id)
                 .then((reservations) => {
                   if (reservations.length > 0) {
                     const statuts = {
@@ -436,9 +436,9 @@ affichageReservation();
 
 // supprimerReservation : appeler l'API pour supprimer une ancienne réservation et rafraîchir
 
-async function supprimerReservation(reservationId) {
+async function supprimerReservation(reservationId, userId) {
   try {
-    const response = await deleteReservation(reservationId);
+    const response = await deleteReservation(reservationId, userId);
     if (response) {
       showToast(response.message); //toast de confirmation
       const modal = bootstrap.Modal.getInstance(document.getElementById("deleteReservationModal"));
@@ -454,7 +454,7 @@ const deleteBtn = document.querySelector("#deleteOldReservation");
 // récupération de l'id de réservation à supprimer (ancienne résa)
 deleteBtn.addEventListener("click", () => {
   const reservationId = deleteBtn.getAttribute("data-id");
-  supprimerReservation(reservationId);
+  supprimerReservation(reservationId, userId);
 });
 
 // annulationReservation : appeler l'API pour annuler une réservation et rafraîchir

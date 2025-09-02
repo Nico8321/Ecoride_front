@@ -1,11 +1,11 @@
 import { apiUrl } from "../config.js";
+import { authHeaders } from "./auth.js";
+
 export async function postCovoiturage(covoiturage, userId) {
   try {
     const response = await fetch(`${apiUrl}/covoiturage/${userId}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: authHeaders(),
       body: JSON.stringify(covoiturage),
     });
     if (!response.ok) {
@@ -19,7 +19,9 @@ export async function postCovoiturage(covoiturage, userId) {
 }
 export async function getCovoituragesByUser(id) {
   try {
-    const response = await fetch(`${apiUrl}/covoiturage/user/${id}`);
+    const response = await fetch(`${apiUrl}/covoiturage/user/${id}`, {
+      headers: authHeaders(),
+    });
     if (!response.ok) {
       const data = await response.json();
       throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
@@ -49,6 +51,7 @@ export async function annulerCovoiturage(userId, covoiturageId) {
   try {
     const response = await fetch(`${apiUrl}/covoiturage/annuler/${userId}/${covoiturageId}`, {
       method: "PATCH",
+      headers: authHeaders(),
     });
     if (!response.ok) {
       const data = await response.json();
@@ -64,6 +67,7 @@ export async function demarreCovoiturage(userId, covoiturageId) {
   try {
     const response = await fetch(`${apiUrl}/covoiturage/demarrer/${userId}/${covoiturageId}`, {
       method: "PATCH",
+      headers: authHeaders(),
     });
     if (!response.ok) {
       const data = await response.json();
@@ -79,6 +83,7 @@ export async function termineCovoiturage(userId, covoiturageId) {
   try {
     const response = await fetch(`${apiUrl}/covoiturage/terminer/${userId}/${covoiturageId}`, {
       method: "PATCH",
+      headers: authHeaders(),
     });
     if (!response.ok) {
       const data = await response.json();
