@@ -52,7 +52,7 @@ function storeSession(data) {
   sessionStorage.setItem("user", JSON.stringify(data));
 }
 
-export async function authHeaders() {
+export function authHeaders() {
   const token = sessionStorage.getItem("token");
   return token ? { "Content-Type": "application/json", Authorization: `Bearer ${token}` } : { "Content-Type": "application/json" };
 }
