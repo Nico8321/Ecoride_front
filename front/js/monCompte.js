@@ -620,7 +620,7 @@ async function envoyerAvis() {
     commentaire: commentaireAvis.value,
   };
   try {
-    const response = await postAvis(avis);
+    const response = await postAvis(avis, userId);
     if (response) {
       showToast("Avis publié avec succès");
       const modalAvis = bootstrap.Modal.getInstance(document.getElementById("deposerAvisModal"));
