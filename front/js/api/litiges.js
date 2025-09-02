@@ -1,4 +1,5 @@
 import { apiUrl } from "../config.js";
+import { authHeaders } from "./auth.js";
 
 export async function getLitigeById(id) {
   try {
@@ -52,9 +53,7 @@ export async function creationLitige(reservationId, userId, litige) {
   try {
     const response = await fetch(`${apiUrl}/litige/${reservationId}/${userId}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: authHeaders(),
       body: JSON.stringify(litige),
     });
     if (!response.ok) {
