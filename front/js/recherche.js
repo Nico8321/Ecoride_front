@@ -70,14 +70,14 @@ const nbPlaces = document.getElementById("nbPlaces");
 
 // Envoie les infos de réservation au serveur
 
-async function confirmerReservation(covoiturageId) {
+async function confirmerReservation(covoiturageId, userId) {
   const reservationInfo = {
     utilisateurId: user.id,
     covoiturageId: covoiturageId,
     nbPlaces: nbPlaces.value,
   };
   try {
-    const response = await reserver(reservationInfo, covoiturageId);
+    const response = await reserver(reservationInfo, covoiturageId, userId);
     if (response) {
       showToast("Reservation envoyée");
     }
@@ -96,7 +96,7 @@ btnConfirm.addEventListener("click", async () => {
     window.location.replace("/signin");
     return;
   }
-  confirmerReservation(covoiturageId);
+  confirmerReservation(covoiturageId, user.id);
   const reservationModal = bootstrap.Modal.getInstance(document.getElementById("reservationModal"));
   if (reservationModal) {
     reservationModal.hide();
