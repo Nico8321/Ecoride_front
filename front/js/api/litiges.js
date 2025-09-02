@@ -1,8 +1,9 @@
 import { apiUrl } from "../config.js";
+import { authHeaders } from "./auth.js";
 
 export async function getLitigeById(id) {
   try {
-    const response = await fetch(`${apiUrl}/litige/${id}`);
+    const response = await fetch(`${apiUrl}/litige/${id}`, { headers: authHeaders() });
     if (!response.ok) {
       const data = await response.json();
       throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
@@ -17,9 +18,7 @@ export async function envoyerNoteSuiviLitige(id, noteSuivi) {
   try {
     const response = await fetch(`${apiUrl}/litige/note/${id}`, {
       method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: authHeaders(),
       body: JSON.stringify(noteSuivi),
     });
     if (!response.ok) {
@@ -36,6 +35,7 @@ export async function cloturerLitige(id) {
   try {
     const response = await fetch(`${apiUrl}/litige/${id}/cloture`, {
       method: "PATCH",
+      headers: authHeaders(),
     });
     if (!response.ok) {
       const data = await response.json();
@@ -52,9 +52,7 @@ export async function creationLitige(reservationId, userId, litige) {
   try {
     const response = await fetch(`${apiUrl}/litige/${reservationId}/${userId}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: authHeaders(),
       body: JSON.stringify(litige),
     });
     if (!response.ok) {
@@ -69,7 +67,9 @@ export async function creationLitige(reservationId, userId, litige) {
 
 export async function getAllLitiges() {
   try {
-    const response = await fetch(`${apiUrl}/litiges`);
+    const response = await fetch(`${apiUrl}/litiges`, {
+      headers: authHeaders(),
+    });
     if (!response.ok) {
       const data = await response.json();
       throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);

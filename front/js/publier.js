@@ -70,7 +70,7 @@ publierBtn.addEventListener("click", async () => {
       };
       // Envoi des infos du covoiturage si tout est bon
       try {
-        const res = await postCovoiturage(covoiturage);
+        const res = await postCovoiturage(covoiturage, user.id);
         if (res) {
           showToast("Covoiturage créé avec succès");
           window.location.href = "/monCompte";
