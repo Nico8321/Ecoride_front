@@ -95,3 +95,18 @@ export async function termineCovoiturage(userId, covoiturageId) {
     throw error;
   }
 }
+export async function gethistoriqueCovoiturage() {
+  try {
+    const response = await fetch(`${apiUrl}/covoiturage/historique`, {
+      headers: authHeaders(),
+    });
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
