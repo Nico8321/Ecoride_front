@@ -17,7 +17,7 @@ export async function loginUser(email, password) {
     const data = await response.json();
     storeSession(data);
     const user = JSON.parse(sessionStorage.getItem("user") || "null");
-    if (user.role_id === 2) {
+    if (user.role_id === 2 || user.role_id === 3) {
       window.location.href = "/homeStaff";
     } else {
       window.location.href = "/monCompte";
