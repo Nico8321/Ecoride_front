@@ -160,3 +160,35 @@ export async function newEmploye(employe) {
     throw error;
   }
 }
+export async function suspendreUser(userId) {
+  try {
+    const response = await fetch(`${apiUrl}/user/suspension/${userId}`, {
+      method: "PATCH",
+      headers: authHeaders(),
+    });
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+export async function reactiverUser(userId) {
+  try {
+    const response = await fetch(`${apiUrl}/user/reactiver/${userId}`, {
+      method: "PATCH",
+      headers: authHeaders(),
+    });
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(`Erreur HTTP: ${response.status}, ${data.error}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}

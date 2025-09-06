@@ -17,7 +17,7 @@ export const allRoutes = [
   new Route("/litigeStaff", "litige Staff", "/pages/staff/litigeStaff.html", false, "/js/litigeStaff.js", [2]),
   new Route("/graphiqueCovoiturage", "graphique covoiturage", "/pages/staff/graphCovoitStaff.html", false, "/js/graphCovoit.js", [2]),
   new Route("/graphiqueCredit", "graphique credits", "/pages/staff/graphCreditStaff.html", false, "/js/graphCredit.js", [2]),
-  new Route("/gestionCompteStaff", "gestion compte", "/pages/staff/gestionCompteStaff.html", false, "/js/", [2]),
+  new Route("/gestionCompteStaff", "gestion compte", "/pages/staff/gestionCompteStaff.html", false, "/js/gestionCompte.js", [2]),
   new Route("/vueLitige", "gestion du litige", "/pages/staff/vueLitige.html", false, "/js/vueLitige.js", [2]),
 ];
 

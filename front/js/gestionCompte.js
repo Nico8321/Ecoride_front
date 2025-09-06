@@ -1,4 +1,4 @@
-import { getAllUtilisateur, newEmploye } from "./api/user.js";
+import { getAllUtilisateur, newEmploye, suspendreUser, reactiverUser } from "./api/user.js";
 import { showToast } from "./components/toast.js";
 import { inputValidator, isEmpty, nettoyage, ajoutMessage, validator } from "./utils/inputValidator.js";
 
@@ -75,12 +75,19 @@ function createRow(u, destination) {
   let button = document.createElement("button");
   td.appendChild(button);
   button.dataset.userId = u[0];
-  button.classList.add("btn", "btn-outline-danger", "btn-sm", "rounded-pill");
-  button.title = "Suspendre cet utilisateur";
-  button.innerHTML = '<i class="bi bi-slash-circle"></i> Suspendre';
-
-  button.dataset.bsToggle = "modal";
-  button.dataset.bsTarget = "#modalSuspension";
+  if (u[6] == 1) {
+    button.title = "Suspendre cet utilisateur";
+    button.classList.add("btn", "btn-outline-danger", "btn-sm", "rounded-pill");
+    button.innerHTML = '<i class="bi bi-slash-circle"></i> Suspendre';
+    button.dataset.bsToggle = "modal";
+    button.dataset.bsTarget = "#modalSuspension";
+  } else if (u[6] == 0) {
+    button.classList.add("btn", "btn-outline-success", "btn-sm", "rounded-pill");
+    button.title = "Réactiver cet utilisateur";
+    button.innerHTML = '<i class="bi bi-check-circle "></i> Réactiver';
+    button.dataset.bsToggle = "modal";
+    button.dataset.bsTarget = "#modalReactivation";
+  }
   tr.appendChild(td);
 }
 
@@ -161,3 +168,74 @@ ajouterEmployeBtn.addEventListener("click", () => {
     addEmploye();
   }
 });
+
+///////////
+// Suspension de compte
+///////////
+
+const modalSuspension = document.getElementById("modalSuspension");
+
+// transfert de l'id au bouton
+modalSuspension.addEventListener("show.bs.modal", (event) => {
+  const triggerBtn = event.relatedTarget;
+
+  const userId = triggerBtn ? triggerBtn.dataset.userId : null;
+
+  const btnSuspendre = document.getElementById("btnSuspendre");
+  btnSuspendre.dataset.userId = userId;
+});
+
+const btnSuspendre = document.getElementById("btnSuspendre");
+btnSuspendre.addEventListener("click", async () => {
+  const userId = btnSuspendre.dataset.userId;
+  await suspendreCompte(userId);
+
+  // Fermeture modal
+  const modal = bootstrap.Modal.getInstance(modalSuspension);
+  if (modal) modal.hide();
+});
+//fonction de suspension de compte
+async function suspendreCompte(userId) {
+  try {
+    const data = await suspendreUser(userId);
+    showToast(data.message);
+    await afficherUtilisateur();
+  } catch (error) {
+    showToast(`Erreur : ${error.message}`, "danger");
+  }
+}
+///////////
+// Réactivation de compte
+///////////
+
+const modalReactivation = document.getElementById("modalReactivation");
+
+// transfert de l'id au bouton
+modalReactivation.addEventListener("show.bs.modal", (event) => {
+  const triggerBtn = event.relatedTarget;
+
+  const userId = triggerBtn ? triggerBtn.dataset.userId : null;
+
+  const btnActiver = document.getElementById("btnActiver");
+  btnActiver.dataset.userId = userId;
+});
+
+const btnActiver = document.getElementById("btnActiver");
+btnActiver.addEventListener("click", async () => {
+  const userId = btnActiver.dataset.userId;
+  await reactiverCompte(userId);
+
+  // Fermeture modal
+  const modal = bootstrap.Modal.getInstance(modalReactivation);
+  if (modal) modal.hide();
+});
+//fonction de réactivation de compte
+async function reactiverCompte(userId) {
+  try {
+    const data = await reactiverUser(userId);
+    showToast(data.message);
+    await afficherUtilisateur();
+  } catch (error) {
+    showToast(`Erreur : ${error.message}`, "danger");
+  }
+}
