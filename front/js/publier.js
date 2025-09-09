@@ -64,8 +64,8 @@ publierBtn.addEventListener("click", async () => {
         nbPlaces: nbPlace.value,
         prix: prix.value,
         vehiculeId: vehicule.value,
-        fumeur: fumeur.checked,
-        animaux: animaux.checked,
+        fumeur: fumeur.checked ? 1 : 0,
+        animaux: animaux.checked ? 1 : 0,
         conducteurId: user.id,
       };
       // Envoi des infos du covoiturage si tout est bon
