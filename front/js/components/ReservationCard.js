@@ -13,6 +13,8 @@ export function createReservationCard(reservation, destination) {
     card.className = "card shadow-sm w-100 rounded-4 overflow-hidden mb-2 bg-warning-subtle border-start border-5 border-warning";
   } else if (reservation.statut == "en attente") {
     card.className = "card shadow-sm w-100 rounded-4 overflow-hidden mb-2 bg-warning-subtle border-start border-5 border-info";
+  } else if (reservation.statut == "annule") {
+    card.className = "card shadow-sm w-100 rounded-4 overflow-hidden mb-2 bg-warning-subtle border-start border-5 border-warning-subtle";
   }
   card.innerHTML = `
 <div class="card-body d-flex flex-column flex-md-row gap-3">
