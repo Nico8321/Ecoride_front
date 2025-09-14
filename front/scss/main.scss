@@ -128,8 +128,8 @@ input.form-control {
   background-color: $background-2;
 }
 .accordion-button {
-  display: inline;
-  text-align: end !important;
+  display: flex; // retour au comportement normal
+  text-align: start; // texte aligné à gauche
 }
 #suggestions-depart,
 #suggestions-destination {

@@ -12112,8 +12112,8 @@ input.form-control {
 }
 
 .accordion-button {
-  display: inline;
-  text-align: end !important;
+  display: flex;
+  text-align: start;
 }
 
 #suggestions-depart,
