@@ -128,8 +128,8 @@ input.form-control {
   background-color: $background-2;
 }
 .accordion-button {
-  display: inline;
-  text-align: end !important;
+  display: flex; // retour au comportement normal
+  text-align: start; // texte aligné à gauche
 }
 #suggestions-depart,
 #suggestions-destination {
@@ -179,4 +179,10 @@ input.form-control {
 }
 .container .row {
   row-gap: 0.75rem;
+}
+.disabled-link {
+  pointer-events: none;
+  color: gray;
+  cursor: default;
+  text-decoration: none;
 }
