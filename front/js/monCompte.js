@@ -240,7 +240,7 @@ async function affichageCovoiturage() {
       historiqueCovoiturage.innerHTML = "";
       covoiturages.forEach((covoiturage) => {
         if (covoiturage.conducteur_id === user.id) {
-          if (covoiturage.statut === "termine") {
+          if (covoiturage.statut === "termine" || covoiturage.statut === "annule") {
             const card = createCovoiturageCard(covoiturage, historiqueCovoiturage);
             getAvis(covoiturage.id, card);
           } else {

@@ -4,7 +4,7 @@ import { verificationAdresse } from "./utils/verifAdresse.js";
 import { showToast } from "./components/toast.js";
 import { findCovoiturage } from "./api/covoiturage.js";
 import { isLoggedIn } from "./auth/authHelper.js";
-import { getFiltres } from "./utils/getFiltres.js";
+import { getFiltres, getFiltresLight } from "./utils/getFiltres.js";
 import { reserver } from "./api/reservation.js";
 import { getMoyenneByUser } from "./api/avis.js";
 
@@ -34,14 +34,30 @@ async function rechercherCovoiturages() {
   resultatsContainer.innerHTML = "";
   try {
     const covoiturages = await findCovoiturage(filtres);
-    if (covoiturages.length > 0) {
+    if (covoiturages?.length > 0) {
       for (const covoiturage of covoiturages) {
         if (covoiturage.nb_places > 0) {
           createCovoiturageCard(covoiturage, resultatsContainer);
         }
       }
     } else {
-      showToast("Aucun covoiturage trouvé", "info");
+      const filtresLight = getFiltresLight();
+      const prochain = await findCovoiturage(filtresLight);
+      if (prochain?.length > 0) {
+        const covoit = prochain[0];
+        const date = new Date(covoit.date_depart);
+        const dateFormatee = date.toLocaleDateString("fr-FR", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+        const message = document.createElement("h2");
+        resultatsContainer.appendChild(message);
+        message.textContent = `Prochaine disponibilité correspondant à votre itineraire de ${covoit.ville_depart} à ${covoit.ville_arrivee} le ${dateFormatee}`;
+      } else {
+        showToast("Aucun covoiturage trouvé pour cette itineraire", "info");
+      }
     }
   } catch (error) {
     showToast(`Erreur : ${error.message}`, "danger");

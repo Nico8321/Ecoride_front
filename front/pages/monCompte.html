@@ -49,42 +49,110 @@
 
   <div class="d-none d-md-flex flex-column col-3" style="width: 25%"></div>
   <div class="d-flex flex-column pt-4 p-3 col-12 col-md-9">
-    <!-- Section Mes covoiturages proposés, + scroll-margin sur chaque section pour bien tomber après le header -->
-
-    <section id="covoiturage_propose" class="p-3" style="scroll-margin-top: 125px">
-      <h2>Mes covoiturages proposés</h2>
-      <div id="covoituragePropose">
-        <p>Aucun covoiturage reservé</p>
+    <!-- Mes covoiturages proposés -->
+    <section id="covoiturage_propose" class="p-3 ps-0" style="scroll-margin-top: 125px">
+      <div class="accordion mb-3" id="acc-propose">
+        <div class="accordion-item bg-secondary border-0">
+          <h2 class="accordion-header" id="head-propose">
+            <button
+              class="accordion-button bg-secondary h2"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#col-propose"
+              aria-expanded="true"
+              aria-controls="col-propose"
+            >
+              Mes covoiturages proposés
+            </button>
+          </h2>
+          <div id="col-propose" class="accordion-collapse collapse show" aria-labelledby="head-propose" data-bs-parent="#acc-propose">
+            <div class="accordion-body">
+              <div id="covoituragePropose">
+                <p>Aucun covoiturage réservé</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
-
-    <!-- Section Mes covoiturages proposés -->
-
-    <section id="historique_covoiturage" class="p-3" style="scroll-margin-top: 140px">
-      <h2>Historique de mes covoiturages</h2>
-      <div id="historiqueCovoiturage">
-        <p>Aucun covoiturage proposés</p>
+    <!-- Historique de mes covoiturages -->
+    <section id="historique_covoiturage" class="p-3 ps-0" style="scroll-margin-top: 140px">
+      <div class="accordion mb-3" id="acc-histo-covoit">
+        <div class="accordion-item bg-secondary border-0">
+          <h2 class="accordion-header" id="head-histo-covoit">
+            <button
+              class="accordion-button collapsed bg-secondary h2"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#col-histo-covoit"
+              aria-expanded="false"
+              aria-controls="col-histo-covoit"
+            >
+              Historique de mes covoiturages
+            </button>
+          </h2>
+          <div id="col-histo-covoit" class="accordion-collapse collapse" aria-labelledby="head-histo-covoit" data-bs-parent="#acc-histo-covoit">
+            <div class="accordion-body">
+              <div id="historiqueCovoiturage">
+                <p>Aucun covoiturage proposé</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
-
-    <!-- Section Mes covoiturages reservés -->
-
-    <section id="reservations" class="p-3" style="scroll-margin-top: 125px">
-      <h2>Mes reservations</h2>
-      <div id="reservationsEnCours">
-        <p>Aucune reservation en cours</p>
+    <!-- Mes réservations -->
+    <section id="reservations" class="p-3 ps-0" style="scroll-margin-top: 125px">
+      <div class="accordion mb-3" id="acc-resa">
+        <div class="accordion-item bg-secondary border-0">
+          <h2 class="accordion-header" id="head-resa">
+            <button
+              class="accordion-button collapsed h2 bg-secondary"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#col-resa"
+              aria-expanded="false"
+              aria-controls="col-resa"
+            >
+              Mes réservations
+            </button>
+          </h2>
+          <div id="col-resa" class="accordion-collapse collapse" aria-labelledby="head-resa" data-bs-parent="#acc-resa">
+            <div class="accordion-body">
+              <div id="reservationsEnCours">
+                <p>Aucune réservation en cours</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
-
-    <!-- Section Mes reservations passés -->
-
-    <section id="historique_reservation" class="p-3" style="scroll-margin-top: 125px">
-      <h2>Mes reservations passées</h2>
-      <div id="historiqueReservations">
-        <p>Aucune reservations</p>
+    <!-- Historique de mes réservations -->
+    <section id="historique_reservation" class="p-3 ps-0" style="scroll-margin-top: 125px">
+      <div class="accordion mb-3" id="acc-histo-resa">
+        <div class="accordion-item bg-secondary border-0">
+          <h2 class="accordion-header" id="head-histo-resa">
+            <button
+              class="accordion-button collapsed bg-secondary h2"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#col-histo-resa"
+              aria-expanded="false"
+              aria-controls="col-histo-resa"
+            >
+              Historique de mes réservations
+            </button>
+          </h2>
+          <div id="col-histo-resa" class="accordion-collapse collapse" aria-labelledby="head-histo-resa" data-bs-parent="#acc-histo-resa">
+            <div class="accordion-body">
+              <div id="historiqueReservations">
+                <p>Aucune réservation</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
-
     <!-- Section Mes Véhicules -->
 
     <section id="mesVehicules" class="p-3" style="scroll-margin-top: 125px">
