@@ -36,8 +36,10 @@ async function rechercherCovoiturages() {
     const covoiturages = await findCovoiturage(filtres);
     if (covoiturages?.length > 0) {
       for (const covoiturage of covoiturages) {
-        if (covoiturage.nb_places > 0) {
-          createCovoiturageCard(covoiturage, resultatsContainer);
+        if (!user || !user.id || covoiturage.conducteur_id !== user.id) {
+          if (covoiturage.nb_places > 0) {
+            createCovoiturageCard(covoiturage, resultatsContainer);
+          }
         }
       }
     } else {
