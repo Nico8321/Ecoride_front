@@ -18,7 +18,7 @@ const suiviList = document.getElementById("suiviList");
 const suiviInput = document.getElementById("suiviInput");
 const btnAjouterSuivi = document.getElementById("btnAjouterSuivi");
 const btnCloturer = document.getElementById("btnCloturer");
-
+const addSuiviDiv = document.getElementById("addSuivi");
 //mise en forme de la date
 
 const formatDate = (d) => (d ? new Date(d).toLocaleDateString("fr-FR") : "—");
@@ -53,6 +53,7 @@ async function chargerLitige(id) {
       }
       if (litige.status === "clos") {
         btnCloturer.classList.add("d-none");
+        addSuiviDiv.classList.add("d-none");
       }
     }
   } catch (error) {
