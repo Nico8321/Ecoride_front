@@ -29,9 +29,9 @@ export function createReservationCard(reservation, destination) {
       <!-- Colonne : Profil + Nom + Note -->
       <div class="d-flex align-items-center">
         <div class="me-3">
-          <img src="${apiUrl}/uploads/photos/${
-    reservation.covoiturage.conducteur_photo
-  }" alt="photo de profil" style="height: 75px; width: 75px; object-fit: cover" class="rounded-circle" />
+          <img src="${
+            reservation.covoiturage.conducteur_photo
+          }" alt="photo de profil" style="height: 75px; width: 75px; object-fit: cover" class="rounded-circle" />
         </div>
         <div>
           <p class="card-text fw-bold mb-1">${reservation.covoiturage.conducteur_pseudo}</p>

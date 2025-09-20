@@ -9,9 +9,7 @@ export function createAvisCard(avis, destination) {
   card.innerHTML = `
     <div class="card-body d-flex flex-column flex-md-row gap-3">
       <div class="d-flex align-items-center">
-        <img src="${apiUrl}/uploads/photos/${
-    avis.auteur_photo
-  }" alt="photo de profil" class="rounded-circle me-3" style="height: 75px; width: 75px; object-fit: cover;" />
+        <img src="${avis.auteur_photo}" alt="photo de profil" class="rounded-circle me-3" style="height: 75px; width: 75px; object-fit: cover;" />
         <div>
           <h5 class="card-title mb-0">${avis.auteur_pseudo}</h5>
           <small class="text-muted">${new Date(avis.date_avis).toLocaleDateString("fr-FR")}</small>

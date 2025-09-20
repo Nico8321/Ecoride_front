@@ -676,9 +676,9 @@ function addPhoto() {
 }
 btnAddPhoto.addEventListener("click", () => addPhoto());
 
-const nomFichier = user.photo;
-document.getElementById("photoProfil").src = `${apiUrl}/uploads/photos/${nomFichier}`;
-document.getElementById("photoProfilMobile").src = `${apiUrl}/uploads/photos/${nomFichier}`;
+const urlPhoto = user.photo;
+document.getElementById("photoProfil").src = `${urlPhoto}`;
+document.getElementById("photoProfilMobile").src = `${urlPhoto}`;
 
 document.querySelectorAll("[data-scroll]").forEach((link) => {
   link.addEventListener("click", (e) => {
