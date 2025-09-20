@@ -9,9 +9,9 @@ export function createReservationValidationCard(reservation, destination) {
       <!-- Colonne : Profil + Nom + Note -->
       <div class="d-flex align-items-center">
         <div class="me-3">
-          <img src="${apiUrl}/uploads/photos/${
-    reservation.utilisateur_photo
-  }" alt="photo de profil" style="height: 75px; width: 75px; object-fit: cover" class="rounded-circle" />
+          <img src="${
+            reservation.utilisateur_photo
+          }" alt="photo de profil" style="height: 75px; width: 75px; object-fit: cover" class="rounded-circle" />
         </div>
         <div>
           <p class="card-text fw-bold mb-1">${reservation.utilisateur_pseudo}</p>
