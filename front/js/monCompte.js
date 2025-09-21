@@ -676,9 +676,9 @@ function addPhoto() {
 }
 btnAddPhoto.addEventListener("click", () => addPhoto());
 
-const urlPhoto = user.photo;
-document.getElementById("photoProfil").src = `${urlPhoto}`;
-document.getElementById("photoProfilMobile").src = `${urlPhoto}`;
+const urlPhoto = user.photo_url;
+document.getElementById("photoProfil").src = urlPhoto;
+document.getElementById("photoProfilMobile").src = urlPhoto;
 
 document.querySelectorAll("[data-scroll]").forEach((link) => {
   link.addEventListener("click", (e) => {
