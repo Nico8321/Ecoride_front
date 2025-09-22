@@ -1,5 +1,11 @@
 # EcoRide – Frontend
 
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-yellow)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple)
+![Vercel](https://img.shields.io/badge/deploy-Vercel-black?logo=vercel)
+![Licence](https://img.shields.io/badge/Licence-MIT-green)
+![Status](https://img.shields.io/badge/status-Stable-success)
+
 Ce dépôt regroupe l’ensemble des livrables du projet **EcoRide** :  
 documentation, maquettes, manuel utilisateur et l'application frontend qui se trouve dans le dossier **/front**.
 
