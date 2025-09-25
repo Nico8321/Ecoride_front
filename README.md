@@ -1,7 +1,7 @@
 # EcoRide – Frontend
 
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-yellow)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-563d7c)
 ![Vercel](https://img.shields.io/badge/deploy-Vercel-black?logo=vercel)
 ![Licence](https://img.shields.io/badge/Licence-MIT-green)
 ![Status](https://img.shields.io/badge/status-Stable-success)
@@ -61,7 +61,7 @@ Selon le rôle (Admin, Employé, Utilisateur), différentes fonctionnalités son
 - `index.html` → page principale
 - `/pages` → contenu des pages
 - `/js` → scripts JS des pages
-- `/js/auth` → contient le fichier authHelper pour la verification du Token
+- `/js/auth` → contient le fichier authHelper pour la vérification du token
 - `/js/api` → appels backend API REST (fetch)
 - `/js/components` → composants réutilisables( toast, cards, etc.)
 - `/js/utils` → fonctions réutilisables ( getFiltres, inputValidator etc.)
@@ -101,7 +101,7 @@ npx http-server-spa . index.html 3000
 
 #### 4. Accès à la page
 
-Via votre navigateur à l'adresse http://localhost:3000
+Via votre navigateur à l'adresse `http://localhost:3000`
 
 ## 🌍 Compatibilité
 
@@ -116,6 +116,14 @@ Responsive testé sur:
 - Chrome DevTools (simulations iOS/Android)
 - iPad Pro M1
 - iPhone 16 Pro.
+
+## 📑 Documentation / Livrables
+
+Ce dépôt contient également les documents livrables du projet EcoRide, accessibles dans le dossier /docs :
+
+- [Charte Graphique](./docs/CharteGraphique.pdf)
+- [Documentation technique](./docs/DocumentationTechnique.pdf)
+- [Manuel utilisateur](./docs/ManuelUtilisateur.pdf)
 
 ## 🖋️ Auteur
 
